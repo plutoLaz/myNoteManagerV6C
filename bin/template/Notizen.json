@@ -1,0 +1,548 @@
+{
+  "Items" : [
+    {
+      "Title" : "01 Arduino",
+      "Text" : "Allgemeine Notizen\n\nArduino ist eine Hardware und Software Platform.\n\nAuf der einen Seite gibt es viele sogenannter Arduino Boards, die sich unterscheiden.\n\nEs gibt einige für Steckbords wie z.b. den Arduino Nano. Andere kann man einfach mit Jumperwire mit dem Steckbord\nverbinden.\nZum Beispiel den Arduino Uno.\n\nDer Flash, Ram der EEProm unterscheiden sich... Genauso wie die Anzahl der Pins.",
+      "Items" : [
+        {
+          "Title" : "01 Sensoren",
+          "Text" : "Hier geht es um Arduino Sensoren.",
+          "Items" : [
+            {
+              "Title" : "01 BME280 - Misst Temperatur, Luftfeuchtigkeit und Luftdruck",
+              "Text" : "BME280 - Misst Temperatur, Luftfeuchtigkeit und Luftdruck\n\n0.1 µA in sleep mode\nEs gibt drei Sleep Modes:\nsleep mode, normal mode, forced mode\n\nLuftfeuchtigkeit\n   Messbereich: 0 bis 100%\n    Arbeitstemperatur: -40 - 85°C  \n    Genauigkeit: +/- 3%\n    Laufzeit: 0,5% / Jahr\n\nLuftdruck\n  Messbereich: 300 - 1100 hpA\n   Arbeitstemperatur: -40 - 85°C  \n   Laufzeit: +1.0 hpA/Jahr\n\nTemperatur\n  Arbeitstemperatur: -40 - 85°C            \n\nSchnittstelle: I2C, SPI(je nach Modul)\nDatanblatt: https://www.embeddedadventures.com/datasheets/BME280.pdf  "
+            },
+            {
+              "Title" : "02 AM2302/DHT22 - Misst Temperatur und Luftfeuchtigkeit    ",
+              "Text" : "AM2302/DHT22 - Misst Temperatur und Luftfeuchtigkeit    \n\nBetriebsspannung: 3,3V bis 5,5V\nKabellänge bis zu 100 Meter  \n    \nLuftfeuchtigkeit\n  Messbereich: 0% bis 100%\n  Genauigkeit: +-2%\n  Langzeit: +-0,5% pro Jahr\n\nTemperatur\n  Messbereich: -40°C bis 80°C\n\nSchnittstelle: Digital    \nDatanblatt: https://cdn-shop.adafruit.com/datasheets/Digital+humidity+and+temperature+sensor+AM2302.pdf"
+            },
+            {
+              "Title" : "03 AM2320 - Misst Temperatur und Luftfeuchtigkeit  ",
+              "Text" : "AM2320 - Misst Temperatur und Luftfeuchtigkeit  \n\nBetriebsspannung: 3.1V bis 5.5V\n    \nLuftfeuchtigkeit: 0 bis 99,9%\nGenauigkeit: 3% bei 25°C\nTemperatur: -40°C bis 80°C  \nInterface: I2C\nDatanblatt: https://cdn.datasheetspdf.com/pdf-down/A/M/2/AM2320-Aosong.pdf"
+            },
+            {
+              "Title" : "04 DS18B20 - Misst Temperatur",
+              "Text" : "DS18B20 - Misst Temperatur\n\nBetriebsspannung: 3.0   bis 5.5V\nMessbereich; -55°C bis 125°C    \n\nSchnittstelle: 1-Wire \nDatanblatt: https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf"
+            },
+            {
+              "Title" : "05 BMP180 - Temperatur und Luftdruck",
+              "Text" : "BMP180 - Temperatur und Luftdruck   \n\nArbeitstemperatur: -40°C bis 85°C\n        \nLuftdruck Messbereich 300 hpa bis 1100 hpa    \nTemperatur Messbereich -40 °C bis 85 °C       \n\nSchnittstelle: I2C\nDatenblatt: https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf"
+            },
+            {
+              "Title" : "06 Strom und Spannung",
+              "Text" : "",
+              "Items" : [
+                {
+                  "Title" : "01 INA219 I2C SPI",
+                  "Text" : "INA219 I2C SPI\n\nMessbereich: 0V bis 26 V\n  Betriebsspannung: +3,0 bis + 5,5V\n    Arbeitstemperatur: -40 bis 125 °C       \n    16 Programmierbare Adressen     \n    Genauigkeit: 0,5%\n    Schnittstelle: I2C\n    Datanblatt: http://www.ti.com/lit/ds/symlink/ina219.pdf"
+                },
+                {
+                  "Title" : "02 INA226 - I2C SPI",
+                  "Text" : "INA226 - I2C SPI\n\nMessbereich: 0V bis 36V\nBetriebsspannung von 2.7V bis 5.5V \nArbeitstemperatur: -40°C bis 125°C \n16 Programmierbare Adressen     \nGenauigkeit: 0.1%\n10µV Offset \nSchnittstelle: I2C\nDatanblatt: http://www.ti.com/lit/ds/symlink/ina226.pdf"
+                },
+                {
+                  "Title" : "03 INA3221 - Hat drei Mess kanäle",
+                  "Text" : "INA3221 - Hat drei Mess kanäle\n\nMessbereich 0V bis 26V\nBetriebsspannung: 2,7 bis 5,5 V\nArbeitstemperatur: -40°C bis 125°C \nGenauigkeit: 0,25%\n4 Programmierbare Adressen\nSchnittstelle: I2C\nDatanblatt: http://www.ti.com/lit/ds/symlink/ina3221.pdf"
+                }
+              ]
+            },
+            {
+              "Title" : "07 LDR - Licht Sensor",
+              "Text" : "LDR - Über ein lässt sich Helligkeit ermitteln."
+            }
+          ]
+        },
+        {
+          "Title" : "02 LCD'S",
+          "Text" : "Hier gehte s um LCD'S die relativ leicht mit Arduino genutzt werden können.",
+          "Items" : [
+            {
+              "Title" : "01 ST7735S(Grafisch und Farbe)",
+              "Text" : "ST7735S(Grafisch und Farbe)\n\nEin 1,8 Zoll LCD. Es gibt verschiedene Varianten.\nLink1: https://github.com/adafruit/Adafruit-ST7735-Library\nNotiz: Ist zwar älter, unterützt dafür Soft SPI\n  \nLink2:https://github.com/norm8332/ST7735_ESP8266/blob/master/Adafruit_ST7735/Adafruit_ST7735.h\nNotiz: Warum auch immer, hier wird kein Soft SPI unterstüzt  "
+            },
+            {
+              "Title" : "02 Elegoo Uno R3 2,8\" TFT Touchscreen mit SD",
+              "Text" : "Elegoo Uno R3 2,8\" TFT Touchscreen mit SD\n\nhttps://www.amazon.de/Elegoo-Touchscreen-Mega2560-Bibliotheken-Mitgeliefert/dp/B01EUVJYME/ref=sr_1_1?ie=UTF8&qid=1490303548&sr=8-1&keywords=elegoo+2%2C8+zoll"
+            },
+            {
+              "Title" : "03 3.5 inch LCD for arduino Kuman UNO R3 TFT",
+              "Text" : "3.5 inch LCD for arduino Kuman UNO R3 TFT\n\nhttps://www.amazon.de/arduino-Kuman-Screen-Socket-Arduino/dp/B01J34JO0K/ref=sr_1_1?ie=UTF8&qid=1490303508&sr=8-1&keywords=3.5+lcd+arduino  "
+            },
+            {
+              "Title" : "04 128X64 - Ein Grafische Version von 2004.",
+              "Text" : "128X64  - Ein Grafische Version von 2004.\n\n"
+            },
+            {
+              "Title" : "05 OLED",
+              "Text" : "OLED \n\nRecht kleine Anzeigen mit Hochauflösgner Anzeige.\nEs gibt Varianten mit I2C, sowie Farbige.\nAußerdem zwei Farbige wo dann Oben eine andere Farbe ist als unten."
+            },
+            {
+              "Title" : "06 Adafruit I²C Sieben Segment Anzeige",
+              "Text" : "Adafruit I²C Sieben Segment Anzeige. \n\nEine Sieben Segment Anezige von Adafruit. Daher recht teuer, \naber dafür sehr leicht anzusteuern über I²C."
+            },
+            {
+              "Title" : "07 TM1367 Eine Siebensegmentanzeige",
+              "Text" : "TM1367\n\nEine recht günstige Variante von Sieben Segmentanzeigen."
+            },
+            {
+              "Title" : "08 TM1638",
+              "Text" : "TM1638\n\nEin Modul mit zwei Anzeigen, einigen LED'S und einige Buttons."
+            },
+            {
+              "Title" : "09 Nokia LCD 5110",
+              "Text" : "Nokia LCD 5110\n\nStromsparende LCD'S von Nokia, die früher auch in Handy zum Beispiel verwendet wurden."
+            }
+          ]
+        },
+        {
+          "Title" : "03 LED'S",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 WS2812B RGB",
+              "Text" : "WS2812B RGB LED(5050)\n\nJede LED kann einzeln Angesteuert werden. \nEs gibt sie in verschiedenen Varianten:\n5mm, 8mm, LED Streifen, als Lichter Ketten und als Pixel(Also Einzeln)."
+            },
+            {
+              "Title" : "02 WS2813",
+              "Text" : "WS2813\n\nNeu Entwicklung. Die vorherige LED kann ausfallen, dass Signal wird weiter geleitet.    "
+            },
+            {
+              "Title" : "03 SMD5050",
+              "Text" : "SMD5050\n\nEinzelne RGB LED'S, die oft in LED Streifen wie WS2812B verwendung finden."
+            }
+          ]
+        },
+        {
+          "Title" : "04 Stromversrogung",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 TP4056",
+              "Text" : "TP4056 \n\nLädt 18650 Akkus auf. Besonderheiten sind, die Memory Funktion bei \"laden\" und \"entladen\". \nD.H. wenn er einmal aufgeladen ist, muss die Spannung erst auf ein bestimmten Level runter gehen, \nwenn entladen ist, gibt es ebenfalls ein bestimmtes Level, ab dem wieder \"Strom\" Fließt.\n"
+            },
+            {
+              "Title" : "02 LDO'S",
+              "Text" : "LDO'S\n\nSpannungs Regler. "
+            },
+            {
+              "Title" : "03 StepUp Regler",
+              "Text" : "SteptUp Regler\n\nErhöhen die Spannung. In der Regel kann die Ausgangsspannung eingestellt werden.\nEs gibt eine \"kleine\" Verzörgerung beim Einschalten, daher können größere Spannungen am Ausgang auftreten für Kurze Zeit\nbis die Eingestellte Spannung Erreicht wurde.    \n",
+              "Items" : [
+                {
+                  "Title" : "01 XL6009",
+                  "Text" : "XL6009\n\nEingangsspannung: 3,2 V-42V \nAusgangsspannung: 5 V-35V \nMaximale Effizienz: 94%     "
+                },
+                {
+                  "Title" : "02 LM2577",
+                  "Text" : "LM2577      \n\nEingangsspannung: DC 3-34V\nAusgangsspannung: DC 4-35V\nEingangsstrom: 3A\nAusgangsstrom: 2,5 A\n"
+                },
+                {
+                  "Title" : "03 MT3608",
+                  "Text" : "MT3608\n\nEingangsspannung 2V-24V\nAusgangsspannung 5V-28V\nWirkungsgrad kleiner als 93%\nMaximaler Strom bis ca 2A\n"
+                },
+                {
+                  "Title" : "04 SX1308",
+                  "Text" : "SX1308\n\nEingangsspannung: DC 2-24V\nAusgangsspannung: DC 2-28V\nWirkungsgrad ist größer als 95%\nMaximaler Strom bis ca 2A\n"
+                }
+              ]
+            },
+            {
+              "Title" : "04 StepDown Regler",
+              "Text" : "StepDown Regler\n\nReduzieren die Spannung. Die Spannung kann in der regel eingestellt werden.",
+              "Items" : [
+                {
+                  "Title" : "01 LM2596S",
+                  "Text" : "LM2596S\n\nEingangsspannung: 4V - 35V\nAusgangsspannung: 1.23V - 30V\nAusgangsstrom: 3A (Max)\n"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title" : "05 Sound",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 VS1053",
+              "Text" : "VS1053 \n\nSpielt verschiedene Soundformate ab. Je nach Variante direkt von einer SD Karte.\nAußedem ist noch ein Midi Synthesizer eingebaut.\nEs gibt sie auch als Shild für den Arduino Uno / Mega"
+            },
+            {
+              "Title" : "02 LM386",
+              "Text" : "LM386\n\nEin Verstärker. Ca 1 bis 1.5 Watt."
+            },
+            {
+              "Title" : "03 TEA6420",
+              "Text" : "TEA6420 \n\nAudio Matrix IC. Wird über I²C Gesteuert.\nWird leider nicht mehr vom Hersteller hergestellt.\nVielleicht bekommt man noch Clone aus China."
+            },
+            {
+              "Title" : "04 TDA8425",
+              "Text" : "TDA8425\n\nAudio Verstärker. 4 Eingänge 4 Ausgänge. Eingänge können nicht gemischt werden.  "
+            }
+          ]
+        },
+        {
+          "Title" : "06 RTC(Echt Zeit Uhren)",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 DS3231 - Eine sehr genaue Uhr",
+              "Text" : "DS3231 - Eine sehr genaue Uhr.\n\nDer Datenaustausch erfolgt über I2C.\n"
+            },
+            {
+              "Title" : "02 DS1307",
+              "Text" : "DS1307"
+            }
+          ]
+        },
+        {
+          "Title" : "07 Drahtlos/Wireless",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 HC-05 Master",
+              "Text" : "HC-05\n\nEin Bluttooth Modul, welches auch als Master betrieben werden kann."
+            },
+            {
+              "Title" : "02 HC-06 Slave",
+              "Text" : "HC-06\n\nEin Bluttooth Modul, welches nur als Slave betrieben werden kann."
+            },
+            {
+              "Title" : "03 433 mhz",
+              "Text" : "",
+              "Items" : [
+                {
+                  "Title" : "01 Sender",
+                  "Text" : "Sender\n\nAbmaße – 19mm x 19mm\nBetriebsspannung – 3,5V bis 12V\nSendeleistung – 10mW\nReichweite – 20m bis 200m (je nach Umgebung und Spannung)\nBetriebsart – AM\nEmpfangsfrequenz – 433 MHz  \n   "
+                },
+                {
+                  "Title" : "02 Empfänger",
+                  "Text" : "Empfänger  RXB12, XD-RF-5V\n\nAbmaße – 30mm x 14,7mm\nBetriebsspannung – 5V\nEmpfängerempfindlichkeit –  -105 dB\nSendefrequenz – 433,92 MHz    \n    "
+                }
+              ]
+            },
+            {
+              "Title" : "04 868 mhz",
+              "Text" : ""
+            },
+            {
+              "Title" : "05 ESP8266",
+              "Text" : "ESP8266 - Eine Grundlage für viele auf ESP Basierende Boards\n\nEin W-Lan Modul, welches Preiswert Angeboten wird und sehr viel mehr kann als ein Arduino.",
+              "Items" : [
+                {
+                  "Title" : "01 NodeMCU",
+                  "Text" : "NodeMCU\n\nEin Board welches die Nutzung vom ESP8266 Vereinfacht.\nVerfügt direkt über ein USB Slot. Es gibt davon verschiedene Clone, \nwelche aber breiter sind als die \"Orignal\" Boards."
+                },
+                {
+                  "Title" : "02 Wemos D1 Mini",
+                  "Text" : "Wemos D1 Mini\n\nEbenfalls ein ESP8266 Board. Das ist jedoch kleiner und läuft(finde ich) stabiler."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title" : "08 MCU - Einzelne Controller",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 atTiny85",
+              "Text" : "atTiny85\n\nEine recht kleine MCU, welches 8 Pins hat, zwei \nfür die Stromversorgung und ein Rest Pin, \nalle anderen können genutzt werden.  \nLeider ist der Flash Speicher mit 8 kb(ca 2 kb abzug für Bootlaoder)  recht klein.\n"
+            },
+            {
+              "Title" : "02 atTiny84",
+              "Text" : "atTiny84\n\nHat 6 Pins mehr die genutzt weren können gegenüber den atTiny85"
+            },
+            {
+              "Title" : "03 atMega328",
+              "Text" : "atMega328\n\nEine MCU, die wohl am meisten Verwendung findet z.b. \nim Arduino Uno Bord oder aber auch im Arduino Nano.\nEs stehen 32 KB Flash Speicher zuverfügung sowie 2 kb ram und \n14 Digitale Pins wovon 12 Genutzt werden können und 6 Analoge Pins.\n"
+            },
+            {
+              "Title" : "04 Entwickler Boards",
+              "Text" : "Entwickler Boards - Vereinfachen die Arbeit\n\nDie Orignal Boards kosten recht viel. Es gibt daher von sehr vielen \nBoards auch Clone, die nur ein Bruchteil kosten. Z.B. beim Arduino Uno:\nOrignal cum die 17 bis 25€, der Clone schon deutlich unter 10€ es gibt welche für 2€.\n\nDer Unterschied ist: Bei den Orignal sitzt ein atmega32u als Uart davor,\nbei den Clonen sitzt ein andere \"uart2 davor.\n",
+              "Items" : [
+                {
+                  "Title" : "01 Arduino Uno ",
+                  "Text" : "Arduino Uno\n\nEin Entwickler Board. Welches die Verwendung vom atMega328 \nstark vereinfacht. Es gibt einen extra Strom Anschluss von 7 bis 24 Volt.\nEs gibt ein USB Anschluss.\n"
+                },
+                {
+                  "Title" : "02 Arduino Nano",
+                  "Text" : "Arduino Nano \n\nRecht klein und wurde Entwickelt um auf ein Steckboard zu passen."
+                },
+                {
+                  "Title" : "03 Arduino Mirco",
+                  "Text" : "Arduino Micro\n\nKann z.b. als USB Tastatur verwendet werden.\nBasiert auf ein atMega32U noch was."
+                },
+                {
+                  "Title" : "04 Arduino Pro Mini",
+                  "Text" : ""
+                },
+                {
+                  "Title" : "05 Arduino Mega",
+                  "Text" : ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title" : "09 Sonstiges",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "01 MCP23017 Ein 1²C PortExpander",
+              "Text" : "MCP23017 Ein 1²C PortExpander\n\nEin PortExpaneder der bis zu 16 Digitale Pins bereit stellt. \nEs gibt drei Adress Pins, somit sind 8 Adressen Möglich. \nD.H. ein MC kann bis zu 128 Pins erweitert werden.  \nDie Kommunikation zwischen MC und dem MCP erfolgt über I2C, so sind \"nur\" zwei Datenleitungen Notwendig.\n\nEs ist Sinnvoll, alle 3 Adresspins zu verbinden, entweder mit GND oder mit HIGH, sonst ist der Zustand nicht definiert. \nDer Reset Pin sollte über ein 4,7 K-OHM Pullup(mit VCC) Wiederstand Verbunden sein."
+            }
+          ]
+        },
+        {
+          "Title" : "Test1",
+          "Text" : "Hier ist ein Test1"
+        },
+        {
+          "Title" : "Test2",
+          "Text" : "Hier ist Test2"
+        },
+        {
+          "Title" : "Test3",
+          "Text" : "Hier ist Test3."
+        }
+      ]
+    },
+    {
+      "Title" : "02 Notizen",
+      "Text" : "",
+      "Items" : [
+        {
+          "Title" : "KTT",
+          "Text" : "",
+          "Items" : [
+            {
+              "Title" : "2017",
+              "Text" : "",
+              "Items" : [
+                {
+                  "Title" : "KTT_07_03_2017.txt",
+                  "Text" : "KTT_07_03_2017.txt\n\nhttps://www.amazon.de/s/ref=nb_sb_noss?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&url=search-alias%3Daps&field-keywords=dc+motor+20000rpm+12+volt&sprefix=DC+Motor+20000%2Caps%2C225&crid=ERSG58ITFHBC&rh=i%3Aaps%2Ck%3Adc+motor+20000rpm+12+volt\n\nhttps://www.amazon.de/s/ref=nb_sb_noss_2?__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&url=search-alias%3Daps&field-keywords=Spannzange\n\nhttps://www.amazon.de/JTENG-Spannzangen-Set-Inbusschl%C3%BCssel-Schnellspannbohrfutter-Spiralbohrer/dp/B01M28GFD6/ref=sr_1_1?ie=UTF8&qid=1488923614&sr=8-1-spons&keywords=Spannzange&psc=1\n\nhttps://www.amazon.de/s/ref=sr_pg_2?rh=i%3Aaps%2Ck%3Av+nutfr%C3%A4ser&page=2&keywords=v+nutfr%C3%A4ser&ie=UTF8&qid=1488923663&spIA=B000XIZQ80,B0084D4AKQ"
+                }
+              ]
+            },
+            {
+              "Title" : "2018",
+              "Text" : "KTT_Komponenten.txt\n\nKTT_Komponenten.txt\n\nWiderstände\n\nWiderstand in Ohm, Menge\n10;80\n12;30 \n15;60\n18;30\n22;120\n27;100\n33;100\n39;20\n47;30\n56;40\n68;20\n82;35\n100;100\n120;30\n150;60\n180;30\n220;65\n270;20\n330;100\n390;70\n470;60\n560;20\n680;25\n820;25\n1k;65\n1k2;5\n1k5;25\n1k8;40\n2k2;40\n2k7;126\n3k3;10\n3k9;20\n4k7;70\n5k6;25\n6k8;25\n8k2;45\n10k;5\n12k;100\n15k;35\n18k;25\n\n22k;12\n27k;15\n33k;227\n39k;49\n47k;20\n56k;38\n68k;23\n82k;25\n100k;61\n120k;170\n150k;26\n180k;28\n220k;43\n270k;28\n280k;20\n330k;26\n390k;30\n\nHier zeigt das Messgerät Werte im Mega-Ohm Bereich an, \naber auf dem \"Kasten\" steht Werten im K-Ohm Bereich.\n470k;\n680k;\n820k;\n560k;\n\n\n\n\n\n",
+              "Items" : [
+                {
+                  "Title" : "01 Akku_Info_28_01_2018.txt",
+                  "Text" : "Akku_Info_28_01_2018.txt\n\n6 sekunden an verbrauch ca 80 mA\n\n6 Sekunden durch 300(Alle 5 Minuten) \n2500 mAh\n\nAlle 5 Minuten werden 1,6 mA verbraucht.\n\n6 / 300 = 0,02 * 80 mA = 1,6 mA\n\n2500 mAh / 1,6 mA = 1562,5 Stunden / 24 = 65 Tage\n\n1,6 mA *"
+                },
+                {
+                  "Title" : "02 Alexey_notiz_29_04_2018.txt",
+                  "Text" : "Alexey_notiz_29_04_2018.txt\n\nhttps://pcbshopper.com/\nhttps://aisler.net/\n\n1. Schwache Schaltsignale\n2. Masse\n3. Plus\n4. Starke Signal\n\nWegen dem Kondisator und um Plus und Masse überall zu haben.\n\nMase Oben\nMase Unten\nDie Mitte wird komplett abgeschirm, für extreme Empfliche Sachen.\n\nfido usb token\n\nhttps://www.amazon.de/Key-ID-FIDO-U2F-USB-Sicherheitsschl%C3%BCssel/dp/B01N6XNC01/ref=sr_1_fkmr1_1?ie=UTF8&qid=1524946067&sr=8-1-fkmr1&keywords=fido+usb+token"
+                },
+                {
+                  "Title" : "03 ArduinoNotzien_12_08_2018.txt",
+                  "Text" : "ArduinoNotzien_12_08_2018.txt\n\nFuses setzten, bei einem atmega328p\navrdude -C /home/pluto/myApps/arduino-1.9.0/arduino-PR-beta1.9-BUILD-10/hardware/tools/avr/etc/avrdude.conf -cstk500v1 -p m328p  -P atmega328p -P /dev/ttyACM0 -b 19200 -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m\n\nFuses auslesen, bei einem atmega328p\navrdude -C /home/pluto/myApps/arduino-1.9.0/arduino-PR-beta1.9-BUILD-10/hardware/tools/avr/etc/avrdude.conf -cstk500v1 -p m328p  -P atmega328p -P /dev/ttyACM0 -b 19200 \n\nScheint ein gutes Beispiel/Lib zu sein für ein Seriell Protokoll\n  https://github.com/scogswell/ArduinoSerialCommand\n\nhttps://www.amazon.de/Adafruit-Music-Maker-FeatherWing-Player/dp/B01MT35K52/ref=sr_1_1?ie=UTF8&qid=1489749923&sr=8-1&keywords=Music+Maker+FeatherWing\n\n\nhttps://www.heise.de/developer/artikel/Auf-Kommando-3361570.html\nhttps://github.com/sudar/Arduino-Makefile\n\nEine Konsole für Arduino\nhttp://blog.wenzlaff.de/?tag=kommandozeile\n\nhttp://stackoverflow.com/questions/8189306/command-line-arduino-compiling-and-downloading\nhttps://andino.systems/arduino-mit-dem-raspberry-programmieren/\n\n\nhttp://www.arduinoclub.de/2013/12/01/arduino-avrdude-cmd-und-hex-dateien/\n\nhttps://code-bude.net/2014/05/02/anleitung-sublimetext-mit-stino-als-arduino-ide-konfigurieren/"
+                },
+                {
+                  "Title" : "04 e-werkstatt_22_10_2018.txt",
+                  "Text" : "e-werkstatt_22_10_2018.txt\n\nDokument Anelegt am Montag dem 22.10.2018\n=========================================\nFür die E-Werkstatt gibt es noch ein Buget von um die 100€, was auf einem Plenum beschlossen wurde.\nAußerdem wollte ich noch 100€ \"Spenden\", an Sachspenden.\nAlso gibt es 200€ Zusammen.\n\nBedarf E-Werkstatt, was brauchen wir?\n\npro Arbeitsplatzt \n\n- Zangensets\nSpitzange, Seitenscheider, Abisolierzangen\n\n- Lötbesteck \n\n- Lötzin\n\n- Helfendehände(?)\n- Multimeter(?)\n\nReichelt\n********\n\n  Spitzange\n  01) 3,80€ https://www.reichelt.de/spitzzange-130-mm-man-10704-p107280.html?&trstct=pos_3\n  \n  Seitenscheider\n  01) 3,80€ https://www.reichelt.de/seitenschneider-115-mm-man-10701-p107275.html?&trstct=pos_1\n\n  Abisolierzangen\n  Sind bei reichelt scheinbar zu Teuer\n  01) 16,50 € https://www.reichelt.de/abisolierzange-160-mm-kn-11-01-160-p109146.html?&trstct=pos_3\n\n  Multimeter\n  01) 13,90 € UT 33D https://www.reichelt.de/multimeter-digital-2000-counts-dc-rechtecksignalausgang-ut-33d-p156076.html?&trstct=pol_3 \n\n  Lötbesteck\n  Hat Reichelt scheinbar nicht\n  \n  \nPollin\n******\n\n  Spitzange\n  01) 3,25 € https://www.pollin.de/p/spitzzange-500522\n\n  Seitenscheider\n  01) 2,95€ https://www.pollin.de/p/elektronik-seitenschneider-500099\n  02) 3,25€ https://www.pollin.de/p/seitenschneider-115-mm-500528\n\n  Abisolierzangen\n  01) 4,25 € https://www.pollin.de/p/abisolierzange-500060\n  \n  Multimeter\n  01) 8,95€ https://www.pollin.de/p/digital-multimeter-pdmm-390-830437\n  02) 10,95 € https://www.pollin.de/p/multimeter-em393b-830739\n  \n  Lötbesteck\n  01) 3,95€ https://www.pollin.de/p/elektronik-loetbesteck-6-teilig-840131\n  \nAmazon\n******\n  Spitzange\n  01) 4,02€ https://www.amazon.de/FamilyMall-Spitzzange-extra-flach/dp/B00D12NQEG/ref=sr_1_9?ie=UTF8&qid=1540213447&sr=8-9&keywords=spitzzange\n\n  Seitenscheider\n  01) 1,29€ https://www.amazon.de/Elektroniker-Seitenschneider-Feinmachanik-Technik-Prof-isolierte-Griffe/dp/B01ELGZ7AG/ref=sr_1_1?ie=UTF8&qid=1540213494&sr=8-1&keywords=seitenschneider\n  02) 2,30€ https://www.amazon.de/Mini-Seitenschneider-Schneidezange-4-5-Inch/dp/B0095NEEPU/ref=sr_1_6?ie=UTF8&qid=1540213494&sr=8-6&keywords=seitenschneider\n\n  Abisolierzangen\n  01) 6,10€ https://www.amazon.de/Br%C3%BCder-Mannesmann-Werkzeug-M10989-Abisolierzange/dp/B002QZT7CO/ref=sr_1_15?ie=UTF8&qid=1540213551&sr=8-15&keywords=Abisolierzangen\n\n  Multimeter\n  01) 3,89€ https://www.amazon.de/Digitales-Multimeter-Voltmeter-Amperemeter-Messger%C3%A4t/dp/B07F9Y8XFK/ref=sr_1_3?ie=UTF8&qid=1540213590&sr=8-3&keywords=Multimeter\n\n  Lötbesteck\n  01) 5,89€ https://www.amazon.de/Sintron-L%C3%B6tbesteck-L%C3%B6twerkzeug-L%C3%B6tarbeiten-RW-LB6/dp/B0038L6GZQ/ref=sr_1_2?ie=UTF8&qid=1540213634&sr=8-2&keywords=L%C3%B6tbesteck\n  \nEbay\n****\n\n  Spitzange\n  Wollen alle Versand, dass macht es \"Teuer\" \n\n  Seitenscheider\n  Es gibt ein Komisches Ergebnisse bei der Suche\n\n  Abisolierzangen\n  Wollen auch wieder Versand\n\n  Multimeter\n\n  Lötbesteck\n\n  1000pcs 50 Werte 50V Keramik Kondensator Verschiedene Kit Sortiment Set\n  https://www.ebay.de/itm/1000pcs-50-Werte-50V-Keramik-Kondensator-Verschiedene-Kit-Sortiment-Set/232485563905?hash=item3621382e01:g:4AUAAOSwA2hZt5Qk\n  3,82€\n\n  2000Stück 100Werte 1/4W Metallfilm -Widerstände Widerstand Sortiment Kit Set 5%\n  https://www.ebay.de/itm/2000Stuck-100Werte-1-4W-Metallfilm-Widerstande-Widerstand-Sortiment-Kit-Set-5/253071406244?hash=item3aec3b34a4:g:MYgAAOSwTzlZfvRk"
+                },
+                {
+                  "Title" : "05 KTT_08_10_2018.txt",
+                  "Text" : "KTT_08_10_2018.txt\n\nDokument Angelegt am Montag den 08.10.2018 \n\n1. FT232, FT2232, FT4232\n\n2. PL2303\n\n3. FT245\n\n4. FT232 RL\n\nyampp-3/usb\nftp://pti.kpi.ua/pub/electric/http/www.myplace.nu/yampp3u_sch_large.gif\nein MP3 Player der über ein atMega8 läuft und ca 40 gb verwalten kann.\n\nhttps://cdn-reichelt.de/documents/datenblatt/A300/ATMEGA32.pdf\nhttps://www.ebay.de/itm/Mini-FT232RL-FTDI-Adapter-Module-USB-zu-TTL-Serial-fur-3-3V-5V-fur-Arduino-PRO/163096461767?hash=item25f94e81c7:g:tmkAAOSwC19bIeoc"
+                },
+                {
+                  "Title" : "06 ktt_09_05_2018.txt",
+                  "Text" : "ktt_09_05_2018.txt\n\nhttps://www.ebay.de/itm/DC-DC-LM2596-HV-S-Buck-Constant-Current-Voltage-CC-CV-Step-Down-Module-60V-3A-/272363231614?hash=item3f6a1d197e:g:UiwAAOSwGtRXyrwz\nhttp://www.rc-network.de/forum/showthread.php/610296-Led-Treiber-bauen\n\n\nhttp://elm-lang.org/examples/strings\nhttps://de.wikipedia.org/wiki/Elm_(Programmiersprache)\n\nhttps://www.tutorials.at/einfuehrung/01-generationen-entwicklungsumgebung.html\n\nhttps://www.ebay.de/itm/STM32F103C8T6-STM32-Minimum-System-Development-Board-Module-For-Arduino-TE435/232742912052?hash=item36308f0034:g:kyoAAOSwgLVZmubX&autorefresh=true\n\n\nModel: STM32F103C8T6.\nCore: ARM 32 Cortex-M3 CPU.\nDebug mode: SWD.\n72MHz work frequency.\n64K flash memory, 20K SRAM.\n2.0-3.6V power, I/O.\nReset(POR/PDR).\n4-16MHz crystal.\nMicro USB connector , you can give the board power supply and USB communication.\nSize:5.3cm x 2.2cm\n\n103,303,407,405\n\n"
+                },
+                {
+                  "Title" : "07 KTT_11_07_2018.txt",
+                  "Text" : "KTT_11_07_2018.txt\n\n2 Stück https://www.voelkner.de/products/734412/Analog-Devices-PMIC-Spannungsregler-DC-DC-Schaltregler-ADM660ANZ-Ladepumpe-PDIP-8.html\n1 Stück https://www.voelkner.de/products/82922/Velleman-Stereo-Verstaerker-Bausatz-MK136-4.5-V-DC.html\n10 Stück https://www.voelkner.de/products/144425/SCI-Wippschalter-R13-66A-02-250-V-AC-6A-1-x-Aus-Ein-rastend-1St..html\n\n\n4 Stück https://www.reichelt.de/dc-dc-konverter-1-6-bis-5-25-v-sot-23-5-tps-60403-dbvr-p188742.html?&trstct=pos_0\n50 Stück https://www.reichelt.de/vielschicht-kerko-1-0-f-16v-125-c-kem-x7r0805a1-0u-p207078.html?&trstct=pos_4\n\njeweils zwei mal....\n\nTPS60403\n\n\n0805 \n100nf Z5U\n10nf Z5U\n22nf X7R"
+                },
+                {
+                  "Title" : "08 KTT_13_05_2018.txt",
+                  "Text" : "KTT_13_05_2018.txt\n\nhttps://www.mouser.de/\n\nhttp://ampslab.com/PDF/tl084cn.pdf\n\nBD140 PNP\nBD139 NPN\n\nDG442"
+                },
+                {
+                  "Title" : "09 ktt_22.05.2018",
+                  "Text" : "ktt_22.05.2018\n\n4 333j konisatoren\nZ5U-2,5 33N :: Vielschicht-Keramikkondensator 33N, 20%\nPreis: 0,03 €\nhttps://www.reichelt.de/Vielschicht-bedrahtet-Z5U-20-/Z5U-2-5-33N/3/index.html?ACTION=3&LA=446&ARTICLE=22982&GROUPID=3163&artnr=Z5U-2%2C5+33N&SEARCH=33nf%2Bkondensator&trstct=pos_7\n\n2 10µf Elko \nRAD FC 10/50 :: Elko radial, 10 uF, 50 V, 105°C, low ESR, AEC-Q200\n0,12€\nhttps://www.reichelt.de/Elkos-radial-105-C-1000-5000h/RAD-FC-10-50/3/index.html?ACTION=3&LA=446&ARTICLE=84586&GROUPID=4000&artnr=RAD+FC+10%2F50&SEARCH=%2526%252334%253B10%2B%25C2%25B5F%2526%252334%253B%2Belko&trstct=pos_14\n0,24€\n\nWiederstände Metal \n\nLMC555 0,99€\nhttps://www.reichelt.de/ICs-LMC-LS-/LMC-555-CN/3/index.html?ACTION=3&LA=446&ARTICLE=187818&GROUPID=5467&artnr=LMC+555+CN&SEARCH=LMC555&trstct=pos_1\n\n0,99 + 0,72 + 0,24 = 1,95€\n\n1 K-Ohm = 1 ms\n\nFarrat *  Ohm = 1 Sekunde\nrc=Zeit Konstante \n2,7\n\nKilo * µf = ms\n\nhttp://www.mathematik.uni-marburg.de/~thormae/lectures/ti1/ti_3_3_ger_web.html#4\n\n\n1000pcs 50 Werte 50V Keramik Kondensator Verschiedene Kit Sortiment Set\nhttps://www.ebay.de/itm/1000pcs-50-Werte-50V-Keramik-Kondensator-Verschiedene-Kit-Sortiment-Set/232485563905?hash=item3621382e01:g:4AUAAOSwA2hZt5Qk\n3,82€\n\n2000Stück 100Werte 1/4W Metallfilm -Widerstände Widerstand Sortiment Kit Set 5%\nhttps://www.ebay.de/itm/2000Stuck-100Werte-1-4W-Metallfilm-Widerstande-Widerstand-Sortiment-Kit-Set-5/253071406244?hash=item3aec3b34a4:g:MYgAAOSwTzlZfvRk"
+                },
+                {
+                  "Title" : "10 KTT_26_05_2018.txt",
+                  "Text" : "KTT_26_05_2018.txt\n\n0,054\n\nBestellliste\n\nTitle   ICL 7660 ACPAZ :: DC/DC-Konverter, -1,5 bis -12V, DIL-8\nLink    https://www.reichelt.de/index.html?ACTION=3;ARTICLE=188882;SEARCH=icl7\nPreis   1,50€\nMenge   4 (6€)\n\nTitle   TL 072 IP :: Operationsverstärker, Dual, 3 MHz, PDIP-8\nLink    https://www.reichelt.de/ICs-TA-TL-/TL-072-IP/3/index.html?ACTION=3&LA=446&ARTICLE=189109&GROUPID=5479&artnr=TL+072+IP&SEARCH=TL072&trstct=pos_0\nPreis   0,48€\nMenge   10 (4,8€)\n\nTitle   RND 0W4J0473A50 :: Widerstand, Metalloxyd, 47 kOhm, axial, 0,25 W, 5%\nLink    https://www.reichelt.de/bis-1W-5-1-0-k-Ohm-820-k-Ohm/RND-0W4J0473A50/3/index.html?ACTION=3&LA=446&ARTICLE=205051&GROUPID=6515&artnr=RND+0W4J0473A50&SEARCH=47%2BK-Ohm%2Bmetall&trstct=pos_7\nPreis   0,054€\nMenge   100(5,4€)   \n\nTitle   1/4W 4,7 :: Widerstand, Kohleschicht, 4,7 Ohm, 0207, 250 mW, 5%\nLink    https://www.reichelt.de/1-4W-5-1-0-Ohm-9-1-Ohm/1-4W-4-7/3/index.html?ACTION=3&LA=446&ARTICLE=1424&GROUPID=3062&artnr=1%2F4W+4%2C7&SEARCH=4%252C7%2BOhm%2Bkohle&trstct=pos_0\nPreis   0,019€\nMenge   100(1,9€)\n\nTitle   RPI RTC CLOCK :: Raspberry Pi- Real Time Clock Modul\nLink    https://www.reichelt.de/Entwicklerboard-Zubehoer/RPI-RTC-CLOCK/3/index.html?ACTION=3&LA=446&ARTICLE=224214&GROUPID=8244&artnr=RPI+RTC+CLOCK&SEARCH=rtc%2Bpi&trstct=pos_1\nPreis   2,75 €\nMenge   4 (11€)\n\n29,1€\n\n\nDS3231\n\nhttps://www.reichelt.de/Entwicklerboard-Zubehoer/RPI-RTC-CLOCK/3/index.html?ACTION=3&LA=446&ARTICLE=224214&GROUPID=8244&artnr=RPI+RTC+CLOCK&SEARCH=rtc%2Bpi&trstct=pos_1\n\n\nZwischenablage\n\n    https://www.reichelt.de/ICs-TDA-440-TDA-2840/TDA-2030/3/index.html?ACTION=3&LA=446&ARTICLE=20687&GROUPID=5475&artnr=TDA+2030&SEARCH=TDA2030&trstct=pos_0\n    TL  072 https://www.reichelt.de/ICs-TA-TL-/TL-072-IP/3/index.html?ACTION=3&LA=446&ARTICLE=189109&GROUPID=5479&artnr=TL+072+IP&SEARCH=TL072&trstct=pos_0\n    ICL 7660 https://www.reichelt.de/index.html?ACTION=3;ARTICLE=188882;SEARCH=icl7\n\n\nKeramikkondensatoren ist bei Amazon einfach günstiger\n    https://www.amazon.de/AZDelivery-Keramik-Kondensatoren-Teile-Sorten/dp/B01N16BIRE/ref=sr_1_1?ie=UTF8&qid=1527427931&sr=8-1&keywords=Keramikkondensatoren\n\n    TL072\n\n    100 nF Karamik\n    200 nF Karamik\n\n    47 K-OHM \n\n    100 K-OHM Lauter\n\n\n    R1=47 - K-OHM\n    R2=X\n\n\nEingänge\n    1 47 - K-OHM\n    2 47 - K-OHM\n    3 47 - K-OHM\n    4 47 - K-OHM\n\nAusgänge\n    1 100 k-OHM\n    2\n    3\n    4\n    \n    x7r100nF\n\nElkos\n    deca switchlab 22\n\n"
+                },
+                {
+                  "Title" : "11 ktt_22.05.2018",
+                  "Text" : "ktt_22.05.2018\n\n4 333j konisatoren\nZ5U-2,5 33N :: Vielschicht-Keramikkondensator 33N, 20%\nPreis: 0,03 €\nhttps://www.reichelt.de/Vielschicht-bedrahtet-Z5U-20-/Z5U-2-5-33N/3/index.html?ACTION=3&LA=446&ARTICLE=22982&GROUPID=3163&artnr=Z5U-2%2C5+33N&SEARCH=33nf%2Bkondensator&trstct=pos_7\n\n2 10µf Elko \nRAD FC 10/50 :: Elko radial, 10 uF, 50 V, 105°C, low ESR, AEC-Q200\n0,12€\nhttps://www.reichelt.de/Elkos-radial-105-C-1000-5000h/RAD-FC-10-50/3/index.html?ACTION=3&LA=446&ARTICLE=84586&GROUPID=4000&artnr=RAD+FC+10%2F50&SEARCH=%2526%252334%253B10%2B%25C2%25B5F%2526%252334%253B%2Belko&trstct=pos_14\n0,24€\n\nWiederstände Metal \n\nLMC555 0,99€\nhttps://www.reichelt.de/ICs-LMC-LS-/LMC-555-CN/3/index.html?ACTION=3&LA=446&ARTICLE=187818&GROUPID=5467&artnr=LMC+555+CN&SEARCH=LMC555&trstct=pos_1\n\n0,99 + 0,72 + 0,24 = 1,95€\n\n1 K-Ohm = 1 ms\n\nFarrat *  Ohm = 1 Sekunde\nrc=Zeit Konstante \n2,7\n\nKilo * µf = ms\n\nhttp://www.mathematik.uni-marburg.de/~thormae/lectures/ti1/ti_3_3_ger_web.html#4\n\n\n1000pcs 50 Werte 50V Keramik Kondensator Verschiedene Kit Sortiment Set\nhttps://www.ebay.de/itm/1000pcs-50-Werte-50V-Keramik-Kondensator-Verschiedene-Kit-Sortiment-Set/232485563905?hash=item3621382e01:g:4AUAAOSwA2hZt5Qk\n3,82€\n\n2000Stück 100Werte 1/4W Metallfilm -Widerstände Widerstand Sortiment Kit Set 5%\nhttps://www.ebay.de/itm/2000Stuck-100Werte-1-4W-Metallfilm-Widerstande-Widerstand-Sortiment-Kit-Set-5/253071406244?hash=item3aec3b34a4:g:MYgAAOSwTzlZfvRk"
+                },
+                {
+                  "Title" : "12 KTT_26_05_2018.txt",
+                  "Text" : "KTT_26_05_2018.txt\n\n0,054\n\nBestellliste\n\nTitle   ICL 7660 ACPAZ :: DC/DC-Konverter, -1,5 bis -12V, DIL-8\nLink    https://www.reichelt.de/index.html?ACTION=3;ARTICLE=188882;SEARCH=icl7\nPreis   1,50€\nMenge   4 (6€)\n\nTitle   TL 072 IP :: Operationsverstärker, Dual, 3 MHz, PDIP-8\nLink    https://www.reichelt.de/ICs-TA-TL-/TL-072-IP/3/index.html?ACTION=3&LA=446&ARTICLE=189109&GROUPID=5479&artnr=TL+072+IP&SEARCH=TL072&trstct=pos_0\nPreis   0,48€\nMenge   10 (4,8€)\n\nTitle   RND 0W4J0473A50 :: Widerstand, Metalloxyd, 47 kOhm, axial, 0,25 W, 5%\nLink    https://www.reichelt.de/bis-1W-5-1-0-k-Ohm-820-k-Ohm/RND-0W4J0473A50/3/index.html?ACTION=3&LA=446&ARTICLE=205051&GROUPID=6515&artnr=RND+0W4J0473A50&SEARCH=47%2BK-Ohm%2Bmetall&trstct=pos_7\nPreis   0,054€\nMenge   100(5,4€)   \n\nTitle   1/4W 4,7 :: Widerstand, Kohleschicht, 4,7 Ohm, 0207, 250 mW, 5%\nLink    https://www.reichelt.de/1-4W-5-1-0-Ohm-9-1-Ohm/1-4W-4-7/3/index.html?ACTION=3&LA=446&ARTICLE=1424&GROUPID=3062&artnr=1%2F4W+4%2C7&SEARCH=4%252C7%2BOhm%2Bkohle&trstct=pos_0\nPreis   0,019€\nMenge   100(1,9€)\n\nTitle   RPI RTC CLOCK :: Raspberry Pi- Real Time Clock Modul\nLink    https://www.reichelt.de/Entwicklerboard-Zubehoer/RPI-RTC-CLOCK/3/index.html?ACTION=3&LA=446&ARTICLE=224214&GROUPID=8244&artnr=RPI+RTC+CLOCK&SEARCH=rtc%2Bpi&trstct=pos_1\nPreis   2,75 €\nMenge   4 (11€)\n\n29,1€\n\n\nDS3231\n\nhttps://www.reichelt.de/Entwicklerboard-Zubehoer/RPI-RTC-CLOCK/3/index.html?ACTION=3&LA=446&ARTICLE=224214&GROUPID=8244&artnr=RPI+RTC+CLOCK&SEARCH=rtc%2Bpi&trstct=pos_1\n\n\nZwischenablage\n\n    https://www.reichelt.de/ICs-TDA-440-TDA-2840/TDA-2030/3/index.html?ACTION=3&LA=446&ARTICLE=20687&GROUPID=5475&artnr=TDA+2030&SEARCH=TDA2030&trstct=pos_0\n    TL  072 https://www.reichelt.de/ICs-TA-TL-/TL-072-IP/3/index.html?ACTION=3&LA=446&ARTICLE=189109&GROUPID=5479&artnr=TL+072+IP&SEARCH=TL072&trstct=pos_0\n    ICL 7660 https://www.reichelt.de/index.html?ACTION=3;ARTICLE=188882;SEARCH=icl7\n\n\nKeramikkondensatoren ist bei Amazon einfach günstiger\n    https://www.amazon.de/AZDelivery-Keramik-Kondensatoren-Teile-Sorten/dp/B01N16BIRE/ref=sr_1_1?ie=UTF8&qid=1527427931&sr=8-1&keywords=Keramikkondensatoren\n\n    TL072\n\n    100 nF Karamik\n    200 nF Karamik\n\n    47 K-OHM \n\n    100 K-OHM Lauter\n\n\n    R1=47 - K-OHM\n    R2=X\n\n\nEingänge\n    1 47 - K-OHM\n    2 47 - K-OHM\n    3 47 - K-OHM\n    4 47 - K-OHM\n\nAusgänge\n    1 100 k-OHM\n    2\n    3\n    4\n    \n    x7r100nF\n\nElkos\n    deca switchlab 22\n\n"
+                },
+                {
+                  "Title" : "13 KTT_Komponenten.txt",
+                  "Text" : "KTT_Komponenten.txt\n\nWiderstände\n\nWiderstand in Ohm, Menge\n10;80\n12;30 \n15;60\n18;30\n22;120\n27;100\n33;100\n39;20\n47;30\n56;40\n68;20\n82;35\n100;100\n120;30\n150;60\n180;30\n220;65\n270;20\n330;100\n390;70\n470;60\n560;20\n680;25\n820;25\n1k;65\n1k2;5\n1k5;25\n1k8;40\n2k2;40\n2k7;126\n3k3;10\n3k9;20\n4k7;70\n5k6;25\n6k8;25\n8k2;45\n10k;5\n12k;100\n15k;35\n18k;25\n\n22k;12\n27k;15\n33k;227\n39k;49\n47k;20\n56k;38\n68k;23\n82k;25\n100k;61\n120k;170\n150k;26\n180k;28\n220k;43\n270k;28\n280k;20\n330k;26\n390k;30\n\nHier zeigt das Messgerät Werte im Mega-Ohm Bereich an, \naber auf dem \"Kasten\" steht Werten im K-Ohm Bereich.\n470k;\n680k;\n820k;\n560k;\n\n\n\n\n\n"
+                }
+              ]
+            },
+            {
+              "Title" : "2019",
+              "Text" : "",
+              "Items" : [
+                {
+                  "Title" : "01 Audio_Verstärker.txt",
+                  "Text" : "Audio_Verstärker.txt\n\nDokument Angelegt am Samstag dem 02.02.2019\n===========================================\n\nReichelt Bestellung\n  Link : https://www.reichelt.de/darlington-transistor-npn-80v-4a-40w-sot-32-bd-679-stm-p216557.html?&trstct=pos_23\n  Title: BD 679 STM :: Darlington-Transistor, NPN, 80V, 4A, 40W, SOT-32 \n  Preis: 0,21€\n  Menge: 20 Stück(4,20€)\n\n  Link  : https://www.reichelt.de/darlington-transistor-pnp-80v-4a-40w-sot-32-bd-680-stm-p216558.html?&trstct=pos_24\n  Title : BD 680 STM :: Darlington-Transistor, PNP, 80V, 4A, 40W, SOT-32 \n  Preis : 0,21€\n  Menge : 20 Stück(4,20€)\n  \n\n  Link  : https://www.reichelt.de/widerstand-metallschicht-100-kohm-axial-500-mw-0-1-aka-rnm12tb-100k-p237995.html?&trstct=pol_42\n  Title : AKA RNM12TB 100K :: Widerstand, Metallschicht, 100 kOhm, axial, 500 mW, 0,1% \n  Preis : 0,33€\n  Menge : 10 Stück\n\n\n  Link  : https://www.reichelt.de/widerstand-metallschicht-100-kohm-0207-0-6-w-1-k-o-sfcn1003t52-p237347.html?&trstct=pol_84\n  Title : K-O SFCN1003T52 :: Widerstand, Metallschicht, 100 kOhm, 0207, 0,6 W, 1% Preis: 0,08 €\n  Menge : 50 Stück \n\n"
+                },
+                {
+                  "Title" : "02 KTT_2_4_GHZ_25_06_2019.txt",
+                  "Text" : "KTT_2_4_GHZ_25_06_2019.txt\n\nDokument Angelegt am Dienstag dem 25.06.2019\n============================================\n\nNRF24L01 +\n\nnrf52810 \n\nhttps://www.nordicsemi.com/Products/Low-power-short-range-wireless/2-4-GHz-proprietary\n\nhttps://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf\nhttps://www.sparkfun.com/datasheets/Components/nRF24L01_prelim_prod_spec_1_2.pdf\nhttps://www.hotmcu.com/mini-nrf24l01-24ghz-smd-wireless-transceiver-module-p-275.html\n\nhttps://playground.arduino.cc/InterfacingWithHardware/Nrf24L01/\n\n\n--------------------------\n\nW-Lan Sensor \nhttps://github.com/wemos/D1_mini_Examples/tree/master/examples/04.Shields/DHT_Shield/DeepSleep\n\nhttp://makeable.de/blog/?p=1276\n\nhttp://embedded-lab.com/blog/esp8266-temperature-humidity-logger-deep-sleep-enabled/\n\nhttps://tutorials-raspberrypi.de/monatelanger-esp8266-batteriebetrieb-mittels-deep-sleep/\nhttps://tutorials-raspberrypi.de/esp8266-wetterstation-aussenposten-nodemcu-raspberry-pi/\n\nNotizen\n  In diesem Fall nutzen wir:\n\n  node.dsleep(0)\n  Damit wird der Schlafmodus ausgelöst, jedoch wird er nicht mehr selbst erwachen (daher auch kein 71 Minuten Limit).\n\n  \nhttps://hoeser-medien.de/2015/04/attiny85-interrupt-basierend-auf-pinchange-interrupt-library/"
+                },
+                {
+                  "Title" : "03 KTT_07_05_2019.txt",
+                  "Text" : "KTT_07_05_2019.txt\n\nDokument Angelegt am Dienstag dem 07.05.2019\n============================================\n\nhttp://bienonline.magix.net/public/gescheitert-wemo-solar.html\n\nhttps://arduino-projekte.info/zisterne-fuellstandsanzeige-2-0-mit-wemos-lolin32-mysql-datenbank/\n\nnoolite_tx\n\nbruce schneider\n\n#####################################################################\n#                     Debian Stretch - minimal                      #\n#####################################################################\n\n system information\n\n   IP:             194.55.15.5\n   host:           v22018127408078870.powersrv.de\n\n ssh-key fingerprints\n\n   256 SHA256:cSuP30dnWNZRvD13aIotqOq0R61/ySci+2eBHMTiUpg (ED25519)\n   2048 SHA256:xqZt0fdze8G4gv7q4i3v9W5M94LtIsW6U0vL5vJZUxs (RSA)\n   256 SHA256:T9Z5vrf3Nw3+q6wGsPCLyY87FyPfPs3qwo+z9ZQiLkA (ECDSA)\n   256 MD5:f2:dc:d2:79:fa:97:b2:3e:97:4d:7a:ce:ea:ba:7c:81 (ED25519)\n   2048 MD5:d5:2b:bb:38:e7:45:9b:f5:49:dc:73:9b:d8:05:2b:18 (RSA)\n   256 MD5:78:dc:ae:ba:b8:ba:14:59:de:46:14:b2:f4:89:cf:20 (ECDSA)\n\n\n\tDas neue root Passwort lautet  w8YUNa2CUB8vHeY"
+                },
+                {
+                  "Title" : "04 KTT_11_05_2019_Gartenhaus.txt",
+                  "Text" : "KTT_11_05_2019_Gartenhaus.txt\n\nDokument Angelegt am Samstag dem 11.05.2019 Update am Samstag dem 18.05.2019\n============================================================================\n\nProjekt: Wetterstation\n\nDie Basis Station\n=================\n1. Wemos D1 Mini\n\n2. BME280, Misst Temperatur, Luftfeuchtigkeit und Luftdruck\n\n3. ST7735, Ein kleines 1,8 Zoll Farb LCD\n\n4. Ein Poti, um die Helligkeit vom LCD einstellen zu können\n\n5. Ein oder zwei Buttons um ein Farbschema auswählen zu können\n\n6. 433 MHZ Empfänger\n7. 433 MHZ Sender\n\nBenutzte Pins\n=============\nPoti\nButton 1\n\n433 MHZ Sender\n433 MHZ Emfänger \n\nSCL D1\nSDA D2\n\nTFT_CS     D8\nTFT_RST    D7                     \nTFT_DC     D6\nTFT_SCLK   D2   \nTFT_MOSI   D5  \n\nTFT_SD_CS?\n\nVariante 1, hier kann das SD Karten Modul nicht genutzt werden, weil ein PIN fehlen würde\n=========================================================================================\n\nWemos D1 mini\n=============\nA0     Poti\nD0     433 MHZ Sender\nD1     I2C SCL BME280\nD2     I2C SDA BME280 \nD3     TFT_SCLK(?, prüfen ob das geht)\nD4     433 MHZ Emfänger \nD5     TFT_MOSI\nD6     TFT_DC\nD7     TFT_RST\nD8     TFT_CS(?) \nD9(RX) Button 1, Farbschema \n\nVariante 2, reicht der Speicher Platzt und die Leistung vom atTiny?\n===================================================================\n\nWemos D1 mini\n=============\nA0 Poti\nD0 TFT_CS\nD1 I2C SCL BME280\nD2 I2C SDA BME280 \nD3 TFT_SCLK\nD4     \nD5 TFT_MOSI\nD6 TFT_DC\nD7 TFT_RST\nD8     \nD9(RX) \n\natTiny85 \n========\nD0 I2C SDA!\nD1 Button 1\nD2 I2C SCL!\nD3 433 MHZ Sender\nD4 433 MHZ Emfänger\n\nVariante 3, reicht der Speicher Platzt und die Leistung vom atTiny?\n===================================================================\nHinweis: Diese Variante probiere ich gerade aus.\n\nWemos D1 mini\n=============\nA0\nD0 TFT_CS\nD1 I2C SCL BME280, atTiny84\nD2 I2C SDA BME280, atTiny84 \nD3 TFT_SCLK\nD4 \nD5 TFT_MOSI\nD6 TFT_DC\nD7 TFT_RST\nD8  \nD9(RX) \n\natTiny84\n========\n A0 D0 Poti\n A1 D1 Button\n A2 D2 433 MHZ Sender\n A3 D3 433 MHZ Emfänger\n A4 D4 [SCK, SCL] I2C SCL, Verbindung zum ESP\n A5 D5 [Miso, PWM]\n A6 D6 [Mosi, SDA, PWM] I2C SDA, Verbindung zum ESP\n A7 D7 [PWM] TFT_LED\n    D8 [PWM]\n    D9 [XTAL 2]! \n   D10 [XTAL 1]!\n\nHinweis 1: Im gegensatzt zu variante 2, kann ich hier ein Externen Takt Geber anschließen und dafür Sorgen, dass \n           der atTiny84 in 16 mhz Modus läuft. Wenn das vom Vorteil ist\n\nHinweis 2: Reset \"Pin 4\"\n\nVariante 4, Unschön wäre hier die LCD Farb Schema Verwaltung.\n=============================================================\n\natMega328\nD2 Button 1\nD3\nD4 Soft RX\nD5 Soft TX\nD6 433 MHZ Sender\nD7 433 MHZ Emfänger\nD8\nD9 TFT_CS\nD10 TFT_RST\nD11 TFT_DC\nD12 TFT_MOSI\nD13 TFT_SCLK\n\nA0 Poti\nA1\nA2\nA3\nA4 I2C SDA für BME280\nA5 I2C SCL für BME280\nA6\n\n\nAllgemein\n=========\n\nW-Lan Funktion\n==============\n  1. Wenn es noch keine W-Lan Verbindung gibt, soll der ESP als\n     AccessPoint fungieren, um ein W-Lan auswählen zu können und um das Password eingeben zu können.\n\n  2. [Vielleicht ist der nicht Nötig] Ein Reset Button um die W-Lan Verbindung zurückzusetzten.\n\n  3. Es soll ein WebServer geben, dieser soll mehrere Funktionen haben.\n     1. W-Lan Konfiguieren.\n     2. Zeitserver abfragen, wegen Zeiträume Farbschemas und Histroy.\n     3. Daten vom Lokalen Sensor und vom Sender anzeigen.\n     4. Histroy von den Daten anzeigen.\n     5. Farbschema, verwalten.\n        1. Neu anlegen\n        2. Löschen\n        3. Bearbeiten\n        4. Auswählen\n        5. Zeiträume für ein bestimtes Thema, z.b. nachts, ein anders als Tagsüber oder so.\n     6. Daten per MQTT auf mein Root Server senden. Dort Speichern und per Grafana anzeigen. [Für eine Spätere Version?]\n    \n\nLCD\n===\n  1. Die Daten vom BME280 und die vom Sender sollen auf dem ST7735(LCD) angezeigt werden.\n\n  2. Verschiedene Farb Schemas, die über ein Button ausgewählt werden können.\n\n  3. Die Helligkeit soll über den Poti eingestellt werden können.\n\n  4. Daten auf SD Karte Speichern\n     Das LCD hat, ein SD Karten slot, vielleicht kann ich dieses Verwenden um meine Daten abzuspeichern und eine Histroy anzuzeigen im WebBrowser.\n     So, könnte Miriam die Daten regelmäßig runterladen und mir per Telegram oder E-Mail oder wie auch immer Senden.\n\n  5. Sonnen Auf und Untergang ?\n  6. Feier und Sondertage ?\n  7. Mondphasen ?\n  8. Mehrere Seiten? \n\nDer Sender\n==========\n1. atMega328\n\n2. AM2320\n\n3. 433 MHZ Empfänger\n4. 433 MHZ Sender\n\n5. 18650 Akku\n\n6. 1 oder 2 Solar Pannels, um den Akku aufzuladen\n\n==========================================="
+                },
+                {
+                  "Title" : "05 ktt_16_01_2019.txt",
+                  "Text" : "ktt_16_01_2019.txt\n\nDokument vom Mittwoch, 16.01.2019\n=================================\n\nTUSB2046B > http://www.ti.com/lit/ds/slls413l/slls413l.pdf\n  Ein 4 Port USB HUB, für eine PCB Platine.\n \ntps2044 > http://www.ti.com/lit/ds/symlink/tps2044.pdf\n  Ein Strom Wächter, schaltet je nach Platine, entweder alle USB Ports bei Überlast ab \n  oder aber nur einen bestimmten.\n\nhttps://github.com/mvp/uhubctl\n  Ein Tool, welches USB Ports abschalten kann.\n\npowertop"
+                },
+                {
+                  "Title" : "06 ktt_19_01_2019.txt",
+                  "Text" : "ktt_19_01_2019.txt\n\nDokument Angelegt am Samstag dem 19.01.2019\n===========================================\nEs geht um verschiedenes.\n\nstm32f492\n\nmcs51 \nat90 - avr\n\nmsp430 16 bit \n\nSTM32 \n\nkinetis m4\n\n\nRust\n- https://rustup.rs/\ncurl https://sh.rustup.rs -sSf | sh\n\nrustup update\nhttps://crates.io/crates/embedded-hal/reverse_dependencies?page=4"
+                },
+                {
+                  "Title" : "07 ktt_19_04_2019.txt",
+                  "Text" : "ktt_19_04_2019.txt\n\nDokument Angelegt am - Freitag, 21.04.2019 Update am Mittwoch dem 24.04.2019\n============================================================================\n\n02) 5V über ein P-Kanal Mosfet Schalten\n=======================================\nP-Kanal Mosfet kann bis 30V und 7 Ampere schalten. Minimale Spannung 3V\nhttps://www.reichelt.de/mosfet-p-ch-30v-20a-2-5w-so-8-irf-9310-p132127.html?&trstct=pos_0\n0,86€\n15 Stück bei nächster Gelgenheit bestellen.\n\n15 Stück https://www.reichelt.de/mosfet-p-ch-30v-20a-2-5w-so-8-irf-9310-p132127.html?&trstct=pos_0\nKosten 12,9€\n\nIRF 9310\n\n01) Arduino über ein Wemos D1 mini Programmieren.\n=================================================\nhttps://hackaday.io/project/13408-wifi-avr-isp-using-esp8266\nMit diesem Kommando, kann man per TCP ein HEX Datei über ein Wemos D1 mini an ein atMega328 \"senden\"... dass klappt recht gut.\n/home/pluto/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino14/bin/avrdude -C/home/pluto/.arduino15/packages/arduino/tools/avrdude/6.3.0-arduino14/etc/avrdude.conf -v -patmega328p -carduino -P net:192.168.42.184:328 -b115200 -e -Uflash:w:Blink.ino.with_bootloader.standard.hex:i\n\nHinweis: Hex Dateien immer Manuell neu erzeugen."
+                },
+                {
+                  "Title" : "08 KTT_21_05_2019.txt",
+                  "Text" : "KTT_21_05_2019.txt\n\nDokument Angelegt am: Dienstag dem 21.05.2019\n=============================================\n\nmake menuconfig\n  Kernel-Quellen Runterladen\n  Config vom Kernel prüfen\n  Wahrscheinlich, können die #defines in der Kernel Config geändert werden\n\ncsr8635\n\nSPI, Zum Debuggen\nSerial, Unklar was die kann.\nIst nicht Programmierbar, Parametersieren.\n2 Audio Ausgänge\n"
+                },
+                {
+                  "Title" : "09 ktt_26_01_2019.txt",
+                  "Text" : "ktt_26_01_2019.txt\n\nDokument Angelegt am Samstag dem 26.01.2019\n============================================\n\nFT232\nFT245\n\nFT232 RL*\n- 3 Modi\n- https://www.ebay.de/itm/FT232RL-FTDI-USB-auf-TTL-Serien-Converter-Adapter-Modul-5V-3-3V-RLD0554/142918288790?hash=item2146980596:g:mfkAAOSw5Z5bg7C7:rk:7:pf:0\n\nFT232 H\n- 1 Uart\n\nFT 2 232 H\n- 2 Uarts\n- https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT2232H.pdf \n\nFT 4 232H\n- 4 Uarts\n\nTDA7293, TDA7294 und TDA7295 Audio Verstärker\n\nTPS20XXP 41/52/...\ntps2044\n\nBus Blaster V2.5"
+                },
+                {
+                  "Title" : "10 KTT_28_05_2019.txt",
+                  "Text" : "KTT_28_05_2019.txt\n\nDokument Angelegt am 28.05.2019\n===============================\n\nProjekt bis zu den Sommerferien.\n\nSD-Karten Slot\n\nBME280, Temperatur, Luftdruck, Luftfeuchtigkeit\nBMP180, Temperatur, Luftdruck\n\nGPS-Modul\n  Flugmodus GPS Modul, Aktivieren. \n  Lenge, Breite, Höhe, Zeit\n\nGUV12 UV Sensor, geplant\n\nCVS: Trenner lieber Semikloen nehmen.\nJetzt wird ein Arduino Uno verwendet.\n\nArduino Mega(atMega2560) mitnehmen, der hat einfach mehr Flash und Ram, als ein atMega328."
+                },
+                {
+                  "Title" : "11 KTT_28_05_2019_Ablage.txt",
+                  "Text" : "Dokument Angelegt am 28.05.2019\n===============================\n\nCoder-Dojo\nRoot Password Dell Rechner\nBenutzer=robotik\nPassword=peterpan"
+                },
+                {
+                  "Title" : "12 KTT_433_09_02_2019.txt",
+                  "Text" : "KTT_433_09_02_2019.txt\n\nDokument Angelegt am: Samstag dem 09.02.2019 Update: Dienstag, 19.02.2019\n=========================================================================\n\nTeil 1: 433 mhz, Funksteckdose Unitec\n-------------------------------------\n\nReceived 4106412 / 24bit Protocol: 3 0b 0011 1110 1010 1000 1010 1100 0x3EA8AC\n\nReceived 3830380 / 24bit Protocol: 3 0b 0011 1010 0111 0010 0110 1100 0x3a726c\n\nReceived 3661596 / 24bit Protocol: 3 0b 0011 0111 1101 1111 0001 1100 0x37df1c\n\nReceived 3522140 / 24bit Protocol: 3 0b 0011 0101 1011 1110 0101 1100 0x35be5c\n\n9600 Baud 10 bit pro Zeichen 9600 Bit pro Sekunde 960 Sekunde\nPro Zeichen etwa 1 MS\n\n115200 Baud 10 bit pro Zeichen 115200 pro\n\n  ON          OFF\n1 4106412  A  1 4000188\n2 3830380  A  2 3173500\n3 3661596  A  3 3752917\n4 3522140  A  4 3554807\n\nTeil2: FT23, Uarts\n------------------\n\nFT2323 B\nFT2323 C\nFT2323 D\nFT2323 H\n\nFT4232 H\nFT232 H\n\nBus Blaster V2.5 - Besonderheit: Simurliert ...\n------------------------------------------------\n- Konnte ich bei Ebay nicht finden\n- Aber bei Amazon:\n\n1) seeedstudio-Bus Blaster v4\n   https://www.amazon.de/SeeedStudio-102990000-seeedstudio-Bus-Blaster-v4/dp/B072SWH63X/ref=sr_1_3?ie=UTF8&qid=1549811840&sr=8-3&keywords=%22Bus+Blaster%22\n   Preis: 91,40€\n\n2) Bus Blaster v3\n   https://www.amazon.de/SeeedStudio-102990047-Bus-Blaster-v3/dp/B078YKSB8D/ref=sr_1_5?ie=UTF8&qid=1549811840&sr=8-5&keywords=%22Bus+Blaster%22\n   Preis: 49,99€\n\n3) Bus Blaster v2 JTAG debugger\n   https://www.seeedstudio.com/Bus-Blaster-v2-JTAG-debugger-p-807.html\n   Preis: 34,95$\n\nFT232 RL - Besonderheit: Es gibt ein Jumper um zwischen 5V und 3V zu wechslen. \nEs gibt außerdem, Stiftleisten, die ist Prima für Lochraster Platinen geeignet. \n-----------------------------------------------------------------------------------\n\n1) FT232RL FTDI USB auf TTL Serien Converter Adapter Modul 5V 3.3V RLD0554\n   https://www.ebay.de/itm/FT232RL-FTDI-USB-auf-TTL-Serien-Converter-Adapter-Modul-5V-3-3V-RLD0554/142918288790?hash=item2146980596:g:mfkAAOSw5Z5bg7C7:rk:7:pf:0\n   Preis: 1,69€\n   Versand: - \n   Menge1:  5 * 1.69 =  8,45€\n   Menge2: 10 * 1.69 = 16,9€\n\n02) DaoRier FT232RL USB zu TTL Serial 3.3V 5V Mini Pro Serien Converter Adapter Modul für Arduino, 5 Stück\n    https://www.amazon.de/DaoRier-FT232RL-Converter-Adapter-Arduino-Rot/dp/B071CVRLYQ/ref=sr_1_40?ie=UTF8&qid=1549815003&sr=8-40&keywords=FT232RL\n    Versand: 1€\n    Preis: 12,94€ (13,94(mit Versand) / 2,7€)\n\n\nFT2232H Breakout Board V1.0 - Besonderheit: \nEs gibt ein oder mehere \"Uarts\" über ein USB Anschluss.\n------------------------------------------------\n\n1) Adafruit FT232H Breakout - General Purpose USB to GPIO+SPI+I2C \n   https://www.ebay.de/itm/Adafruit-FT232H-Breakout-General-Purpose-USB-to-GPIO-SPI-I2C/272373316304?epid=15003077516&hash=item3f6ab6fad0:g:pb8AAOSwfsdcF2ks:rk:1:pf:0\n   Preis 18,17€\n\n2) FT2232HL High Speed Data Acquisition FT2232H Core Board USB2.0 Development Board\n   https://www.ebay.de/itm/FT2232HL-High-Speed-Data-Acquisition-FT2232H-Core-Board-USB2-0-Development-Board/263756977759?hash=item3d6924165f:g:icUAAOSwStdbIi3L:rk:2:pf:0\n   Preis 13,29€\n\n3) NGW-1pc FT2232H USB 2.0 Hi-Speed breakout board\n   https://www.amazon.de/NGW-1pc-FT2232H-Hi-Speed-breakout-board/dp/B07CG7S355/ref=sr_1_1?ie=UTF8&qid=1549812041&sr=8-1&keywords=FT2232H+Breakout+Board\n   Preis: 66,99€\n\n4) Seeedstudio FT2232H USB 2.0 Hi-Speed breakout board\n   https://www.amazon.de/Seeedstudio-FT2232H-Hi-Speed-breakout-board/dp/B017KCJW1S/ref=sr_1_2?ie=UTF8&qid=1549812041&sr=8-2&keywords=FT2232H+Breakout+Board\n   Preis: 79,99€\n\n5) GailMontan CJMCU-2232 FT2232 HL USB zu UART FIFO SPI I2C JTAG RS232-Modul FT2232HL N9P6 - Weinrot\n   https://www.amazon.de/GailMontan-CJMCU-2232-FT2232-RS232-Modul-FT2232HL/dp/B07MKQRRFW/ref=sr_1_7?ie=UTF8&qid=1549812130&sr=8-7&keywords=FT2232H\n   Preis: 11,44€\n\n\nD-Link Porgrammer\nBegriff: ST-Link V2 STM32\nST-Link V2 STM32 Downloader Programmierung STM8 Unit Emulator Mini HOT AIP\nhttps://www.ebay.de/itm/ST-Link-V2-STM32-Downloader-Programmierung-STM8-Unit-Emulator-Mini-HOT-AIP/142642289673?hash=item2136249c09:g:mwsAAOSw5SZZktyE:rk:4:pf:1&frcectupt=true\n2,30€\n\nEbay Bestellung:\n  10 Stück https://www.ebay.de/itm/FT232RL-FTDI-USB-auf-TTL-Serien-Converter-Adapter-Modul-5V-3-3V-RLD0554/142918288790?hash=item2146980596:g:mfkAAOSw5Z5bg7C7:rk:7:pf:0\n   4 Stück https://www.ebay.de/itm/ST-Link-V2-STM32-Downloader-Programmierung-STM8-Unit-Emulator-Mini-HOT-AIP/142642289673?hash=item2136249c09:g:mwsAAOSw5SZZktyE:rk:4:pf:1&frcectupt=true"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Title" : "01 18650_battery_shild_v3.txt",
+          "Text" : "18650_battery_shild_v3.txt\n\nDokument angelegt am Mittwoch dem 26.09.2018 geändert am Samstag den 29.09.2018\n\nNotzien:\n- Schalter an Board schaltet \"nur\" USB aus, nicht die Spannungsregler\n- Geladen wird offenbar mit 500mA, welche aber regelmäßig runtergeht\n- Der Unterschied zwischen TC4056 und TP4056 ist, dass der TC älter ist. \n- Es scheint hier keine Memory Funktion zu geben, was das Laden und Entladen angeht.\n\n- Einen Raspberry PI damit zu betreiben, ist keine gute Idee, da dieser ungefähr 500 ma benötigt.\n  Das Shild aber nur mit 500mA geladen wird.... Als\n  \n- Der Ladestrom kann über ein \"Widerstand\" eingestellt werden, wenn man ihn austauschen würde.\n\n- Im Interneth heißt es, dass es keine 3,3 Volt sind sondern 3 Volt was drauf steht, ich konnte 3,3 Volt messen.\n\n- Der 5V Regler(FP6298) scheint auch kein guter zu sein.\n  \n\n\n18650 Battery shild V3\nBecareful + and -\n\nU1) \n\nU2) Standalone LI-Ion Battery Charger    \n    TC 4056A /TP 4056A\n    https://www.allelectronics.com/item/bc-4056/lithium-battery-charging-module/1.html\n    https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/BC-4056.pdf\n    \n    https://secondlifestorage.com/t-TC4056A-charger-modules?pid=29517\n    \n    510 Ohm = 105\n  \n    R1 R40\n    R2 30B - 2 K-OHM\n    R3 01B - 1 K-OHM\n    R4 01B\n    \n    http://jimlaurwilliams.org/wordpress/?p=4731\n    \n    \nU3)\n\nU4) 662K U5) 662K U6) 662K\n  XC6206P332MR\n  SMD SOT-23 XC6206P332MR (662K) 3.3V/0.5A regulator chip ( 20 )\n  Fixed LDO Voltage Regulator, 1.8V to 6V, 250mV Dropout, 3.3Vout, 200mAout, SOT-23-3\n  sunrom-899400.pdf\n  \nU7) 5V Spannungsregler FP6298\n    2,6V bis 5,5V\n\nU8) DW01a - Battery Protection IC \n  http://hmsemi.com/downfile/DW01A.PDF\n  \n\nU9) N-Channel MOSFET \n    8205A S3NO2725\n    https://www.maritex.com.pl/product/attachment/91261/8205A.pdf\n\n  \nS1 SS14 SS14 ON SEMICONDUCTOR, Schottky-Gleichrichterdiode, 40 V, 1 As \n\nS2 SS24 und S4 SS24\nSurface Mount Schottky Power Rectifier(Gleichrichter)\n\nNotiz\n  Laderegler TP4056\n  5 Volt > 4A \n  3,3 Volt > 1 A\n  Komischen verhalten beobachtet:\n    Angeschlossender Verbraucher geht Irgendwan aus und dann gleich wieder an.\n    Die Spannung am Akku, lag unter 2,8 Volt, als der Verbraucher an war und \n    als der verbraucher aus war, lag sie wieder knapp über 3,0 volt und als ich eine weile \n    gewartet hatte lag die Spannung sogar bei 3,2 oder so Volt. \n    Frage: Liegt das jetzt daran, dass sich der Akku erwähmt und dann wieder abkühlt?\n  \nLinks\n  https://forum.fhem.de/index.php?topic=87109.0\n  https://www.knivesandtools.de/de/ct/ausdauertest-18650-akkus-und-cr123a-batterien.htm\n\n  \nWeitere Ideen zum \"Selbst Bauen\"\n  http://www.techcodesemi.com/products_info.asp?pid=45\n  \n  TD6810\n    Arbeitet zwischen Input 2,5 Volt bis 5,5 volt \n    Ausgang ist \"unklar\".\n    \n    ADUM1201\n    \n    \n    https://www.mikrocontroller.net/topic/429500 \n    \n    https://community.openenergymonitor.org/t/diy-lithium-battery-balancer-and-monitoring-bms/5594/403\n    https://github.com/stuartpittaway/diyBMS    \n\nWeitere Links\n  http://www.ti.com/lit/ds/symlink/tps61032.pdf\n  https://www.mouser.de/datasheet/2/609/405642f-1271152.pdf\n  http://henrysbench.capnfatz.com/henrys-bench/arduino-projects-tips-and-more/arduino-18650-battery-charger-project-1/\n\n  https://electronics.stackexchange.com/questions/298453/understanding-lipo-charging-protection-circuit\n  \n  https://www.ebay.de/itm/SX1308-Step-Up-Booster-Converter-Spannungsregler-Wandler-DC-DC-2-24V-2-28V/162475858855?_trkparms=aid%3D555017%26algo%3DPL.CASSINI%26ao%3D1%26asc%3D20161121134654%26meid%3D887ea65b1bb7458cad08ee87baf19f29%26pid%3D100506%26rk%3D1%26rkt%3D1%26%26itm%3D162475858855&_trksid=p2045573.c100506.m3226\n  \n\n  \n\nMT3608\n  Modell MT3608\n  Eingangsspannung 2V-24V\n  Ausgangsspannung 5V-28V\n  Ausgangsstrom max. 2A (ab 1A nur mit Kühlkörper betreiben!)\n  Betriebstemperatur -45°C ~ +85°C\n  Wirkungsgrad < 93%\n  Taktfrequenz 1,2 MHz\n  Ausgangswelligkeit < 100mV\n  Leistungsregelung ± 0,5%\n  Spannungsregelung ± 0,5%\n  Abmessungen ca. 37,2 x 17,2 x 7mm\n  Preis: 5,60 EUR\n  Links:\n  https://www.ebay.de/itm/5x-MT3608-max-2A-DC-DC-Step-Up-Spannungs-Wandler-Aufwarts-Arduino-Raspberry/273140148019?hash=item3f986be733:g:yRsAAOSw8CZa1zHA  \n\n  Preis 3,92€ 5 Stück\n  https://www.amazon.de/Demiawaking-MT3608-Booster-Module-Arduino/dp/B071211DHZ/ref=sr_1_3?ie=UTF8&qid=1538322172&sr=8-3&keywords=MT3608\n\nSX1308\nFeatures:\n  Oscillation frequency 1.2MHz\n  efficiency is as high as 95%\n  Circuit has short circuit protection, overheating protection function\n  10k to adjust potentiometer, adjust the output voltage\n \nParameters:\n  Maximum input voltage: DC 2-24V\n  Maximum output voltage: DC 2-28V\n  Switching frequency: 1.2MHz\n  Maximum current output: 2A\n  Preis: 3,08€ für 5x\n\nLinks:\n  https://www.ebay.de/itm/5x-DC-DC-SX1308-Spannungsregler-Step-Up-Power-Supply-Module-Netzteil-Adjustable/232480005625?hash=item3620e35df9:g:eXsAAOSwU1hbilbL  \n\n  Preis pro Stück. 0,99€\n  https://www.amazon.de/Providethebest-Boost-Spannung-DC-DC-Stromversorgungsmodul-Umrichterregler-%C3%9Cberhitzungsschutz-Blau/dp/B07HFVTQF5/ref=sr_1_39?ie=UTF8&qid=1538323123&sr=8-39&keywords=SX1308\n\nKeine Verstellbaren 5V Regler\n  1/2/5/10 Step Up Wandler Boost Modul DC-DC Stepup Spannungsregler 1-5V 500mA\n    1.Input voltage: 1V~5V \n    2.Output voltage: 5V \n    3.Output Current: 500mA \n    4.PCB size: 17.55mm*25.22mm*5.85 mm \n    5.En bloc Size: 17.55*32.53*8.3mm\n\n    Link: https://www.ebay.de/itm/1-2-5-10-Step-Up-Wandler-Boost-Modul-DC-DC-Stepup-Spannungsregler-1-5V-500mA/272420372127?hash=item3f6d84fe9f:m:mhlYwi3535Sf8G28_xDQkCA\n    Preis: 4,15€ 10 Stück \n\n  2-5V-15V-to-5V-Step-Up-Down-Power-Voltage-Convert-Automatic-Buck-Boost-Module\n\n    Input voltage: 2.5 v-15 v\n    Output voltage: 5v \n    Output current: 0.6A\n    Conversion efficiency: 75%\n    Output ripple: <50mV\n    Output accuracy: + -0.1 v\n    Working temperature: -20- + 85 centigrade\n    Relative humidity: 20-90%\n    Size: 19 * 14 * 4mm\n    Pcb thickness: 1.2mm\n    PCB layers: 2 layers\n    Power control: with cut off\n    Cooling method: cooling nature\n    Installation method: SMD or 2.54mm pin\n    Production process: reflow\n    Isolated: no\n    Design aging standards: 720 hours without problems\n    Production factory aging standards: 48 hours\n    Lifetime: 35000 hours without problems\n    Factory inspection standards 3 times: all (factory / aging / out of library test)\n    Fixed switching frequency: 1200 khz  \n\n    Link: https://www.ebay.de/itm/2-5V-15V-to-5V-Step-Up-Down-Power-Voltage-Convert-Automatic-Buck-Boost-Module/263893187567?hash=item3d71427bef:g:0lIAAOSwfBFbfSvY\n    Preis: 1€ Pro Stück \n"
+        },
+        {
+          "Title" : "02 ackbd.txt",
+          "Text" : "ackbd.txt\n\nDokument Angelegt am Donnerstag dem 11.04.2019\n==============================================\nhttp://users.softlab.ntua.gr/~thkala/projects/actkbd/\n\nStartet das Programm als Dienst\nsudo ./actkbd -d /dev/input/event2 -D\n\nZeigt die getrückte Taste an \nsudo ./actkbd -d /dev/input/event2 --showexec --showkey\n\n            atTiny85    atTiny167\nFlash       8 KB        16 KB\nRam         512 B   512 Byte\nEEProm      256 byte    512 Byte\nPin Count   8           20\n\nDigispark(ATtINY85)\n\nDigispark pro(ATtINY167)\n\n\n\n\nhttps://killerwal.com/tabelle-alle-atmel-avr-mikroprozessoren-im-uberblick/\n"
+        },
+        {
+          "Title" : "03 Arduino_Kerzenlicht.txt",
+          "Text" : "Arduino_Kerzenlicht.txt\n\nDokument Angelegt am: 18.11.2018\n\nhttps://www.kreativekiste.de/kerzenlicht-feuerschein-arduino-simulation\n\nhttps://draeger-it.blog/sainsmart-lektion2-led-mit-fadeeffekt/\n\n\nSehr viele Songs zum teil auch für die Tone lib für arduino \nhttp://www.picaxe.com/RTTTL-Ringtones-for-Tune-Command/\n\n\nEin recht gutes Beispiel für Kerzen Geflackere, aber recht weit unten.\nhttp://forum.arduino.cc/index.php?topic=7115.0\n\n\nSchein ein beispiel für LED-Module zu sein(WS2812B)\nhttps://www.hackster.io/laserbrain/arduino-controlled-artificial-candle-lights-65a46d\n\n\nDas Beispiel ist zwar gar nicht Formatiert und es ist eigentlich zu schnell, erzeugt aber einen schönen Effekt, hat aber \nmit einer Kerze wenig Gemeinsam\nhttps://www.codrey.com/arduino-projects/usb-xmas-candle/\n\nhttp://www.codingmama.io/tutorials/how-to-build-a-candle-light-led-lamp-flame-effect"
+        },
+        {
+          "Title" : "04 ArduinoNotizen.txt",
+          "Text" : "ArduinoNotizen.txt\n\n01) Eintrag 10.03.2019\n======================\n\nMD_MAXPanel\nMD_MAX72xx\n\nArchiv\n====================\n\nFuses setzten, bei einem atmega328p\navrdude -C /home/pluto/myApps/arduino-1.9.0/arduino-PR-beta1.9-BUILD-10/hardware/tools/avr/etc/avrdude.conf -cstk500v1 -p m328p  -P atmega328p -P /dev/ttyACM0 -b 19200 -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m\n\nFuses auslesen, bei einem atmega328p\navrdude -C /home/pluto/myApps/arduino-1.9.0/arduino-PR-beta1.9-BUILD-10/hardware/tools/avr/etc/avrdude.conf -cstk500v1 -p m328p  -P atmega328p -P /dev/ttyACM0 -b 19200 \n\nScheint ein gutes Beispiel/Lib zu sein für ein Seriell Protokoll\n  https://github.com/scogswell/ArduinoSerialCommand\n\nhttps://www.amazon.de/Adafruit-Music-Maker-FeatherWing-Player/dp/B01MT35K52/ref=sr_1_1?ie=UTF8&qid=1489749923&sr=8-1&keywords=Music+Maker+FeatherWing\n\n\nhttps://www.heise.de/developer/artikel/Auf-Kommando-3361570.html\nhttps://github.com/sudar/Arduino-Makefile\n\nEine Konsole für Arduino\nhttp://blog.wenzlaff.de/?tag=kommandozeile\n\nhttp://stackoverflow.com/questions/8189306/command-line-arduino-compiling-and-downloading\nhttps://andino.systems/arduino-mit-dem-raspberry-programmieren/\n\n\nhttp://www.arduinoclub.de/2013/12/01/arduino-avrdude-cmd-und-hex-dateien/\n\nhttps://code-bude.net/2014/05/02/anleitung-sublimetext-mit-stino-als-arduino-ide-konfigurieren/"
+        },
+        {
+          "Title" : "05 Audio_Cd_Amazon.txt",
+          "Text" : "05 Audio_Cd_Amazon.txt\n\nDokument Angelegt am Montag dem 28.01.2019\n=========================================\n\n[Gekauft] https://www.amazon.de/Mysteria-Wallet-Box-Various/dp/B000AAP7GW/ref=sr_1_13?ie=UTF8&qid=1548706060&sr=8-13&keywords=instrumentale+musik+techno+cd\n[Gekauft] https://www.amazon.de/Equinoxe-Jean-Michel-Jarre/dp/B00HO0750C/ref=pd_sbs_15_9?_encoding=UTF8&pd_rd_i=B00HO0750C&pd_rd_r=8db71fe2-2338-11e9-a615-a37df77ba4ec&pd_rd_w=oPqw3&pd_rd_wg=mx7St&pf_rd_p=823c2db5-0a4d-474e-99ed-5858cc6a4d7b&pf_rd_r=RP730X4AF5G8W3TG28PX&psc=1&refRID=RP730X4AF5G8W3TG28PX\n[Gekauft] https://www.amazon.de/Symphoniacs/dp/B01MDJOZVD/ref=sr_1_1?ie=UTF8&qid=1548707370&sr=8-1&keywords=audio+cd+instrumental+techno\n\n\nhttps://www.amazon.de/gp/product/B01BTZORSA/ref=ox_sc_act_title_1?smid=A3JWKAKR8XB7XF&psc=1\nhttps://www.amazon.de/dp/B007TXRDPG/ref=pd_mp3_als_qp_pa\n\nhttps://www.amazon.de/2001-Instrumental-Dr-Dre/dp/B003SASJOI/ref=sr_1_6?ie=UTF8&qid=1548707201&sr=8-6&keywords=audio+cd+instrumental\n\n\nhttps://www.amazon.de/Sacred-Earth-Drums-David-Gordon/dp/B002NT2ME8/ref=sr_1_14?ie=UTF8&qid=1548707540&sr=8-14&keywords=audio+cd+instrumental+trommel\nhttps://www.amazon.de/Planet-Jarre-Deluxe-Version-Jean-Michel/dp/B07DV93GXV/ref=pd_bxgy_15_3?_encoding=UTF8&pd_rd_i=B07DV93GXV&pd_rd_r=66df94df-2338-11e9-9887-33637c246e5e&pd_rd_w=XUuan&pd_rd_wg=OdrF2&pf_rd_p=c63cca93-7a15-40dd-b68a-47167d2b2080&pf_rd_r=MYYCG3Q0T4GDEMG35B7X&psc=1&refRID=MYYCG3Q0T4GDEMG35B7X\nhttps://www.amazon.de/Shaman-Drums-James-Asher/dp/B00H3JHN3I/ref=sr_1_10?ie=UTF8&qid=1548707540&sr=8-10&keywords=audio+cd+instrumental+trommel\n"
+        },
+        {
+          "Title" : "06 BallonFahrt.txt",
+          "Text" : "BallonFahrt.txt\n\nDokument Angelegt am Freitag den 14.09.2018 Update am Sonntag dem 19.05.2019\n============================================================================\n\nWasserträumer Wasserbetten & Ballonfahrten\n******************************************\n  https://www.wassertraeumer.de/\n\n  Emsteker Straße 7a, 49661 Cloppenburg      \n  Tel: 04471 899091  \n  \n  Mobil: 0179 7830728\n\n---------------------------------\n\nFragen: \n- Findet die Ballon fahrt Statt?\n- Wenn ja: Wo und wann?\n\nNächste Termine, immer gegen Mittag anrufen\n\n  Treffen Beten beim Sportplatz \n  Betherfeldkamp \n  19:00\n\nNotzien\n=======\n- Meine Handynummer: 49 15112970688\n- Hausanschluss: 0441/608246"
+        },
+        {
+          "Title" : "07 Chefkoch_rezeptlinks.txt",
+          "Text" : "Chefkoch_rezeptlinks.txt\n\nBrote\n  1-Stunden-Brot\n  https://www.chefkoch.de/rezepte/3466911516524727/1-Stunden-Brot.html  \n  \n  Zwiebel-Käse-Schinken-Brot\n  https://www.chefkoch.de/rezepte/185511079703831/Zwiebel-Kaese-Schinken-Brot.html\n\n  Einfaches Brot\n  https://www.chefkoch.de/rezepte/305421110830687/Einfaches-Brot.html\n\n  Brot mit Grieß und einem feinen Olivenölgeschmack\n  https://www.chefkoch.de/rezepte/1446781249569537/Brot-mit-Griess-und-einem-feinen-Olivenoelgeschmack.html\n\nZwicbelkuchen  \n  Einfacher Zwiebelkuchen\n  https://www.chefkoch.de/rezepte/1716851280413039/Einfacher-Zwiebelkuchen.html\n  \n  Zwiebelkuchen\n  https://www.chefkoch.de/rezepte/50051017420725/Zwiebelkuchen.html\n\n  Zwiebelkuchen mit Fetakäse\n  https://www.chefkoch.de/rezepte/2517051394869958/Zwiebelkuchen-mit-Fetakaese.html  \n  \nSonstiges\n  https://www.chefkoch.de/rezepte/2655551416995454/Mini-Focaccia-mit-Ziegenkaese-Rosmarin-und-Kartoffeln.html\n  \n  \nKuchen\n  https://www.chefkoch.de/rezepte/1636221271178593/Ultra-saftiger-Apfelkuchen-mit-Streuseln.html\n\n  \nhttps://www.chefkoch.de/rezepte/1363531241176299/Herzhaft-gefuellte-Pfannkuchen.html\nhttps://www.chefkoch.de/rezepte/1199231225802393/Deftig-gefuellte-Pfannkuchen-in-3-Variationen.html?portionen=6\nhttps://www.chefkoch.de/rezepte/2683021420902347/Pikante-Pfannkuchen-mit-Schinken-und-Kaese.html\nhttps://www.chefkoch.de/rezepte/532301150094167/Pfannkuchen-mit-Zwiebel-Schinken-Fuellung.html  \n\nMohnkuchen\n  https://www.chefkoch.de/rezepte/1071541212751080/Mohnkuchen-mit-Schmand-und-Vanillepudding.html\n  Mohnkuchen mit Schmand und Vanillepudding\n  \n  https://www.chefkoch.de/rezepte/3111081464029434/Schneller-Mohnkuchen-mit-Streuseln.html\n  Schneller Mohnkuchen mit Streuseln\n  \n\nMittagessen\n  https://www.chefkoch.de/rezepte/2745561426617913/Eier-Speck-Nudelpfanne.html\n  \n  https://www.chefkoch.de/rezepte/716331174378295/Italienischer-Pizzateig.html\n\n  \nBienenstich\n  Ultimativer Bienenstich\n  https://www.chefkoch.de/rezepte/420331132679335/Ultimativer-Bienenstich.html\n\n  Bienenstich mit Orangen und Schokocreme\n  https://www.chefkoch.de/rezepte/1602911267526955/Bienenstich-mit-Orangen-und-Schokocreme.html\n\n  Bienenstich mit Kokos und Kokoscreme  \n  https://www.chefkoch.de/rezepte/1473551252331855/Bienenstich-mit-Kokos-und-Kokoscreme.html  \n \n  Bienenstich - Zopf \n  https://www.chefkoch.de/rezepte/706051173195216/Bienenstich-Zopf.html"
+        },
+        {
+          "Title" : "08 Datenbanken_bäume.txt",
+          "Text" : "Datenbanken_bäume.txt\n\n[Ebene 1] - Vorbereitungen\n\nLebensmittel\n    Obst\n        Apfel\n        Bananen\n        Birnen\n        Kirschen\n        Kiwi\n        Ananans\n        Orangen\n        Zitronen\n    Gemüse\n        Gurke\n        Tomate\n        Kartoffel\n        Möhren\n        Zwiebeln\n        Steckrüben\n        Bohnen\n        Sellerie\n        Porre\n    Getränke\n        Orangen-Saft\n        Apfel-Saft\n        Wasser\n    Milchproduke\n        Jorgut        \n        Quark\n        Butter\n    Süßigkeiten\n        Gumitiere\n        Schokolade\n        Keckse\n        Chips\nHaushaltartikel\n    Küchenrollen\n    Schelmesser\n    Tomatenmesser\n    Brotmesser\n    Brett\n    Becher\n    Tassen\n    Untertasen\n    Gläser\nKleidung\n    Hosen\n    Jacken\n    Socken\n\n[Ebene 2] - Verzeichnisstruktur\nLebensmittel -> ID = B\n    Obst-> B_1\n    Gemüse -> B_2\n    Getränke -> B_3\n    Milchproduke -> B_4\n    Süßigkeiten -> B_5\nHaushaltartikel -> ID = C\nKleidung -> ID = D\n\n[Ebene 3] - Einträge \nApfel -> ParentID = B_1\nBananen -> ParentID = B_1\nBirnen -> ParentID = B_1\nKirschen -> ParentID = B_1\nKiwi -> ParentID = B_1\nAnanans -> ParentID = B_1\nOrangen -> ParentID = B_1\nZitronen -> ParentID = B_2\nGurke -> ParentID = B_2\nTomate -> ParentID = B_2\nKartoffel -> ParentID = B_2\nMöhren -> ParentID = B_2\nZwiebeln -> ParentID = B_2\nSteckrüben -> ParentID = B_2\nBohnen -> ParentID = B_2\nSellerie -> ParentID = B_2\nPorre -> ParentID = B_2\nOrangen-Saft -> ParentID = B_3\nApfel-Saft -> ParentID = B_3\nWasser -> ParentID = B_3\nJorgut -> ParentID = B_4\nQuark -> ParentID = B_4\nButter -> ParentID = B_4\nGumitiere -> ParentID = B_5\nSchokolade -> ParentID = B_5\nKeckse -> ParentID = B_5\nChips -> ParentID = B_5\nKüchenrollen -> ParentID = C\nSchelmesser -> ParentID =  C\nTomatenmesser -> ParentID =  C\nBrotmesser -> ParentID =  C\nBrett -> ParentID =  C\nBecher -> ParentID = C\nTassen -> ParentID = C\nUntertasen -> ParentID =  C\nGläser -> ParentID =  C\nHosen -> ParentID = D\nJacken -> ParentID = D\nSocken -> ParentID = D\n\n\nNotzien: Jede Ebene in der Verzeichnisstruktur muss eine eindeutige \"ID\" haben. \nDiese ID darf nicht nur Pro Ebene, nur einmal vorkommen sondern in der Kompleten Verzeichnisstruktur.\nAlle direkten Unterebenen, könnten auf dieseweise aufgelistet werden:\nID_Index"
+        },
+        {
+          "Title" : "09 SDR.txt",
+          "Text" : "SDR.txt\n\nBeschreibt sehr gut, wie man SDR Einsetzten kann um die Protokolle von Funk Wetter Sensoren auszulesen\n  https://www.kompf.de/weather/rtlsdrsensor.html\n\nhttps://alexbloggt.com/funkthermometer-sdr/\n  \nhttp://www.linux-magazin.de/ausgaben/2014/01/software-defined-radio/\n  \nR820t2\n\nhttps://www.amazon.de/NooElec-NESDR-SMArt-B%C3%BCndel-Aluminiumgeh%C3%A4use/dp/B01GDN1T4S/ref=sr_1_2?ie=UTF8&qid=1517698396&sr=8-2&keywords=R820T2  \n\nhttp://www.wetterstationen.info/forum/gewitterortung-co/noaa-satelliten-mit-dvb-t-stick-empfangen/\n\nSat Bilder\n  http://www.wetterstation-hohenwalde.info/ \n\n\nhttps://www.hamspirit.de/6557/wie-du-die-signale-einer-funkwetterstation-mit-einem-dvb-t-stick-dekodierst/\n\nhttp://www.richy-schley.de/pages/funk-kommunikation/sdr-funkscanner-mit-dvb-t-stick-fuer-20-euro.php\n\n\nTitle   WINGONEER Digitale USB 2.0 DVB-T SDR+DAB+FM HDTV TV Fernsehtuner Empfänger Stick RTL2832U+R820T2 Unterstützung Windows 2000/XP/Vista/Win7\nLink    https://www.amazon.de/gp/product/B01A52IQX0/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1\nPreis   12,99\n\n\nTitle   NooElec NESDR SMArt Bündel - Premium RTL-SDR mit Aluminiumgehäuse, 0,5PPM TCXO, SMA Input & 3 Antennen. RTL2832U & R820T2-basierte Software Defined Radio\nLink    https://www.amazon.de/gp/product/B01GDN1T4S/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1\nPreis   31,50\n\nAnmerkung [Mittwoch den 07.02.2018]\n        Ist leider Defekt angekommen. Von Linux wird er nur hin und wieder erkannt.\n        Wird zurück gesendet\n        \n        \n        \nhttps://raw.githubusercontent.com/james-fry/hassio-addons/master/rtl4332mqtt/rtl2mqtt.sh        \n\nhttps://blog.heimetli.ch/arduino-temperature-decoder.html"
+        },
+        {
+          "Title" : "10 STM32Infos.txt",
+          "Text" : "STM32Infos.txt\n\n03) Eintrag vom Sonntag dem 26.08.2018 Update am - -\n============================================================================\nLinks\n  http://www.stm32duino.com/viewtopic.php?f=41&t=2070&start=20\n  -fno-threadsafe-statics in der Plattform.txt hinzufügen bei compiler.cpp.flags Vermutlich reduziert das die Prorgamm größe.\n\nhttps://forum.arduino.cc/index.php?topic=112878.0\n\n\n02) Eintrag vom Donnerstag dem 23.08.2018 Update am - Samstag dem 25.08.2018\n============================================================================\n\nHinweise \n********\n01) Error opening serial port '/dev/ttyACM0'. (Port busy)\n\n    https://wiki.stm32duino.com/index.php?title=Installation_on_Linux\n\n    /etc/udev/rules.d/45-maple.rules\n    ATTRS{idVendor}==\"1eaf\", ATTRS{idProduct}==\"0004\", ENV{ID_MM_DEVICE_IGNORE}=\"1\"\n    ATTRS{idVendor}==\"1eaf\", ATTRS{idProduct}==\"0004\", ENV{MTP_NO_PROBE}=\"1\"\n    SUBSYSTEMS==\"usb\", ATTRS{idVendor}==\"1eaf\", ATTRS{idProduct}==\"0004\", MODE:=\"0664\"\n    KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"1eaf\", ATTRS{idProduct}==\"0004\", MODE:=\"0664\"\n   \n02) Autoreset\n\n    https://github.com/rogerclarkmelbourne/Arduino_STM32/blob/master/STM32F1/boards.txt\n    Notiz usbID überall anpassen.\n    \n    Und den Wiederstand R10 auf den STMF103 ändern, sonst klappt das Auto Reset nicht.\n    \n    Ob das wirklich gemacht werden, muss ist so eine frage.... Beim Laptop klappt es auch ohne,\n    beim PC leider nicht.\n\n    \n03) sm32/STM32F1/platform.txt ob nun Linux, Linux64 oder was auch immer verwendet w ird\n\n04) install.sh in linux64/ ausführen\n       \n=====================================================================================\n01) Eintrag vom Samstag dem 11.08.2018 update am Mittwoch, 15.08.2018 aus KTT Notzien\n=====================================================================================\n\nNotzien\n  https://crates.io/crates/f3\n  st7920\n\nSTM32F303 Discovery\n*******************\n  ST MEMS E-compass (ST MEMS LSM303DLHC)\n  ST MEMS Gyroscope (ST MEMS L3GD20)\n\nRust Umgebung Installieren\n**************************\n  - curl https://sh.rustup.rs -sSf | sh\n  - . ~/.cargo/env\n  - rustup install nightly\n  - rustup target install thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf\n  - sudo apt-get install gcc-arm-none-eabi\n\n  - https://github.com/texane/stlink \n    stlink als Nutzer Installieren\n  - rm -r debian/stlink-gui*\n  - sudo apt-get install cmake debhelper\n  - make clean make install\n  - fakeroot debian/rules binary\n  - sudo dpkg -i ../libstlink1_1.5.0_amd64.deb ../stlink-tools_1.5.0_amd64.deb  \n\nCargo Projekte kopieren\n***********************\n- .cargo kopieren\n- Außer Target Verzeichnis alles\n\nUm mit Cargo Arbeiten zu können zuerst\n**************************************\n- . ~/.cargo/env  \n- rustup override set nightly\n\nHinweise\n********\n\n01) memory.x erstellt mit foglendem inhalt\nMEMORY\n{\n  FLASH : ORIGIN = 0x08000000, LENGTH = 256K\n  RAM : ORIGIN = 0x20000000, LENGTH = 40K\n}\n\n02) Die Datei Cargo.toml mit kopieren wegen den Abhänigkeiten\n\n03) Kompilieren mit cargo build --release --target=thumbv7em-none-eabi\n\n04) Auf dem PC ist das .cargo Verzeichnis scheinbar nicht notwendig, aber auf dem Laptop schon.\n\nLinks\n  https://os.phil-opp.com/freestanding-rust-binary/\n\n  http://www.olliw.eu/2013/stm32-this-and-that/\n  https://www.mikrocontroller.net/articles/STM32_f%C3%BCr_Einsteiger\n  Foren Einträge\n    https://www.mikrocontroller.net/topic/317792#3481048\n    https://www.mikrocontroller.net/topic/312330#3483218\n\n  http://stefanfrings.de/stm32/index.html\n  http://diller-technologies.de/stm32_wide.html\n\n  https://www.st.com/en/microcontrollers/stm32-32-bit-arm-cortex-mcus.html\n  https://www.st.com/en/microcontrollers/stm32f3-series.html?querycriteria=productId=SS1576\n\n  https://www.rust-lang.org/en-US/install.html\n  http://blog.japaric.io/quickstart/\n\n  https://docs.rs/stm32f30x/0.7.0/stm32f30x/\n  https://github.com/japaric/f3\n  https://github.com/rust-embedded/discovery\n  https://docs.rs/stm32f30x/0.7.0/stm32f30x/spi1/index.html    "
+        },
+        {
+          "Title" : "11 Telegram.txt",
+          "Text" : "Telegram.txt\n\nhttp://www.forum-raspberrypi.de/Thread-tutorial-telegram-messenger-client-auf-dem-raspberry?page=7\nhttp://tutorials-raspberrypi.de/ueber-telegram-messenger-raspberry-pi-steuern/\n\nhttps://core.telegram.org/bots/api#message\n\nPlutosBot\nPlutosbot\n\nEine Nachricht an meinen Bot senden\n\ncurl -X  POST 'https://api.telegram.org/bot249148190:AAFqx2pFezuhEnxgMGmKVPkb80JQGF4vi-o/sendMessage?chat_id=96702591&text=\"texty text\"'\nhttps://api.telegram.org/bot249148190:AAFqx2pFezuhEnxgMGmKVPkb80JQGF4vi-o/getUpdates?offset=-12\ncurl -i -X GET 'https://api.telegram.org/bot249148190:AAFqx2pFezuhEnxgMGmKVPkb80JQGF4vi-o/getUpdates?limit=1'\n\ndie Antwort:\n{\"ok\":true,\"result\":{\"message_id\":14,\"from\":{\"id\":249148190,\"first_name\":\"PlutosBot\",\"username\":\"Plutosbot\"},\"chat\":{\"id\":96702591,\"first_name\":\"Michael\",\"last_name\":\"Springwald\",\"username\":\"Pluto30\",\"type\":\"private\"},\"date\":1472841277,\"text\":\"\\\"texty text\\\"\"}}\n\nSo kann man einfache HTML Anweisungen verwenden. \ncurl -X GET 'https://api.telegram.org/bot249148190:AAFqx2pFezuhEnxgMGmKVPkb80JQGF4vi-o/sendMessage?chat_id=96702591&parse_mode=HTML&text=\"<b>test1</b>\"\n\n'reply_markup={\"keyboard\":[[\"option1\"],[\"option2\"]]}\n\ncurl -i -X https://api.telegram.org/bot249148190:AAFqx2pFezuhEnxgMGmKVPkb80JQGF4vi-o/getUpdates?offset=-12s\n\nhttp://pcdevilbydaniel.blogspot.de/2015/01/telegram-uber-telegram-alle-linux.html\n\nhttp://www.forum-raspberrypi.de/Thread-python-telegram-bot-mit-python-steuern"
+        },
+        {
+          "Title" : "12 WetterApp.txt",
+          "Text" : "WetterApp.txt\n\nDokument Angelegt am Mittwoch den 10.05.2017\n============================================\nWetter Daten von meiner USB Wetterstation.\n\nDas Format sieht so aus:\nJahre\n  Monate \n    Tage\n    \nDas Eigentliche Ziel ist es, dass das \"neue\" Programm auf dem Banana PI laufen kann. \nDas jetztige kann da im Prinzip auch laufen, ist eben nur zu Langsam.\n\nDie Frage lautet also: Wo kann Optimiert werden.\n\nIch könnte ein kleines Tool schreiben, welches die \nDaten auswertet und in einem Verzeichnis ablegt:\n\nEs könnte Zusammenfassungen pro Ebene geben.\n\n3. Tage\n2. Monate\n1. Jahre \n\nAber auf welche Art und weise soll zusammengefasst werden.\n\n1. Die Werte könnten pro Stunde Zusammengefasst werden.\nSo hätte man die Durchschnittswerte der letzten Stunden. \n\n2. Nun könnten diese Werte genommen werden und weiter Zusammengefasst werden.\nSo das man \"Monats\" Werte hat. \nVielleicht könnte hier der Tag noch in drei hälften Geteilt werden:\nMorgens, Mittags und Abends\n\nWie warm war es im Mai oder im Juni?\n\n3. Wie warm war es im Jahr 2014 im Vergleich zu 2015? "
+        }
+      ]
+    },
+    {
+      "Title" : "03 Teesorten",
+      "Text" : "Teesorten\n\nhttps://www.teesorte.com/schwarztee-sorten/",
+      "Items" : [
+        {
+          "Title" : "01 Schwarzer Tee",
+          "Text" : "Schwarzer Tee\n\nIm asiatischen Raum wird Schwarztee seit Jahrhunderten getrunken, in Ostasien wird er auch roter Tee (Hong cha) genannt, weil seine Tassenfarbe rötlich ist.\n\nDiese Bezeichnung kam aber durch eine Fehlübersetzung zustande.\n\nAchtung: Roter Tee wird Rotbuschtee, auch Rooibishtee genannt. Dieser stammt aber vom Südafrikanischen Rotbusch ab und hat mit Schwarzem tee nichts gemeinsam.\n\nIn der westlichen Welt wird der Schwarze Tee erst seit ca.3 Jahrhunderten konsumiert. Der Tee hat nicht nur Vitamine und Mineralien, sondern auch Flavanoide, Koffein und Polyphenole."
+        },
+        {
+          "Title" : "02 Grüner Tee",
+          "Text" : "Grüner Tee\n\nGrüner Tee stammt aus der Teepflanze Camellia sinensis welche seit vielen Tausend Jahren in China angebaut wird.\n\nDer Grüntee kam erst im 16. bzw. 17. Jahrhundert nach Europa.\n\nDie Blätter des Teestrauchs sind anfangs hellgrün und seidig behaart. Je älter das Teeblatt wird, umso dunkler und ledriger wird es.\n\nDie Pflanze besitzt weiße, oft ins rosa abgehende Blüten, die ein wenig an Kirschblüten erinnern.\n\nSowohl der grüne Tee als auch weißer Tee, Oolongtee und Schwarzer Tee stammen von ein und derselben Pflanze ab, der unterschiedliche Geschmack liegt in der Verarbeitung bzw. der Fermentierung des Tees.\n\nNach dem Welken der frisch gepflückten Blätter verhindert ein kurzes Dämpfen, Erhitzen oder Rösten der Blätter die Fermentation (Info: Fermentation wird auch oft auch Oxidation genannt). Mit dieser Verfahrensweise bleiben nahezu alle im frischen Blatt enthaltenen Wirkstoffe (z.B. Gerbstoffe, Catechine, Epigallocatechingallat (EGCG), Vitamin C, Kalium) erhalten.\n\nDieser Prozess wird beim grünen Tee nach einem mehrstündigen Welkvorgang, durch Rösten (die Vorgehensweise in China) oder Dünsten (üblicherweise in Japan praktiziert) unterbunden und die Enzyme, sowie die natürlichen Inhaltsstoffe, bleiben so im Teeblatt erhalten.\n\nSo kann sich ein voller Teegenuss in der Tasse entfalten."
+        },
+        {
+          "Title" : "03 Weißer Tee",
+          "Text" : "Weißer Tee Arya Pear\nDer Arya Tea Estate zählt zu den führenden Produzenten und Exporteuren organischer Teeklone und verschiedenster delikater Teesorten!\n\nEiner der Besten und eigenwilligsten weißen Tees der weltweit hergestellt wird. Während nahezu alle weißen Tees den Silver Needles ähneln, setzt der Arya Pearl auf das ursprüngliche Prinzip two leaves and a bud (zu deutsch: zwei Blätter und eine Knospe).\n\nDer Tee zeichnet sich durch ein überaus delikates Geschmacksprofil aus, das beinahe mit einem fruchtigen Weißwein vergleichbar ist. Der weiße Tee ist in der Tasse von bezaubernder Schönheit, klar und rein!"
+        },
+        {
+          "Title" : "04 Gelber Tee",
+          "Text" : "Gelber Tee Chinesische Romanze Zitrus – das ist ein hocharomatischer gelber Tee in Anlehnung an frisches Lemongras.\n\nGelber Tee Chinesische Romanze Zitrus bei Teesorte Zitronengras ist sehr frisch und spritzig, ein Süßgras das zitronig schmeckt und viele ätherische Öle aufweist. Es verleiht dem Gelber Tee Chinesische Romanze Zitrus eine äußerst exotische Note, denn es ist nicht nur frisch und zitronig – es weist auch einen zarten Duft von Rosen auf.\n\nIn dieser gelben Teesorte kann man auch sehr gut Reis kochen – ein tolles Aroma, das bestens zu vielen chinesischen Gerichten passt, egal ob Huhn, Ente oder Fisch!\n"
+        },
+        {
+          "Title" : "05 Blauer Tee und Oolong Tee, Drachentee",
+          "Text" : "Blauer Tee und Oolong Tee, Drachentee\n\nBlauer Tee und Oolong Tee, Weißer Tee, Grüner Tee und Schwarzer Tee – sie alle stammen von ein und derselben Pflanze ab, der Teepflanze Camellia sinensis.\n\nOolong bedeutet „Schwarzer Drache“ oder „Schwarze Schlange“ und diese beiden Begriffe haben mit der Legende vom Oolongtee zu tun.\n\nDie Legende besagt, dass ein einfacher Bauer, der seinen Tee zum Trocken in die Sonne gelegt hatte, von einer schwarzen Schlange verschreckt wurde.\n\nAls er nach wenigen Tagen nach seiner Teeernte sehen wollte waren die Blätter der Teepflanze oxidiert und er labte sich an diesem leckeren Getränk!\n\nDie Kanten der Teeblätter brechen dadurch auf und der Zellsaft tritt aus, das nennt man auch  fermentieren.\n\nTeekenner sprechen von einem grünen Blatt mit roten Kanten. Anschließend werden die Teeblätter in heißen Pfannen erhitzt, um das Aroma und die Farbe des Blattes festzuhalten.\n\nOolongtee kann viele Male aufgegossen werden und liebt es seine Teeblätter in einer großen Kanne zu entfalten. Er entwickelt bei den verschiedenen Aufgüssen die unterschiedlichsten Aromen – von fruchtig über blumig.\n\nEin feiner Teegenuss der geschmacklich zwischen Grünem und Schwarzen Tee einzuordnen ist.\n\nOolongtee wird auch viel positives nachgesagt:\n\nDer Tee enthält viele Saponine, diese Enzyme hemmen das spalten der Fette im Körper. Dies hat zur Folge, dass das Fett unverdaut ausgeschieden wird."
+        },
+        {
+          "Title" : "06 Aromatisierter Schwarzertee",
+          "Text" : "Aromatisierter Schwarzertee\n\nAromatisierter Schwarzertee – diese Aromatisierung von Tee führt auf eine fernöstliche Traditionen zurück.\n\nSeit den 70-er Jahren nimmt die Begeisterung für aromatisierte Tees weltweit zu. Gab es zu Anfang nur Schwarztee Kirsch, Schwarztee Vanille und Schwarztee Orange, kann man nun in Hülle und Fülle in den unterschiedlichsten und exotischsten Genüssen schwelgen!\n\nImmer mehr Sorten stehen, Dank den besten Tea Taster der Welt, zur Verfügung.\n\nSie verfeinern die Tees mit Früchten (Äpfel, Birnen, Mangos, Sternfrucht, Kiwi oder Passionsfrucht), Blüten (Jasminblüten, Kornblumenblüten, Sonnenblumenblüten oder Saflorblüten) , Rinden (Lapacho, Catuaba oder auch Zimtrinde), Wurzeln (Ingwer, Zichorien oder Süssholzwurzel), Aromen, besten Nüssen (Mandeln, Haselnüsse oder Macadamia) und Gewürzen (Pfeffer, Chili, Bohnenkraut oder Nelken), ja sogar Gemüse, wie Karotten und Paprika sind mit von der Partie. Natürlich dürfen beim Aromatisieren Öle, wie Lavendelöl, Orangenöl oder Bergamottöl nicht fehlen.\n\nDiese geben feinste Nuancen in den Schwarzen Tee ab und machen den Tee so individuell und für den entsprechenden Moment perfekt im Genuss.\n\nLassen Sie sich entführen in die verlockende Welt der aromatisierten schwarzen Tees – lassen Sie sich verzaubern von orientalischen oder heimischen Nuancen in bestem Schwarzen Tee.\n\nFreuen Sie sich auf eine duftende Tasse aromatisierter Schwarzertee- egal ob alleine oder mit Freunden!\n\nAromatisierter Schwarzertee ist immer ein Hochgenuss in der Teetasse!\n\nSelbstverständlich passt auch zu einem feinen Tässchen aromatisiertem Schwarztee ein Stückchen Kuchen oder Gebäck!"
+        },
+        {
+          "Title" : "07 Aromatisierter Grüntee",
+          "Text" : "Aromatisierter Grüntee\n\nAromatisierter Grüntee das sind außergewöhnliche Kompositionen und anspruchsvolle Teemischungen mit ausgesuchtem grünen Tee, bzw. grünem Sencha Tea.\n\nEs gibt kaum eine Geschmackrichtung die es nicht gibt.\n\nGuaven-, Birnen-, Bambus- oder Granatapfelgeschmack es gibt nichts das es nicht gibt.\n\nDie Teataster haben bei aromatisierter Grüntee mit wunderbar leuchtenden Blüten und Blättern, frischen Beeren und Gewürzen, oder aber nur mit einem zarten Bourbon Vanille-Hauch gespielt. Hier ist für jeden Geschmack ein aromatisierter Grüntee dabei.\n\nDie Aromatisierungen sind so vielfältig und exotisch (Guave, Kürbis, Kaktusfeige, Jabuticaba, Marzipan, oder Olivenblätter), aber auch klassisch (Orange, Vanille, Zitrone, Kirsche), da ist für jeden Gusto etwas dabei.\n\nDer Begriff Aroma stammt aus dem griechischen (ἄρωμα ároma‚ und bezeichnet ein Gewürz, Duft oder Parfüm) ) – darum auch die Erklärung warum man das Wort aromatisiert bei den verschiedenen Tees (aromatisierter Grüntee, atomatisierter Schwarztee oder auchatomatisierter Rotbuschtee) verwendet.\n\nAromatisierter Grüntee ist auch im Sommer ein sehr guter Durstlöscher – kalt oder als Eistee sind diese Teesorten immer ein Genuss der verzaubert!\n\nAromatisierter Grüntee ist eine lukullische Gaumenfreude den man in unzähligen Vielfalten genießen kann und hat zudem kaum Kalorien.\n\nEiner der bekanntesten Teesorten ist auch bei aromatisierter Grüntee sicher der elegante\n\nGrüntee Earl Grey, der mit edler Bergamotte-Orange verfeinert ist, oder auch die\nAcht Schätze des Shaolin (bester Sencha, Gunpowder,  Chun Mee, Pai Mu Tan, Mini Tuo, Lung Ching, White Tea Snow Bud und Pi Lo Chun – das ganze mit fruchtig, süßer Erdbeer-Ananas Note) oder auch der bekannte\nMorgentau® der aus großblättrigem Sencha und beste Aromen und Blüten den feinen Mango-Zitrusgeschmack hervorzaubert."
+        },
+        {
+          "Title" : "08 Früchtetee Mischungen",
+          "Text" : "Früchtetee Mischungen\n\nFrüchteteemischungen sind im eigentlichen Sinn kein Tee, sondern eine Früchtemischung, welche seit vielen Jahren eine erfrischende Ergänzung zu den klassischen Tees darstellt.\n\nSie sind nicht nur in der Sommerzeit ein guter Durstlöscher, sondern bieten zu jeder Jahreszeit eine ideale Ergänzung zur gesunden und ausgewogenen Ernährung. Ob als Heiß- oder Kaltgetränk, mit oder ohne Eis, Zucker oder Honig – immer ein Genuss.\n\nFrüchtetee Mischungen haben kaum Kalorien und sind meist koffeinfrei. Zudem verfügt Früchtetee über die Vielzahl der Vitamine der entsprechenden Früchte.\n\nFrüchtetee gibt es in unzähligen Variationen, Beeren mit Gemüse, mit Hülsen, Nüssen und Kräutern. Es gibt bei diesen Früchtetee Mischungen kaum etwas, das es nicht gibt – egal ob mit Kürbis, Tomaten, Maracuja, Sternfrucht oder Bohnenkraut – hier ist fast alles vertreten!\n\nDie Geschmacksrichtungen bei Früchtetee Mischungen gehen von fruchtig süß über blumig und dezent lieblich bis herb-bitter und würzig.\n\nFrüchtetee Mischungen kann man gut in der Kanne lassen – er darf ruhig länger ziehen und sollte immer mit kochendem, sprudelndem Wasser aufgegossen werden.\n\nKinder lieben Früchtetee Mischungen oft mit einem Schuss Sprudelwasser – oder einem Spritzer Saft.\n\nSie sehen also, nicht nur im Sommer, als Eistee, ist Früchtetee ein Genuss, auch im Winter, um zu wärmen, ist der Tee unschlagbar.\n\nFrüchtetee gibt es auch ohne Hibiskus für den empfindlichen Magen und wird dann oft als „magenmild“, „magenschonend“, „säurearm“ oder „gelber Früchtetee“ bezeichnet.\n\nNatürlich gibt es auch speziell ausgewiesenen Früchtetee Mischungen aus reinem Bioanbau."
+        },
+        {
+          "Title" : "09 Rotbusch Tee oder Rooibosh Tee",
+          "Text" : "Rotbusch Tee oder Rooibosh Tee\n\nRotbusch Tee wurde schon von den Ureinwohnern an der südafrikanischen Westküste zur Zubereitung von Tee genutzt.\n\nSeit 1930 wird dieser Rooibosh kultiviert und am Fuße des Cedar Gebirges angebaut.\n\nDer Rotbuschstrauch zählt zu den Endemiten – so bezeichnet man in der Biologie Pflanzen oder Tiere, welche ausschließlich in einer bestimmten Umgebung vorkommen – beim Rooiboshtea ist das die Cedarberg-Region in Afrika.\n\nRotbusch Tee enthält kein Koffein, dafür aber Spurenelemente wie Flur, Eisen, Kalzium, Kalium, Kupfer, Rutin sowie Vitamin C und Phenolsäuren. Von dem 1.50 Meter hohen, ginsterähnlichen Strauch verwendet man die dünnen, zerkleinerten Zweige, sowie die nadelförmigen Blätter.\n\nDiese werden fermentiert, wobei sie die rot-braune Farbe erhalten. Der Tee enthält kaum Gerbstoffe und wird darum auch nicht bitter.\n\nRotbusch Tee sind wunderbare Mischungen für Ihre Kinder, hervorragend geeignete Teesorten in der Schwangerschaft – für Babys als Babytee (bei Drei-Monats-Koliken: hier empfiehlt sich Rotbusch Tee pur mit Milch), aber auch während der Stillzeit kann man diesen Tee unproblematisch genießen.\n\nAuch für Extremsportler, aber auch normale Sportler ist Rotbusch Tee ein wunderbarer Durstlöscher, da er viele Mineralien, aber kaum Kalorien enthält.\n\nRooibosh tea kann man auch äußerlich verwenden, bei Ekzemen und anderen Hautproblemen soll er Linderung verschaffen.\n\nMan verwendet Rotbusch Tee sogar bei Allergien!\n\nDer grüne Rotbusch Tee ist nur leicht oxidiert, darum verfügt er über zweimal so viele Antioxidantien und Flavonoide wie der „normale“ Rooibosh – die Farbe bleibt grün in der Teetasse."
+        },
+        {
+          "Title" : "10 Honeybusch oder Honeybosh Tee",
+          "Text" : "Honeybusch oder Honeybosh Tee\n\nHoneybusch ist dem Rotbusch sehr ähnlich, darum nennt man ihn auch gerne den „Kleinen Bruder des Rotbuschtees“.\n\nDer Ursprung des Honeybusch ist ebenfalls in Südafrika.\n\nHoneybush kann jedoch nicht kultiviert werden und gedeiht deshalb wild.\n\nEr wächst am besten im Hochgebirge. Es gibt 23 verschiedene Arten des Strauches, die in der Kapflora beheimatet sind.\n\nBereits im Jahre 1772 brachte der Deutsche Carl Thunberg den Honeybusch Tee auf den Weg nach Europa.\n\nDie Verarbeitung ist wie folgt: der Tee wird gepflückt und wird dann bei 60 – 70 Grad erwärmt um so schonend zu trocknen. Das ist eine natürliche Fermentation. Anschließend wird der Tee verpackt und kann auf die Reise gehen.\n\nMan erkennt Honeybusch an seinen leuchtend gelb blühenden Blüten, die dezent nach Honig duften. Ebenso wie sein großer Bruder, der Rotbusch, enthält er kein Koffein und keine Gerbstoffe und wird gerne bereits kleinen Babys, als erster Babytee, gegeben.\n\nAuch in der Schwangerschaft ist dieser Tee sehr gut als Getränk geeignet, da er jede Menge Mineralstoffe (z. B. Eisen, Kalium, Kalzium, Kupfer, Magnan, Magnesium, Phosphor und Zink) enthält, aber kaum Kalorien vorzuweisen hat. Nachdem er auch noch koffeinfrei ist, kann man diese Leckerei gut am Abend genießen.\n\nSehr gerne wird Honeybusch auch als Eistee oder auch Kindertee verwendet. Ebenso ist es eine willkommene Abwechslung den Tee mit Milch zu verfeinern, oder im Winter mit Wein zu trinken!!!"
+        },
+        {
+          "Title" : "11 Monokräuter Tee und Kräutertee Mischungen pur und aromatisiert",
+          "Text" : "Monokräuter Tee und Kräutertee Mischungen pur und aromatisiert\n\nMonokräuter Tee und Kräutertee – was ist das genau?\n\nLose Kräuter (Monokräuter), wie Minze, Dill, Kamille, Graviola, Moringa, Katzenkralle, Pfefferminze oder Fenchel sind sortenreine, getrocknete und gereinigte Pflanzen aus Wildwuchs oder Kultivierung.\n\nKräutermischungen dagegen entstehen aus verschiedenen Pflanzen, die unter Berücksichtigung von Geschmack und Wirkung vermengt bzw. gemischt werden.\n\nHier ein paar kleine Beispiele was alles vermischt wird:\n\nAloe, Cabalonga, Catuaba, Ginko, Noni, Hafer, Bambus, Lavendel, Bitterstück, Bambusblätter, Drachenblut, Eukalyptus, Luzerne (Alfalfa), Lemongras, Kugelamarant oder Katzenkralle – auch Uña de Gato genannt.\n\nNatürlich dürfen auch Beeren und Früchte in diesen Leckereien nicht fehlen – sie geben oft die perfekte Unterstützung zu den aromatischen Genüssen.\n\nEgal ob ein beruhigender Kräutertee für den Abend, oder ein anregender Kräutertee für den Morgen – ein Tee bei schweren Beinen, eine Mischung für den Macho oder einen besonderen Liebeszaubertee – in diese Kategorie Monokräuter Tee und Kräutertee werden Sie fündig.\n\nDie Kräutertees galten schon zu Großmutters Zeiten als bewährte Hausmittel und schmecken sowohl heiß, als auch kalt, als Eistee. Kräutertees enthalten in der Regel kein Koffein, und sind so für fast jedermann geeignet.\n\nIn dieser Rubrik, Monokräuter Tee und Kräutertee, im Teelexikon der Teesorten finden Sie auch den bekannten würzigen Chai Tee, Ayurveda Tee, Hanftee, Ingertee, Stilltee, Yogi Tee, Tulsikraut, südamerikanischen Apoyar Té, Olivenblatt Tee, Schwedenkräutertee, Grangozzo oder Lapacho und Mate Tee (auch Yerba genannt).\n\nMeist in jungen Jahren haben bereits die kleinen Kinder und sogar Babys die ersten Kontakte mit Tees – Kamillentee bei Bauchweh und Babys Blähungen, Pfefferminztee bei Schnupfen, oder Salbeitee bei Husten und Heiserkeit – gerade diese Tees sind „uralte Mittelchen“."
+        },
+        {
+          "Title" : "12 Medizinischer Tee und Heilkräutertee",
+          "Text" : "Medizinischer Tee und Heilkräutertee\n\nGenerell sollte es doch darum gehen, gesund zu BLEIBEN, indem man eine gesunde Lebensweise beachtet – nicht erst an die Gesundheit denken, wenn die ersten Zipperlein anfangen.\n\nViele Schätze sind in Vergessenheit geraten welche die Natur für uns bereitstellt, viele Pflanzen können uns helfen zu genesen oder gesund zu bleiben. Die sogenanntenHeilpflanzen können bei kleinen Wehwechen ebenso helfen, wie bei größeren Beschwerden.\n\nViele verschiedene Anwendungen sind möglich, man sagt oft:\n\n„Gegen alles ist ein Kraut gewachsen!“ dafür verwendet man Medizinischer Tee und Heilkräutertee\n\nHeilkräuter werden oft als alternative Begleitbehandlung bei Krebs, Tumoren, MS (Multipler Sklerose), Parkinson, Alzheimer, Chemotherapie, Bluthochdruck und Diabetes Mellitus und vielem anderen getrunken und unterstützend eingesetzt.\n\nAber leider können Heilkräuter nicht nur wirken und helfen, sondern auch gegenteillig wirken und somit Schaden anrichten.\nDeshalb sind diese Tee- und Kräutersorten, auf Grund ihrer Mischung oder Wirksamkeit nur in ausgesuchten Fachgeschäften oder direkt in Apotheken (z. B. Medizinische Kamille) zu erwerben.\n\nWir geben in dieser Rubrik KEINE medizinischen Ratschläge, sondern beschreiben, nach bestem Wissen und Gewissen, die einzelnen Produkte und wie sie wirken KÖNNEN, auch dazu sei gesagt, dass jeder Mensch anders auf Heilkräuter reagiert!\n\nDie Informationen stellen keinen Ersatz für ärztliche Beratungen oder Behandlungen dar, sondern sind für Interessierte in diesem Genre und zur Fortbildung!\n\nDie dargestellten Tees sind kein  persönlicher Vorschlag oder gar eine Behandlung oder Therapie.\n\nEs handelt sich hierbei NICHT um eine Gesundheitsberatung.\n\nDarum übernehmen wir auch keinerlei Haftung für „Schäden“, die durch Verwendung dieser Informationen oder indirekt aus der Verwendung der Angaben entstehen.\n\nWenn Sie den Verdacht haben krank zu sein, gehen Sie zum Heilpraktiker, oder direkt zum Arzt. Eine Selbstdiagnose ist unseres Erachtens der falsche Weg.\n\nEs wird dringend abgeraten, die angebotenen Informationen als Selbstversuchen zu nutzen.\n\nNoch etwas Allgemeines:\n\nEs gibt Tees die unter die Novel Food Verordnung fallen."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+Wenn NULL besonders groß ist, ist es fast schon wie ein bißchen eins.
+Alles, was lediglich wahrscheinlich ist, ist wahrscheinlich falsch.
+Drücken Sie F13 zum Start des Intelligenztests!
+Ein Computerprogramm tut, was Du schreibst, nicht was Du willst.
+Phantasie ist wichtiger als Wissen. - Albert Einstein (dt. Physiker, 1879 - 1955)
+Bei schwierigen Problemen entscheiden wir uns einfach für die richtige Lösung.
+Das Leben ist grausam und hart und manchmal noch viel schlimmer!
+Plug & Play ist eine ganz tolle Sache, leider funktioniert es in der Regel nur zu 50%... Um exakt zu sein: Plug gelingt eigentlich immer...
+Oft erledigen sich viele Dinge, die man auf die längste Bank geschoben hat, allein dadurch, dass sie am anderen Ende herunterfallen.
+Der Computer arbeitet deshalb so schnell, weil er nicht denkt.
+Im Gegensatz zur menschlichen Intelligenz, kann sich die ComputerIntelligenz mit einer weitaus höheren Genauigkeit irren.
+Wenn einige Windowsprogramme unter Linux mit einem Emulator besser laufen als unter Win selbst, dann entsteht ein ganz großes Fragezeichen
+Irren ist menschlich - um die Lage wirklich ekelhaft zu machen, benötigt man schon einen Computer. - Murphys Gesetze
+Es brauchte die Rechenkraft von drei C64, um auf den Mond zu fliegen. Windows 2000 braucht einen Pentium II mit 350 MHz und 128 MB RAM, um ordentlich zu laufen. Irgendwas kann da nicht stimmen...
+Alles wäre viel einfacher und schneller erledigt, wenn wir gleich am Ende anfagen würden.
+Mit dem Computer löst man Probleme, die man ohne ihn nicht, hätte - was soll es!
+Programmieren ist wie Romanschreiben. Erst denkt man sich ein paar Typen aus, und dann muss man sehen, wie man mit ihnen zurechtkommt.
+Es gibt zwei Methoden , fehlerfreie Programme zu schreiben. Aber nur die dritte funktioniert.
+Es ist schwierig, ein Programm wirklich idiotensicher zu machen, weil Idioten so genial sind.
+Chris Peters (ehm. Entwicklungchef, Microsoft): Wir haben Excel nicht entwickelt, um Geld zu verdienen, sondern aus Freude darüber, Lotus aus dem Geschäft drängen zu können.
+Was man mit 1 und 0 so alles machen kann...
+Aber für was ist das gut?" Ingenieur vom Advanced Computing Systems Division of IBM, 1968, zum Microchip
+Die Welt des PC's ist ziemlich nahrhaft: Chips, Cookies und natürlich Festplatten.
+Hab' gerade einen Intel und einen AMD aus dem 3. Stock geworfen... der AMD war tatsächlich schneller!
+Nicht vergessen: 99% aller PC- Probleme sitzen vor dem Monitor...
+Software is like sex. It's better when it's free. - Linus Torvals (fin. Initiator des freien Linux Kernels, 1969)
+Mache es so einfach wie möglich, aber nicht einfacher. - Albert Einstein (dt. Physiker, 1879 - 1955)
+Die drei Feinde des Programmierers: Sonne, Frischluft und dieses schreckliche Gebrüll der Vögel.
+Herr, du hast mir das Können genommen, nimm mir auch das Wollen.
+Ein Absturz vernichtet zuverlässig und mit allerhöchster Sicherheit immer die wichtigsten Daten. Bevorzugt werden natürlich jene, von denen es kein Backup gibt.
+Theorie: Man weiß wie es geht, es funktioniert aber nicht. Praxis: Es funktioniert, aber man weiß nicht warum. Microsoft vereint Theorie und Praxis: Nichts geht und keiner weiss warum!!!
+In einer Hirarchie strebt jeder danach, bis in den Bereich seiner Inkompetenz aufzusteigen. - Peter Prinzip
+Was wollt ihr denn, es funktioniert doch. - Niels Bohr (dän. Physiker, 1885 - 1962)
+In einer Hirarchie strebt jeder danach, bis in den Bereich seiner Inkompetenz aufzusteigen. - Murphy
+Es ist schwieriger, eine vorgefaßte Meinung zu zertrümmern als ein Atom. - Albert Einstein (dt. Physiker (1879-1955))
+There is no reason anyone would want a computer in their home. - Ken Olson, president, chairman and founder of Digital Equipment Corp., 1977)
+Der Computer ist das fehlende Bindeglied zwischen dem Boden der Tatsachen und dem Himmel der Perfektion. Wie nahe wir schon zweiterem sind beweisen die vielen blauen Bildschirme.
+Wenn Windows die Antwort ist, muss es eine doofe Frage gewesen sein.
+Wo kämen wir hin, wenn jeder sagte "Wo kämen wir hin?" und keiner ginge los um zu sehen, wo wir hinkämen, wenn wir losgingen ...
+Ich dachte immer das heißt: MCSE - Microsoft Certified System Engineer oder im Volksmund MCSE - Minesweeper Consultant and Solitaire Expert
+In C geschrieben und schön war zuletzt Franz Schuberts 9. Symphonie.
+Prozessor sagt zum Speicher: " Bitte ein Bit!" Der Anwender zum Computer: " Ich trink eins mit!"
+Das Problem ist nicht im Computer, sondern davor.
+Meine Codes sind wie moderne Kunst: Keiner kann sie einordnen, und wenn man sie zu lange betrachtet, wird einem schlecht.
+Arm ist der Schüler, der seinen Meister nicht übertrifft - Leonardo da Vinci (it. Universalgenie, 1452 - 1519)
+Ground Zero is nichts gegen mein Schreibtisch.
+In Deutschland ist es quasi unmöglich, Komplettrechner mit leeren Festplatten zu erhalten, da laut Gesetz nur Rechner mit BS verkauft werden dürfen. Diese Regelung stammt noch aus der Zeit, als Politiker nur proprietäre kommerzielle BSe kannten und sich nicht vorstellen konnten, dass es freie und sogar kostenlose Alternativen gibt. Jeder Käufer eines Komplettrechners ohne BS wurde quasi mit einem Raubkopierer von Produkten aus Redmond gleichgesetzt.
+Liebe ist nach tausenden von Bluescreens immer noch zu behaupten es gibt keine Alternative.
+Seien wir realistisch, versuchen wir das Unmögliche.
+Nichts auf der Welt ist so gerecht verteilt wie der Verstand. Denn jedermann ist überzeugt, dass er genug davon habe. - Rene Descartes (frz. Mathematiker u. Philosoph, 1596-1650)
+Erst wenn die letzte Ölplattform versenkt, die letzte Shell-Tankstelle geschlossen ist, dann werdet ihr merken, dass GREENPEACE nachts kein Bier verkauft.
+Wenn Architekten so bauen würden, wie Programmierer ihre Programme schreiben, könnte ein einziger Specht ganze Städte zerstören.
+for(;P("\n"),R--;P("|"))for(e=C;e--;P("_"+(*u++/8)%2))P("| "+(*u/4)%2);
+1+1=3, für hinreichend große 1 oder hinreichend kleine 3.
+kill 'em all - god will sort them
+Wenn man diese CD vorwärts spielt, sind satanische Verse zu hören. Viel schlimmer: Spielt man sie rückwärts, installiert sie Windows 98.
+Rechtschreibfehler dienen nur zur Unterhaltung der Leser und sind von den jeweiligen Autoren aus diesem Grund beabsichtigt.
+Heisenberg war hier ... oder auch nicht!
+Es gibt 10 Arten von Leuten die Binärzahlen verstehen; die, welche es tun und die, welche es nicht tun.
+Wir zahlen für Software mit tausenden von Fehlern, lassen uns für das Kopieren von ewig gleichen Musik- und Filmstücken bestrafen, und nennen Leute die total durchdrehen psychisch krank...
+Zwei Dinge sind unendlich. Das Universum und die menschliche Dummheit. Beim Universum muss ich nochmal drüber nachdenken. - Albert Einstein (dt. Physiker, 1879 - 1955)
+Wenn es im Jahre 1879 schon Computer gegeben hätte, würden diese vorausgesagt haben, daß man infolge der Zunahme von Pferdewagen im Jahre 1979 im Pferdemist ersticken würde. - John C. Edwards (brit. Zukunftsforscher)
+Erfahrung ist eine sehr nützliche Sache... Leider hat man sie meistens erst kurz nachdem man sie braucht!
+Was ist schlimmer: Unwissenheit oder Ignoranz? Weis ich nicht, ist mir aber auch egal!
+Life can be tough. Learning to walk means learning to fall.
+Man muß nicht alles wissen, sondern man muß nur wissen wo es steht oder jemanden kennen der weiß wo es steht.
+Jedes Programm läßt sich um mindestens eine Anweisung kürzen.
+Durch Induktion können wir schließen:
+Jedes Programm ist reduzierbar auf eine Anweisung, die nicht funktioniert...
+Debuggers don't remove Bugs, they only show them in Slow-Motion.
+Ich bin nicht sicher, mit welchen Waffen der 3. Weltkrieg ausgetragen wird, aber im 4. Weltkrieg werden sie mit Stöcken und Steinen kämpfen. - Albert Einstein (dt. Physiker, 1879 - 1955)
+Ordnung braucht nur der Dumme, das Genie beherrscht das Chaos. - Albert Einstein
+69 Wörter - Die Zehn Gebote. 270 Wörter - Die Amerikanische Unabhängigkeitserklärung. 24.793 Wörter - Die EG-Verordnung über den Import von Büroklammern
+Wenn ich die Folgen geahnt hätte, wäre ich Uhrmacher geworden. - Albert Einstein
+Bei UNIX hilfreich, aber nicht zwingend notwendig. Bei Windows notwendig, aber nicht zwingend hilfreich.
+Bei mir hat Gott einen Fehler gemacht. Mein Leben ist eine Endlos-Schleife!
+Die drei dünnsten Bücher der Welt: Das Kochbuch von Bangladesh, Italienische Heldensagen und 500 Jahre deutscher Humor.
+Als du auf die Welt kamst, weintest du, und um dich herum freuten sich alle. Lebe so, daß, wenn du die Welt verläßt, alle weinen und du allein lächelst.
+Erfolg steigt nur zu Kopf, wenn dort der erforderliche Hohlraum vorhanden ist. - Manfred Hinrich (dt. Philosoph, 1926)
+Wenn Debugging der Vorgang ist Fehler aus einem Programm zu entfernen, so ist Programmierung der Vorgang Fehler in ein Programm einzubauen.
+The box said: 'Requires Windows 95 or better' So I installed Linux
+Bei Risiken und Nebenwirkungen fressen Sie Packungsbeilage und schlagen Sie Ihren Arzt und Apotheker !
+Ich weiss, dass ich nichts weiss, aber ich weiss mehr, als die, die nicht wissen, dass sie nichts wissen. (Sokrates)
+If you can't make it good, at least make it looks good.
+Ich würde die Welt verändern, aber Gott gibt mir den Quelltext nicht.
+Wer nicht gerne denkt, sollte wenigstens von Zeit zu Zeit seine Vorurteile neu gruppieren.
+How many of you believe in telekinesis? Raise my hands....
+Sie haben die Position des Mauszeigers verändert. Starten Sie Windows neu, um die Änderungen wirksam werden zu lassen.
+This is a document, to prove that I was here. This is a document, to prove I was at all. And when my voice ceases to be, will the echo still ring loudly? And when there's nothing left of me, will my memory still go on?
+All computers wait at the same speed.
+Ich hasse Hochzeiten. Tanten, Großmütter, alle kommen sie an und pieken einem in die Seite und sagen "du bist der nächste". Sie haben damit aufgehört, seitdem ich das selbe auf Beerdigungen mache.
+Warum gibts kein weibliches Boolean type TWMBool = {Ja, Nein, Vielleicht}?
+Irish diplomacy: The abillity to tell a man to go to hell in such a way that he actually looks forward to the trip.
+Ask her to wait a moment - I am almost done." - Carl Friedrich Gauss (1777-1855), while working, when informed that his wife is dying
+Wer lesen kann, ist klar im Vorteil! Wer dabei noch denkt, ist fast unschlagbar!
+Ein Experte ist ein Mann, der hinterher genau sagen kann, warum seine Prognose nicht gestimmt hat.
+VB makes easy things easy while Delphi makes hard things easy.
+Developing software outside the USA is like brewing beer outside of Germany.
+The nice thing about Windows is - It does not just crash, it displays a dialog box and lets you press 'OK' first.
+Documentation is like sex: when it is good, it is very, very good; and when it is bad, it is better than nothing.
+I haven't failed, I just found 10,000 ways that won't work!
+There are only 10 types of people in the world: Those who understand binary, and those who don't.
+Multimedia? As far as I'm concerned, it's reading with the radio on! - Rory Bremner
+Bildung kommt von Bildschirm und nicht von Buch, sonst hieße es ja Buchung. Dieter Hildebrandt (dt Kabarettist, 1927)
+Die Gefahr bei der Suche nach der Wahrheit ist, dass man sie manchmal findet!
+Wenn du es nicht finden kannst, dann steckt es in der Registry. - Chinesisches Sprichwort
+Am siebenten Tag schuf Gott die Registry. Und er sah, dass sie zu groß war. (Gen. 1,1)
+Hardware sind die Teile vom Computer gegen die man tretten kann, wenn er abgestürzt ist.
+Wenn Word für Längeres geeignet wäre, würde es nicht Word, sondern Sentence, Page oder Article heißen.
+Beware of bugs in the code above; I have only proved it correct, not tried it. - Donald Erwin Knuth
+Ich vermute mal, das ist ein falscher Fehler. Der taucht nämlich plötzlich nicht mehr auf. - Hansa
+Naja, und am Ende mit InternetCloseHandle das Internet dicht machen. - OregonGhost
+Some poeple say when swans die they sing. For some poeple it would be better if they die before they sing.
+Dieser Anwender wird aufgrund eines ungültigen Vorgangs erschossen...
+Einstein ist tot, Newton ist tot, und mir ist auch schon ganz schlecht...
+Der Klügere gibt solange nach bis er der Dumme ist.
+Programmieren ist wie küssen: Man kann darüber reden, man kann es beschreiben, aber man weiß erst, was es bedeutet, wenn man es getan hat.
+Wer auf die Frage, was vor dem Fehler passiert ist, mit „Nichts” antwortet, muss sich die Frage gefallen lassen, warum der PC dann überhaupt an war.
+"The primary purpose of the DATA statement is to give names to constants; instead of referring to pi as 3.141592653589793 at every appearance, the variable PI can be given that value with a DATA statement and used instead of the longer form of the constant. This also simplifies modifying the program, should the value of pi change." - FORTRAN manual for Xerox computers
+Programming graphics in X is like finding sqrt(pi) using Roman numerals. - Henry Spencer
+"Never put off until run time what you can do at compile time." - David Gries, in "Compiler Construction for Digital Computers", circa 1969.
+BASIC programmers never die, they GOSUB and don't RETURN.
+C is almost a real language. Even the name sounds like it's gone through an optimizing compiler. Get rid of all of those stupid brackets and we'll talk.
+COBOL programmers understand why women hate periods.
+Computer interfaces and user interfaces are as different as night and 1.
+The human mind ordinarily operates at only ten 10% of its capacity, the rest is overhead for the operating system.
+The computer is mightier than the pen, the sword, and usually the programmer.
+"Virtual" means never knowing where your next byte is coming from.
+"It's 5:50 a.m., Do you know where your stack pointer is?"
+You never finish a program, you just stop working on it.
+Deliver yesterday, code today, think tomorrow.
+"Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it." - Brian W. Kernighan
+Am Ende wurde auch für ihn die große Escape-Taste gedrückt. - Kommentar von heise.de zum Tot von Bob Bemer. (Erfinder der ESC-Taste und des ASCII Codes.)
+The difference between a hero and a coward is one step sideways.
+Die Nummer, die Sie gewählt haben, ist imaginär. Drehen Sie Ihr Telefon um 90° und versuchen Sie es erneut.
+Wenn alles einfach wäre, würden sich Programme selber schreiben und Windows von allein abstürzen.
+Im Zweifelsfall immer das richtige tun!!!
+"...by all means, do not use a hammer." - aus einer IBM Technikerdokumentation ca. 1920
+Very funny, Scotty. Now beam down my clothes!
+Wenn das Geschaffene schön sein soll, darf es keine Fehler enthalten. Das ist das Wesen des Programmierens. - Linus Torvalds
+Wir die guten Willens sind geführt von Ahnungslosen, versuchen, für die Undankbaren das Unmögliche zu vollbringen.
+Wir haben so viel mit so wenig so lange versucht dass wir jetzt qualifiziert sind fast alles mit nichts zu bewerkstelligen.
+"Writing specifications is like writing a novel. Writing code is like writing poetry." - Larry Osterman
+Delphi: write it, compile it, ship it. Then take the rest of the morning off
+"Nachrichtensprecher fangen stets mit "Guten Abend" an und brauchen dann 15 Minuten, um zu erklären, dass es kein guter Abend ist." - Rudi Carrell
+Was ich nicht im Kopf habe, habe ich im PSDK.
+"A well-written program is its own heaven; a poorly written program is its own hell!" - The Tao of Programming
+I'm sorry Dave, I'm afraid I can't do that... - HAL9000
+Let us change our traditional attitude to the construction of programs. Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to human beings what we want a computer to do. — Donald Edwin Knuth
+Programs should be written and polished until they acquire publication quality. — Niklaus Wirth
+Es gibt Wissenschaftler, die behaupten, dass Logik "universell", also überall gleich, sei...
+Ich treffe täglich Menschen, die mit "ihrer" Logik das Gegenteil beweisen.
+I have always wished for my computer to be as easy to use as my telephone; my wish has come true because I can no longer figure out how to use my telephone. - Bjarne Stroustrup
+In a world without walls and fences, 
+Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.
+linux is like a tipi: no windows, no gates, apache inside
+If we were able to understand it, we wouldn't call it code!
+It's not that life is too short, it's just that you're dead for so long.
+Linux is the last servicepack you will ever need ;)
+When I die, I want Hello, world carved on my headstone..
+Windows: 32 bit extensions and a graphical shell for a 16 bit patch to an 8 bit operating system originally coded for a 4 bit microprocessor, written by a 2 bit company, that can't stand 1 bit of competition.
+640Kb should be enough for anybody. - Bill Gates zu geschrieben (1955)
+Due to the financial restraints the light at the end of the tunnel will be turned off until further notice.
+C++ makes it much harder to shoot yourself in the foot, but when you do, it blows off your whole leg. - Bjarne Stroustrup (dän. Informatik Professor, 1950
+In C we had to code our own bugs. In C++ we can inherit them. - Prof. Gerald Karam
+When I am working on a problem I never think about beauty. I only think about how to solve the problem. But when I have finished, if the solution is not beautiful, I know it is wrong." - Buckminster Fuller (US-amerikanischer Architekt, Konstrukteur, Designer, Philosoph und Schriftsteller, 1895 - 1983)
+I think there is a world market for maybe five computers. - Thomas Watson (Chairman of IBM, 1943)
+What you see is all you get - Brian Kernigham (kanadischer Informatiker, 1942)
+Make it idiot-proof and someone will invent a better idiot...
+I'm not saying there should be a capital punishment for stupidity, but why don't we just take the safety labels off of everything and let the problem solve itself?
+Every feature is a bug until it can be turned off.
+The life is like a chicken ladder ... short and shitty.
