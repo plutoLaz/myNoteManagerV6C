@@ -1,0 +1,1367 @@
+{
+  "Title" : "Plutos_SMS",
+  "Items" : [
+    {
+      "Title" : "(Unknown) - 1706588808",
+      "CreateDateTime" : "19.07.2015 13:20:49",
+      "Items" : [
+        {
+          "Type" : 2,
+          "Text" : "Herzlichen Glückwunsch zum Geburtstag. Wünscht dir Michael Springwald.",
+          "Title" : "Item_0-19.07.2015 13:20:49",
+          "CreateDateTime" : "19.07.2015 13:20:49"
+        }
+      ]
+    },
+    {
+      "Title" : "Ralf Handy - 491712841866",
+      "CreateDateTime" : "09.01.2019 01:08:13",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Bist du noch beim Arzt? Ralf",
+          "Title" : "Item_0-07.08.2015 17:12:49",
+          "CreateDateTime" : "07.08.2015 17:12:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo ihr Lieben. Unsere Fähre geht um 17:15 Uhr. Vermutlich sind wir um 20 Uhr wieder in Oldenburg. ",
+          "Title" : "Item_1-20.08.2015 12:35:18",
+          "CreateDateTime" : "20.08.2015 12:35:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo. Bin gerade im Wendland angekommen. Die Fahrt war entspannent. Bis bald. LG Ralf",
+          "Title" : "Item_2-21.08.2015 18:40:40",
+          "CreateDateTime" : "21.08.2015 18:40:40"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wir haben die Raststätte huntetal passiert. Laut navi sind wir gegen 14:26 Uhr da. Wir kommen gut durch.",
+          "Title" : "Item_3-11.11.2015 15:12:01",
+          "CreateDateTime" : "11.11.2015 15:12:01"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich habe kein Auto. Birgit holt dich ab. Schick ihr auch eine sms. Gruß Ralf",
+          "Title" : "Item_4-11.11.2015 15:14:14",
+          "CreateDateTime" : "11.11.2015 15:14:14"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael. Grenz 015221998820",
+          "Title" : "Item_5-11.02.2016 12:57:30",
+          "CreateDateTime" : "11.02.2016 12:57:30"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Um 11:30 Uhr werde ich operiert.",
+          "Title" : "Item_6-21.02.2016 20:48:35",
+          "CreateDateTime" : "21.02.2016 20:48:35"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Das ist ja eine präzise Angabe... LG Ralf",
+          "Title" : "Item_7-21.02.2016 21:04:11",
+          "CreateDateTime" : "21.02.2016 21:04:11"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Herrlichen Glückwunsch zum Geburtstag. Ich schaltet bald mein Handy aus und schließ",
+          "Title" : "Item_8-22.02.2016 09:44:03",
+          "CreateDateTime" : "22.02.2016 09:44:03"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wir sind fertig und essen mittag.",
+          "Title" : "Item_9-30.03.2016 12:29:40",
+          "CreateDateTime" : "30.03.2016 12:29:40"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Prima. Wann soll ich dich abholen? Gruß Ralf",
+          "Title" : "Item_10-30.03.2016 12:31:45",
+          "CreateDateTime" : "30.03.2016 12:31:45"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Gleich. Es gibt Tee.",
+          "Title" : "Item_11-30.03.2016 12:34:16",
+          "CreateDateTime" : "30.03.2016 12:34:16"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kann doch schon gleich nach Hause. Noch ein artz Gespräch.",
+          "Title" : "Item_12-04.04.2016 13:16:35",
+          "CreateDateTime" : "04.04.2016 13:16:35"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich fahre um 13:30 Uhr los . Ich hole dich in der Praxis ab ",
+          "Title" : "Item_13-04.04.2016 13:19:26",
+          "CreateDateTime" : "04.04.2016 13:19:26"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Prima.",
+          "Title" : "Item_14-04.04.2016 13:19:43",
+          "CreateDateTime" : "04.04.2016 13:19:43"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich bin bald fertig. Ich denke gegen 15:00 Uhr. Noch geht es mir recht gut. ",
+          "Title" : "Item_15-05.04.2016 14:45:05",
+          "CreateDateTime" : "05.04.2016 14:45:05"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Es wird wohl eher 15:30 Uhr.",
+          "Title" : "Item_16-05.04.2016 14:57:36",
+          "CreateDateTime" : "05.04.2016 14:57:36"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Zu spät. Ich stehe auf der gleichen Stelle wie gestern...",
+          "Title" : "Item_17-05.04.2016 15:03:31",
+          "CreateDateTime" : "05.04.2016 15:03:31"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Habe es gleich geschafft. Leider sagen die mir hier alle was anders.",
+          "Title" : "Item_18-05.04.2016 15:08:11",
+          "CreateDateTime" : "05.04.2016 15:08:11"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin unterwegs.",
+          "Title" : "Item_19-05.04.2016 15:14:37",
+          "CreateDateTime" : "05.04.2016 15:14:37"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich komme dann dahin. Sobald ich fertig bin.",
+          "Title" : "Item_20-18.04.2016 12:37:10",
+          "CreateDateTime" : "18.04.2016 12:37:10"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Prima. Bis gleich...",
+          "Title" : "Item_21-18.04.2016 12:38:10",
+          "CreateDateTime" : "18.04.2016 12:38:10"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Das NGO hat hier schon 2 mal angerufen. Wie geht es Maren?",
+          "Title" : "Item_22-29.04.2016 08:08:07",
+          "CreateDateTime" : "29.04.2016 08:08:07"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ein packet ist für dich angekommen.",
+          "Title" : "Item_23-30.04.2016 13:22:12",
+          "CreateDateTime" : "30.04.2016 13:22:12"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Prima. Und für dich auch?",
+          "Title" : "Item_24-30.04.2016 13:23:37",
+          "CreateDateTime" : "30.04.2016 13:23:37"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Meins ist auch dabei.",
+          "Title" : "Item_25-30.04.2016 13:45:26",
+          "CreateDateTime" : "30.04.2016 13:45:26"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Rüdiger hat angerufen. Die Sonnenblenden sind da. ",
+          "Title" : "Item_26-06.05.2016 15:29:18",
+          "CreateDateTime" : "06.05.2016 15:29:18"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wir sind fast da. ",
+          "Title" : "Item_27-13.05.2016 13:52:23",
+          "CreateDateTime" : "13.05.2016 13:52:23"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Prima",
+          "Title" : "Item_28-13.05.2016 13:53:11",
+          "CreateDateTime" : "13.05.2016 13:53:11"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich werde wohl nicht pünktlich sein. Brauchst dich also nicht zu beeilen.",
+          "Title" : "Item_29-17.05.2016 13:23:50",
+          "CreateDateTime" : "17.05.2016 13:23:50"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin da",
+          "Title" : "Item_30-17.05.2016 13:24:39",
+          "CreateDateTime" : "17.05.2016 13:24:39"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich stehe vor dem Finanzamt bei dem Briefkasten an der 91 Straße...",
+          "Title" : "Item_31-18.05.2016 14:10:23",
+          "CreateDateTime" : "18.05.2016 14:10:23"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich gehe noch kurz durch die Stadt.bin aber gleich da.",
+          "Title" : "Item_32-18.05.2016 14:17:34",
+          "CreateDateTime" : "18.05.2016 14:17:34"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Lass Dir Zeit...",
+          "Title" : "Item_33-18.05.2016 14:18:28",
+          "CreateDateTime" : "18.05.2016 14:18:28"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Birgit ist in 5 Minuten da.",
+          "Title" : "Item_34-24.05.2016 12:46:01",
+          "CreateDateTime" : "24.05.2016 12:46:01"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Prima. Dann warte ich hier.",
+          "Title" : "Item_35-24.05.2016 12:50:02",
+          "CreateDateTime" : "24.05.2016 12:50:02"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Gegen 12:50 Uhr bin ich wohl fertig.",
+          "Title" : "Item_36-20.06.2016 12:34:49",
+          "CreateDateTime" : "20.06.2016 12:34:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ok. Bis gleich.",
+          "Title" : "Item_37-20.06.2016 12:36:49",
+          "CreateDateTime" : "20.06.2016 12:36:49"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Leider dauert es hier wohl noch eine Weile. Wie lange weiss ich nicht.",
+          "Title" : "Item_38-11.07.2016 12:47:11",
+          "CreateDateTime" : "11.07.2016 12:47:11"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Macht nichts. Stehe auf dem gewohnten Platz unter der Brücke...",
+          "Title" : "Item_39-11.07.2016 12:49:31",
+          "CreateDateTime" : "11.07.2016 12:49:31"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich fahre jetzt, mit dem Bus zum Verein. Viel Erfolgt noch bei der Schraube.",
+          "Title" : "Item_40-13.08.2016 18:51:09",
+          "CreateDateTime" : "13.08.2016 18:51:09"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Haben die Hunte Passiert.",
+          "Title" : "Item_41-27.09.2016 15:52:50",
+          "CreateDateTime" : "27.09.2016 15:52:50"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin jetzt fertig.",
+          "Title" : "Item_42-15.11.2016 12:24:57",
+          "CreateDateTime" : "15.11.2016 12:24:57"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich fahre gleich zur Uni...",
+          "Title" : "Item_43-15.11.2016 12:26:09",
+          "CreateDateTime" : "15.11.2016 12:26:09"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich laufe Richtung 91er",
+          "Title" : "Item_44-15.11.2016 12:26:38",
+          "CreateDateTime" : "15.11.2016 12:26:38"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich brauche aber 15 Minuten dahin...",
+          "Title" : "Item_45-15.11.2016 12:28:57",
+          "CreateDateTime" : "15.11.2016 12:28:57"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Macht nichts. Lass dir Zeit.",
+          "Title" : "Item_46-15.11.2016 12:29:36",
+          "CreateDateTime" : "15.11.2016 12:29:36"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Fahre mit Mama, zu Maren. Fahre dann nicht mehr zum KTT. Wir haben die Sachen mit.",
+          "Title" : "Item_47-30.11.2016 18:05:43",
+          "CreateDateTime" : "30.11.2016 18:05:43"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wir fahren jetzt gleich in Bremen los.",
+          "Title" : "Item_48-09.12.2016 20:22:18",
+          "CreateDateTime" : "09.12.2016 20:22:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin gegen 19 50 am Zob... ",
+          "Title" : "Item_49-09.12.2016 20:25:02",
+          "CreateDateTime" : "09.12.2016 20:25:02"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Der Zug hatte 30 Minuten Verspätung.",
+          "Title" : "Item_50-09.12.2016 20:29:42",
+          "CreateDateTime" : "09.12.2016 20:29:42"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Maren meint das, sie dich abholen kann. Du musst ihr nur eine SMS Senden.",
+          "Title" : "Item_51-15.12.2016 15:17:06",
+          "CreateDateTime" : "15.12.2016 15:17:06"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich bin um 17 21 Uhr in Oldenburg und komme mit Bus und Rad nach Hause... Gruß Ralf",
+          "Title" : "Item_52-15.12.2016 17:47:29",
+          "CreateDateTime" : "15.12.2016 17:47:29"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich dürfte gleich dran sein. Hier ist es fast leer.",
+          "Title" : "Item_53-10.01.2017 09:18:08",
+          "CreateDateTime" : "10.01.2017 09:18:08"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Stehe bei der Apotheke...",
+          "Title" : "Item_54-10.01.2017 09:27:01",
+          "CreateDateTime" : "10.01.2017 09:27:01"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Das MRT ist zu klein.",
+          "Title" : "Item_55-12.01.2017 11:50:16",
+          "CreateDateTime" : "12.01.2017 11:50:16"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst du mich um 1:00 abholen?",
+          "Title" : "Item_56-17.01.2017 01:37:57",
+          "CreateDateTime" : "17.01.2017 01:37:57"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bist du noch bei Oma? Wenn ja würde ich da aussteigen. Bin jetzt am lappan.",
+          "Title" : "Item_57-19.01.2017 11:25:32",
+          "CreateDateTime" : "19.01.2017 11:25:32"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin noch nicht soweit. Bin aber gleich da.",
+          "Title" : "Item_58-20.01.2017 01:24:39",
+          "CreateDateTime" : "20.01.2017 01:24:39"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst du mich um 13:00 Uhr abholen?",
+          "Title" : "Item_59-20.01.2017 13:23:56",
+          "CreateDateTime" : "20.01.2017 13:23:56"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Vom Museum.",
+          "Title" : "Item_60-20.01.2017 13:24:08",
+          "CreateDateTime" : "20.01.2017 13:24:08"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ja. Mache ich...",
+          "Title" : "Item_61-20.01.2017 13:25:16",
+          "CreateDateTime" : "20.01.2017 13:25:16"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich fahre gleich mit der 304 nach Hause.",
+          "Title" : "Item_62-28.01.2017 15:12:33",
+          "CreateDateTime" : "28.01.2017 15:12:33"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Es dauert wohl doch länger, als gedacht. Kannst du 15 Minuten später kommen?",
+          "Title" : "Item_63-30.01.2017 14:07:01",
+          "CreateDateTime" : "30.01.2017 14:07:01"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich warte nur noch auf die CD. Habe dich schon gesehen.",
+          "Title" : "Item_64-30.01.2017 14:24:18",
+          "CreateDateTime" : "30.01.2017 14:24:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin im netto... ",
+          "Title" : "Item_65-30.01.2017 14:25:12",
+          "CreateDateTime" : "30.01.2017 14:25:12"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Maren ist schon da...",
+          "Title" : "Item_66-08.06.2017 21:05:14",
+          "CreateDateTime" : "08.06.2017 21:05:14"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst du länger warten? 2 Personen sind vor mir dran.",
+          "Title" : "Item_67-21.06.2017 10:20:11",
+          "CreateDateTime" : "21.06.2017 10:20:11"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich warte auf dem Parkplatz... ",
+          "Title" : "Item_68-21.06.2017 10:22:19",
+          "CreateDateTime" : "21.06.2017 10:22:19"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich glaube das dauert hier noch länger. Kannst also ruhig nach Hause fahren. Die 2 Personen waren gelogen.",
+          "Title" : "Item_69-21.06.2017 10:45:28",
+          "CreateDateTime" : "21.06.2017 10:45:28"
+        },
+        {
+          "Type" : 2,
+          "Text" : "So, sitze vor dem Arzt Zimmer.",
+          "Title" : "Item_70-21.06.2017 11:06:46",
+          "CreateDateTime" : "21.06.2017 11:06:46"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin jetzt an der Post. Soll ich auf dich warten?",
+          "Title" : "Item_71-20.07.2017 09:23:50",
+          "CreateDateTime" : "20.07.2017 09:23:50"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Nein, brauchst du nicht... Trinke gleich noch ein Tee, den ich schon bestellt habe.",
+          "Title" : "Item_72-20.07.2017 10:03:49",
+          "CreateDateTime" : "20.07.2017 10:03:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin schon zu Hause... Bis nacher...",
+          "Title" : "Item_73-20.07.2017 10:05:11",
+          "CreateDateTime" : "20.07.2017 10:05:11"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Dachte ich mir, bis nachher....",
+          "Title" : "Item_74-20.07.2017 10:13:59",
+          "CreateDateTime" : "20.07.2017 10:13:59"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst aber schon los...bin gleich dran.",
+          "Title" : "Item_75-27.09.2017 11:09:24",
+          "CreateDateTime" : "27.09.2017 11:09:24"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bis du noch in der nähe? Es würde abgesagt.",
+          "Title" : "Item_76-18.12.2017 11:02:17",
+          "CreateDateTime" : "18.12.2017 11:02:17"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin auf dem Rückweg. ..",
+          "Title" : "Item_77-04.04.2018 11:12:00",
+          "CreateDateTime" : "04.04.2018 11:12:00"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin beim Bus",
+          "Title" : "Item_78-04.04.2018 11:13:11",
+          "CreateDateTime" : "04.04.2018 11:13:11"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin, in der 304.... Steige stiekelkam aus",
+          "Title" : "Item_79-15.11.2018 17:27:35",
+          "CreateDateTime" : "15.11.2018 17:27:35"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ok bis gleich.",
+          "Title" : "Item_80-15.11.2018 17:28:47",
+          "CreateDateTime" : "15.11.2018 17:28:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bist du noch im space?",
+          "Title" : "Item_81-09.01.2019 01:08:13",
+          "CreateDateTime" : "09.01.2019 01:08:13"
+        }
+      ]
+    },
+    {
+      "Title" : "Chris Kropp - 4917632912154",
+      "CreateDateTime" : "04.11.2015 23:27:34",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "crihs2003@yahoo.de das istmeine mal adrese deine hat er wider geloscht \n",
+          "Title" : "Item_0-10.08.2015 13:14:12",
+          "CreateDateTime" : "10.08.2015 13:14:12"
+        },
+        {
+          "Type" : 1,
+          "Text" : "magt nicht andworten ich weis diese handys sind nichtz für dich lach lach ich sag mal stummf schade das pc nicht klein und trabar sind was ",
+          "Title" : "Item_1-11.08.2015 10:32:05",
+          "CreateDateTime" : "11.08.2015 10:32:05"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Sind sie doch. Bin noch beim Arzt. Sobald ich wieder zuhause bin schreibe ich dir eine E-Mail.",
+          "Title" : "Item_2-11.08.2015 10:44:14",
+          "CreateDateTime" : "11.08.2015 10:44:14"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Na kleiner",
+          "Title" : "Item_3-04.11.2015 23:27:34",
+          "CreateDateTime" : "04.11.2015 23:27:34"
+        }
+      ]
+    },
+    {
+      "Title" : "Maren springwald - 4916093437274",
+      "CreateDateTime" : "14.05.2016 14:45:42",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Ich fahr nicht nach münster. ich kauf gleich noch fleisch ein. Lg Maren",
+          "Title" : "Item_0-22.08.2015 11:52:23",
+          "CreateDateTime" : "22.08.2015 11:52:23"
+        },
+        {
+          "Type" : 2,
+          "Text" : "OK. Bin in der Stadt.",
+          "Title" : "Item_1-22.08.2015 11:53:47",
+          "CreateDateTime" : "22.08.2015 11:53:47"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Wir haben deinen schlüssel, aber das macht ja nichts. LG",
+          "Title" : "Item_2-14.05.2016 14:45:42",
+          "CreateDateTime" : "14.05.2016 14:45:42"
+        }
+      ]
+    },
+    {
+      "Title" : "Kay Küster - 491734816743",
+      "CreateDateTime" : "02.01.2019 23:10:00",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hi Michael, in ca einer halben Stunde hab ich Feierabend und würde mich dann auf dem Weg zu dir machen. Ich wäre dann ca 1 Stunde mit Stau eingerechnet zu dir unterwegs. Also bis später, wenn es dabei bleibt.",
+          "Title" : "Item_0-09.11.2015 16:31:27",
+          "CreateDateTime" : "09.11.2015 16:31:27"
+        },
+        {
+          "Type" : 2,
+          "Text" : "OK. Bin im Hotel. Klingel einfach noch mal durch. Wenn du da bist.",
+          "Title" : "Item_1-09.11.2015 16:32:52",
+          "CreateDateTime" : "09.11.2015 16:32:52"
+        },
+        {
+          "Type" : 1,
+          "Text" : "OK dann bis nachher.",
+          "Title" : "Item_2-09.11.2015 16:34:06",
+          "CreateDateTime" : "09.11.2015 16:34:06"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Bin in ca 7 min da.",
+          "Title" : "Item_3-09.11.2015 17:37:46",
+          "CreateDateTime" : "09.11.2015 17:37:46"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hi ich fahr hier jetzt los",
+          "Title" : "Item_4-10.11.2015 17:02:47",
+          "CreateDateTime" : "10.11.2015 17:02:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "OK,ich packe zusammen",
+          "Title" : "Item_5-10.11.2015 17:03:29",
+          "CreateDateTime" : "10.11.2015 17:03:29"
+        },
+        {
+          "Type" : 1,
+          "Text" : "1234qwer",
+          "Title" : "Item_6-15.04.2016 23:59:12",
+          "CreateDateTime" : "15.04.2016 23:59:12"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hey grüss dich Michael. Frohes neues erstmal. ",
+          "Title" : "Item_7-02.01.2019 21:13:26",
+          "CreateDateTime" : "02.01.2019 21:13:26"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Sag Mal nutzt du noch Skype?",
+          "Title" : "Item_8-02.01.2019 21:13:38",
+          "CreateDateTime" : "02.01.2019 21:13:38"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Das nutze ich kaum noch...",
+          "Title" : "Item_9-02.01.2019 23:04:17",
+          "CreateDateTime" : "02.01.2019 23:04:17"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich wünsche dir auch ein frohes neues Jahr.",
+          "Title" : "Item_10-02.01.2019 23:04:44",
+          "CreateDateTime" : "02.01.2019 23:04:44"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hast du schon Mal mit einem  Relais gebastelt?",
+          "Title" : "Item_11-02.01.2019 23:06:10",
+          "CreateDateTime" : "02.01.2019 23:06:10"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, wenn ich wieder Zuhause bin, kann ich Skype Mal wieder starten....",
+          "Title" : "Item_12-02.01.2019 23:07:05",
+          "CreateDateTime" : "02.01.2019 23:07:05"
+        },
+        {
+          "Type" : 1,
+          "Text" : "OK jo mach das Mal. ",
+          "Title" : "Item_13-02.01.2019 23:07:54",
+          "CreateDateTime" : "02.01.2019 23:07:54"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Was machst denn gerade arbeiten oder Urlaub?",
+          "Title" : "Item_14-02.01.2019 23:08:14",
+          "CreateDateTime" : "02.01.2019 23:08:14"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wird aber wohl erst morgen was....",
+          "Title" : "Item_15-02.01.2019 23:08:31",
+          "CreateDateTime" : "02.01.2019 23:08:31"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich bin in Frührente...",
+          "Title" : "Item_16-02.01.2019 23:09:03",
+          "CreateDateTime" : "02.01.2019 23:09:03"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Jo kein Ding ich lass Skype Mal an und wenn du Zeit hast schreib einfach. Ich werde mich dann melden sobald ich das sehe.",
+          "Title" : "Item_17-02.01.2019 23:10:00",
+          "CreateDateTime" : "02.01.2019 23:10:00"
+        }
+      ]
+    },
+    {
+      "Title" : "Ingrid - 491606865454",
+      "CreateDateTime" : "10.06.2018 11:36:08",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael, hier die Mail von Helmut Wenzel: alles in klein,  helmut wenzel . ewetel . net   L. G. Ingrid , kurze sms an mich als Antwort.",
+          "Title" : "Item_0-30.12.2015 12:31:38",
+          "CreateDateTime" : "30.12.2015 12:31:38"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Danke, für die E-Mail Adresse. Aber wo muss das at Zeichen hin? ",
+          "Title" : "Item_1-30.12.2015 14:03:38",
+          "CreateDateTime" : "30.12.2015 14:03:38"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Laut Helmut ist das so richtig .",
+          "Title" : "Item_2-30.12.2015 15:04:10",
+          "CreateDateTime" : "30.12.2015 15:04:10"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, ich liege im Pius Hospital.",
+          "Title" : "Item_3-15.02.2016 19:48:26",
+          "CreateDateTime" : "15.02.2016 19:48:26"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael, komme dich besuchen, evtl. am Mi. . Werde dich schon finden, gib mir aber rechtzeitig Bescheid wenn du weißt wann du raus kommst. Liebe Grüße von Ingrid",
+          "Title" : "Item_4-15.02.2016 19:52:43",
+          "CreateDateTime" : "15.02.2016 19:52:43"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Mache ich.",
+          "Title" : "Item_5-15.02.2016 19:56:52",
+          "CreateDateTime" : "15.02.2016 19:56:52"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich habe die OP, gut über standen. Rumlaufen kann ich auch wieder.",
+          "Title" : "Item_6-25.02.2016 16:19:33",
+          "CreateDateTime" : "25.02.2016 16:19:33"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Klasse, wenn die Op nun auch noch geholfen hat! Bin z. Z. Au mit Entzündung im Ober- arm. Versuche am Samstag zu kommen , muß dir was erzählen. Liebe Grüße",
+          "Title" : "Item_7-25.02.2016 17:38:51",
+          "CreateDateTime" : "25.02.2016 17:38:51"
+        },
+        {
+          "Type" : 2,
+          "Text" : "So, ich werde heute entlassen. Heute vormittag.",
+          "Title" : "Item_8-01.03.2016 09:34:50",
+          "CreateDateTime" : "01.03.2016 09:34:50"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Klasse und melde dich mal wieder. Werde auch mal bei euch zuhause anrufen. Liebe Grüße und weiter gute Besserung.",
+          "Title" : "Item_9-01.03.2016 11:32:35",
+          "CreateDateTime" : "01.03.2016 11:32:35"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, mache ich. Wir sind gleich beim Hausarzt.",
+          "Title" : "Item_10-01.03.2016 16:19:05",
+          "CreateDateTime" : "01.03.2016 16:19:05"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, diese SMS sende ich mit meiner neuen Handy Nummer, ich meine die hast du noch nicht.",
+          "Title" : "Item_11-06.04.2017 18:58:53",
+          "CreateDateTime" : "06.04.2017 18:58:53"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hier ist meine Telefonnummer  von Michael Springwald.",
+          "Title" : "Item_12-02.05.2018 01:19:37",
+          "CreateDateTime" : "02.05.2018 01:19:37"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michi , besser spät als garnicht : alle lieben und guten Wünsche zum Geburtstag nachträglich von Ingrid und Daniel.",
+          "Title" : "Item_13-10.06.2018 10:30:47",
+          "CreateDateTime" : "10.06.2018 10:30:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, vielen Dank für die Glückwünsche.",
+          "Title" : "Item_14-10.06.2018 11:36:08",
+          "CreateDateTime" : "10.06.2018 11:36:08"
+        }
+      ]
+    },
+    {
+      "Title" : "Vanessa3 - 491629427097",
+      "CreateDateTime" : "18.02.2017 16:18:44",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael In Telegram wartet eine Nachricht auf dich ",
+          "Title" : "Item_0-09.01.2016 19:18:59",
+          "CreateDateTime" : "09.01.2016 19:18:59"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich habe im Moment kein w-lan mehr. Das kann ein paar Tage dauern. Ich schalte auch mein Handy bald ab und schließ es weg.",
+          "Title" : "Item_1-22.02.2016 09:46:25",
+          "CreateDateTime" : "22.02.2016 09:46:25"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Entgangener Anruf:\n+491629427097\nam 25.02. um 13:24 Uhr\nIhre Telekom",
+          "Title" : "Item_2-25.02.2016 15:53:30",
+          "CreateDateTime" : "25.02.2016 15:53:30"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael Hier meine Handynummer 01629427097 Gruß Vanessa",
+          "Title" : "Item_3-01.08.2016 22:47:52",
+          "CreateDateTime" : "01.08.2016 22:47:52"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael du hast mich 5 mal versucht anzurufen was ist denn los wir können besser über Telegramm schreiben ich bin Grade in der Stadt unterwegs ich denke wenn es wichtig war wirst du dich wohl melden.",
+          "Title" : "Item_4-18.02.2017 13:49:33",
+          "CreateDateTime" : "18.02.2017 13:49:33"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Mein Handy liegt die ganze Zeit neben mein Bett auf mein nachträglich. Ich habe nur per Telegramm dir geschrieben.",
+          "Title" : "Item_5-18.02.2017 16:18:44",
+          "CreateDateTime" : "18.02.2017 16:18:44"
+        }
+      ]
+    },
+    {
+      "Title" : "Hauke - 4915123364452",
+      "CreateDateTime" : "02.08.2019 22:08:40",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hi ich verspäte mich etwas, bin so gegen fünf im Space!",
+          "Title" : "Item_0-06.02.2016 16:57:25",
+          "CreateDateTime" : "06.02.2016 16:57:25"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich habe die OP, gut über standen. Rumlaufen kann ich auch wieder.",
+          "Title" : "Item_1-25.02.2016 16:18:19",
+          "CreateDateTime" : "25.02.2016 16:18:19"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hi, alles klar gut zu hören das es schon wieder geht",
+          "Title" : "Item_2-25.02.2016 18:53:32",
+          "CreateDateTime" : "25.02.2016 18:53:32"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hatte dir ne mail geschrieben, aber du hast wohl noch kein Internet,was?",
+          "Title" : "Item_3-25.02.2016 18:54:17",
+          "CreateDateTime" : "25.02.2016 18:54:17"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Doch, ich habe noch nicht nach gesehen.",
+          "Title" : "Item_4-25.02.2016 19:07:15",
+          "CreateDateTime" : "25.02.2016 19:07:15"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Komne ein paar minuten später fahre jetzt los",
+          "Title" : "Item_5-03.03.2016 19:50:29",
+          "CreateDateTime" : "03.03.2016 19:50:29"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich, fahre jetzt zum space. Bin gleich da.",
+          "Title" : "Item_6-26.03.2016 21:39:48",
+          "CreateDateTime" : "26.03.2016 21:39:48"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Habe mein Müll vergessen mit zu nehmen. Köntest du ihn mit neben? Danke.",
+          "Title" : "Item_7-26.06.2016 01:28:18",
+          "CreateDateTime" : "26.06.2016 01:28:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Kein problem, gutes nächtle :-)",
+          "Title" : "Item_8-26.06.2016 03:28:09",
+          "CreateDateTime" : "26.06.2016 03:28:09"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Danke, dir ebenfalls eine gute Nacht.",
+          "Title" : "Item_9-26.06.2016 03:29:00",
+          "CreateDateTime" : "26.06.2016 03:29:00"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Im Treppenhaus habe ich eine Spritze gefunden. Habe sie aber liegen gelassen.",
+          "Title" : "Item_10-21.08.2016 02:26:26",
+          "CreateDateTime" : "21.08.2016 02:26:26"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ok wir müssen dann mal schauen...mist",
+          "Title" : "Item_11-21.08.2016 02:27:40",
+          "CreateDateTime" : "21.08.2016 02:27:40"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich komme wohl ein paar Minuten später.",
+          "Title" : "Item_12-31.08.2016 17:55:18",
+          "CreateDateTime" : "31.08.2016 17:55:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Michael? Ja ich verspäte mich auch, ich gehe jetzt erst los",
+          "Title" : "Item_13-31.08.2016 19:13:22",
+          "CreateDateTime" : "31.08.2016 19:13:22"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst du noch den Schlüssel für den space mitbringen.",
+          "Title" : "Item_14-19.11.2016 19:37:07",
+          "CreateDateTime" : "19.11.2016 19:37:07"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, der space wird Gerade überrannt von Flüchtlingen.",
+          "Title" : "Item_15-20.03.2017 20:36:01",
+          "CreateDateTime" : "20.03.2017 20:36:01"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Habe dein Anruf erst jetzt gesehen. Was gibts?",
+          "Title" : "Item_16-28.03.2017 16:13:46",
+          "CreateDateTime" : "28.03.2017 16:13:46"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hättest du auch wegen der Projekt Besprechung, morgen Zeit? Weil, Christian ist noch nicht soweit.",
+          "Title" : "Item_17-12.04.2017 17:56:23",
+          "CreateDateTime" : "12.04.2017 17:56:23"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ja ich bin sowieso grad in holland, morgen ist aber auch schlecht bei mir...",
+          "Title" : "Item_18-12.04.2017 19:03:33",
+          "CreateDateTime" : "12.04.2017 19:03:33"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Habe also keine Zeit, sorry, das war kurzfristig dazwischen gekommen",
+          "Title" : "Item_19-12.04.2017 19:04:23",
+          "CreateDateTime" : "12.04.2017 19:04:23"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ok, m1p3 kann morgen auch nicht. Dann würde ich vorschlagen das wir es in der nächsten Woche machen.",
+          "Title" : "Item_20-12.04.2017 19:04:49",
+          "CreateDateTime" : "12.04.2017 19:04:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Okay, ist ja auch nicht soo wichtig, das treffen..",
+          "Title" : "Item_21-12.04.2017 19:06:34",
+          "CreateDateTime" : "12.04.2017 19:06:34"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich bin schon fertig. Es wurde ein CT und kein MRT. Ich bin dann früher bei dir. so gegen 13:00 Uhr schätze ich.",
+          "Title" : "Item_22-27.09.2017 12:15:09",
+          "CreateDateTime" : "27.09.2017 12:15:09"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin jetzt da. Die Hausnummer stimmt jedenfalls.",
+          "Title" : "Item_23-27.09.2017 13:16:14",
+          "CreateDateTime" : "27.09.2017 13:16:14"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Sorry, das ich dich weggedrückt habe, aber seit ein paar Tagen kann ich nicht mehr so gut schlafen.\nWas gibt es? Wie war es in Leipzig?",
+          "Title" : "Item_24-31.12.2018 11:58:49",
+          "CreateDateTime" : "31.12.2018 11:58:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Gut, ich komme nachher nach Oldenburg und wollte fragen was ich zum Buffett mitbringen kann.",
+          "Title" : "Item_25-31.12.2018 12:00:25",
+          "CreateDateTime" : "31.12.2018 12:00:25"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Es gibt eine Liste im Pad. Was wer schon mitbringt. Habe im Moment auch keine Idee...",
+          "Title" : "Item_26-31.12.2018 12:02:47",
+          "CreateDateTime" : "31.12.2018 12:02:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Zur Zeit bringt keiner nach Tisch mit.... Vielleicht Qurkspeise?",
+          "Title" : "Item_27-31.12.2018 12:05:38",
+          "CreateDateTime" : "31.12.2018 12:05:38"
+        },
+        {
+          "Type" : 1,
+          "Text" : "OK ich schau mal rein!",
+          "Title" : "Item_28-31.12.2018 12:07:24",
+          "CreateDateTime" : "31.12.2018 12:07:24"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, alles gute zum Geburtstag.\n\nPluto",
+          "Title" : "Item_29-31.07.2019 13:11:31",
+          "CreateDateTime" : "31.07.2019 13:11:31"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hi Michael, vielen Dank! Sorry, dass es etwas gedauert hat, ich bekomme so selten noch SMS und die ist unter gegangen. Lass uns demnächst mal wieder hangout machen :)",
+          "Title" : "Item_30-02.08.2019 17:07:09",
+          "CreateDateTime" : "02.08.2019 17:07:09"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ich hoffe Dir gehts gut! :)",
+          "Title" : "Item_31-02.08.2019 17:07:10",
+          "CreateDateTime" : "02.08.2019 17:07:10"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich dachte SMS währe sinnvoller als eine Email. Ja, Hangout können wir machen.\nHast du inzwischen telegram?",
+          "Title" : "Item_32-02.08.2019 18:40:30",
+          "CreateDateTime" : "02.08.2019 18:40:30"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Nein",
+          "Title" : "Item_33-02.08.2019 22:08:40",
+          "CreateDateTime" : "02.08.2019 22:08:40"
+        }
+      ]
+    },
+    {
+      "Title" : "Mama Handy - 4915751999162",
+      "CreateDateTime" : "27.08.2016 17:59:58",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hallo Mimi, wie geht es dir? Wurdest du untersucht? Kannst du denn schlafen? Liebe Grüsse von Mama",
+          "Title" : "Item_0-11.02.2016 22:39:47",
+          "CreateDateTime" : "11.02.2016 22:39:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Untersucht ja morgen geht es weiter. Morgen soll eine magenspiegkung gemacht werden. Erst nach eine Ultraschall Untersuchung. Wie geht es dir? Gute Nacht.",
+          "Title" : "Item_1-11.02.2016 22:43:31",
+          "CreateDateTime" : "11.02.2016 22:43:31"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Mimi, gefällt es dir im Krhs? Hast du dich gut eingelebt? Von dort hat man eine tolle Aussicht über Ol.Ich habe immer noch Husten u bin fast nur im Bett. LG Mama",
+          "Title" : "Item_2-13.02.2016 17:57:45",
+          "CreateDateTime" : "13.02.2016 17:57:45"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hier ist es langweilig. Keiner sagt was. Die Darmspiegelung findet jetzt Montag statt.",
+          "Title" : "Item_3-13.02.2016 18:09:06",
+          "CreateDateTime" : "13.02.2016 18:09:06"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ja, so ist das im Krhs. Hast du denn jemanden im Zimmer? Ich würde mir unten eine Zeitschrift kaufen. Beim Eingang zum Café rechts lagen gelesene Zeitschriften aus. Viel über Gärten und Kochen ..hast du denn WLAN ?",
+          "Title" : "Item_4-13.02.2016 18:14:52",
+          "CreateDateTime" : "13.02.2016 18:14:52"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, hier ist noch jemand im Zimmer. W-lan gibt es nur für ewe-kunden. ",
+          "Title" : "Item_5-13.02.2016 18:21:53",
+          "CreateDateTime" : "13.02.2016 18:21:53"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo Mimi, ist die D.spieglung schon vorbei? Wie geht es dir?  LG Mama",
+          "Title" : "Item_6-15.02.2016 16:56:57",
+          "CreateDateTime" : "15.02.2016 16:56:57"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, sie ist vorbei. Mein Darm hat sich entzündet und das muss op. Werden. Mehr weiß ich auch noch.",
+          "Title" : "Item_7-15.02.2016 16:58:55",
+          "CreateDateTime" : "15.02.2016 16:58:55"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich stehe jetzt an der 91er.",
+          "Title" : "Item_8-31.05.2016 13:16:23",
+          "CreateDateTime" : "31.05.2016 13:16:23"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wir bringen dein Fahrrad. Und sind gleich vor der Tür.",
+          "Title" : "Item_9-27.08.2016 17:59:58",
+          "CreateDateTime" : "27.08.2016 17:59:58"
+        }
+      ]
+    },
+    {
+      "Title" : "Bubu - 4915222635904",
+      "CreateDateTime" : "19.02.2016 15:40:34",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hallo Michael, habe gehört das du im Krankenhaus bist, aber Handyempfang hast. Kann leider nur per SMS schreiben, habe sonst nur whats App, was du wohl nicht benutzt. Ich wünsche dir gute Besserung und das du bald wieder gesund bist. Besuch bekommst du sicherlich reichlich, da wird's nicht langweilig, oder? Gruß Burchard",
+          "Title" : "Item_0-19.02.2016 14:52:40",
+          "CreateDateTime" : "19.02.2016 14:52:40"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, wir nutzen hier Telegramm. Vileicht kannst du es ja bei dir installiren?",
+          "Title" : "Item_1-19.02.2016 15:40:34",
+          "CreateDateTime" : "19.02.2016 15:40:34"
+        }
+      ]
+    },
+    {
+      "Title" : "Mahtis Handy - 15159066670",
+      "CreateDateTime" : "22.04.2016 18:55:13",
+      "Items" : [
+        {
+          "Type" : 2,
+          "Text" : "Wir haben angefangen zu grillen. Seit ihr schon auf dem Rückweg?",
+          "Title" : "Item_0-22.04.2016 18:55:13",
+          "CreateDateTime" : "22.04.2016 18:55:13"
+        }
+      ]
+    },
+    {
+      "Title" : "Bubu2 - 491705601418",
+      "CreateDateTime" : "03.06.2016 00:34:33",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Gesetzte Markierung\nbei Hullenhauser Str. 1, 26215 Wiefelstede\nhttps://goo.gl/maps/mha7oxsZx1J2",
+          "Title" : "Item_0-03.06.2016 00:34:33",
+          "CreateDateTime" : "03.06.2016 00:34:33"
+        }
+      ]
+    },
+    {
+      "Title" : "Maren Neu - 4915163444994",
+      "CreateDateTime" : "07.08.2019 20:49:36",
+      "Items" : [
+        {
+          "Type" : 1,
+          "Text" : "Hallo, ich habe eine neue Nummer: 015163444994. Liebe Grüße Maren ",
+          "Title" : "Item_0-03.06.2016 23:54:54",
+          "CreateDateTime" : "03.06.2016 23:54:54"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Offen, Na klar...",
+          "Title" : "Item_1-05.06.2016 01:48:03",
+          "CreateDateTime" : "05.06.2016 01:48:03"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hier bin ich.",
+          "Title" : "Item_2-26.02.2017 01:37:06",
+          "CreateDateTime" : "26.02.2017 01:37:06"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, ja ich würde gerne abgeholt werden. Sag bescheid, wenn du hier sein kannst, ich brauche ca 10 Minuten zum einpacken.",
+          "Title" : "Item_3-13.07.2019 22:16:22",
+          "CreateDateTime" : "13.07.2019 22:16:22"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Kannst du noch mal kurz zur Einsteinstraße fahren? Habe die blaue Tonne auf der falschen Straßenseite gestellt. Sie muss eingereiht werden, wie die anderen.",
+          "Title" : "Item_4-07.08.2019 20:49:36",
+          "CreateDateTime" : "07.08.2019 20:49:36"
+        }
+      ]
+    },
+    {
+      "Title" : "Murin-ktt - 4917681642709",
+      "CreateDateTime" : "01.01.2018 01:32:08",
+      "Items" : [
+        {
+          "Type" : 2,
+          "Text" : "Hallo, ich bin besser über Telegramm oder E-mail zu erreichen. Verwendest du noch Telegramm?",
+          "Title" : "Item_0-28.10.2016 18:43:49",
+          "CreateDateTime" : "28.10.2016 18:43:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Momentan nur whatsapp. Welche email adresse? Aber wenn Telegramm wieso dann nicht gleich XMPP?",
+          "Title" : "Item_1-28.10.2016 18:51:43",
+          "CreateDateTime" : "28.10.2016 18:51:43"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Müsste ich auch haben E-mail: springwaldmichael@gmail.com",
+          "Title" : "Item_2-28.10.2016 19:12:10",
+          "CreateDateTime" : "28.10.2016 19:12:10"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Xmpp habe ich auch: Pluto ist dort mein Nutzer name",
+          "Title" : "Item_3-28.10.2016 19:14:58",
+          "CreateDateTime" : "28.10.2016 19:14:58"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich habe deinen Anruf zu spät gesehen. In der Regel achte ich nicht so, auf das Handy. Wir könnten es ja mal per Email versuchen: springwaldmichael@gmail.com\n",
+          "Title" : "Item_4-14.12.2016 14:12:09",
+          "CreateDateTime" : "14.12.2016 14:12:09"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hallo, bist du heute Abend im Space?",
+          "Title" : "Item_5-17.10.2017 16:50:26",
+          "CreateDateTime" : "17.10.2017 16:50:26"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, bin so gegen 19:00 Uhr wohl da.",
+          "Title" : "Item_6-17.10.2017 18:09:06",
+          "CreateDateTime" : "17.10.2017 18:09:06"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ok bin schon da",
+          "Title" : "Item_7-17.10.2017 18:48:23",
+          "CreateDateTime" : "17.10.2017 18:48:23"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Bin auch gleich da...",
+          "Title" : "Item_8-17.10.2017 19:08:27",
+          "CreateDateTime" : "17.10.2017 19:08:27"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Na was machst du heute Abend? :)",
+          "Title" : "Item_9-20.10.2017 19:16:49",
+          "CreateDateTime" : "20.10.2017 19:16:49"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich bleibe heute Abend zu Hause. Morgen fahre ich zum Verein. Was machst du?",
+          "Title" : "Item_10-20.10.2017 19:51:19",
+          "CreateDateTime" : "20.10.2017 19:51:19"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hab heute 2 Mal das Radio ein und ausgebaut muss noch ein drittes Mal..",
+          "Title" : "Item_11-20.10.2017 19:55:18",
+          "CreateDateTime" : "20.10.2017 19:55:18"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Es ging um die Steckerverbindung",
+          "Title" : "Item_12-20.10.2017 19:55:49",
+          "CreateDateTime" : "20.10.2017 19:55:49"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Sonst total müde was hast du heute gemacht?",
+          "Title" : "Item_13-20.10.2017 19:56:19",
+          "CreateDateTime" : "20.10.2017 19:56:19"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Meine DVD weiter gerippt... Ich werde aber noch ein weiteres Projekt weiter machen. Was hast du so gemacht?\nVerwendest du eigentlich noch Telegramm?",
+          "Title" : "Item_14-20.10.2017 19:57:56",
+          "CreateDateTime" : "20.10.2017 19:57:56"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Wo war das Problem?",
+          "Title" : "Item_15-20.10.2017 19:58:41",
+          "CreateDateTime" : "20.10.2017 19:58:41"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Dauerstromkabel und Zündungskabel sollten zunächst getauscht und überbrückt werden. Aber nun geht es gar nicht mehr aus...also zurück bauen..",
+          "Title" : "Item_16-20.10.2017 20:07:26",
+          "CreateDateTime" : "20.10.2017 20:07:26"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Stimmt... Das sagte mein Vater auch.. vielleicht ist ja eine andere Verbindung locker?",
+          "Title" : "Item_17-20.10.2017 20:17:13",
+          "CreateDateTime" : "20.10.2017 20:17:13"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Das liegt wohl am Radio. Es geht erst aus und dann in den Stand-by, damit dürfte der Stromverbrauch zu hoch sein",
+          "Title" : "Item_18-20.10.2017 20:19:08",
+          "CreateDateTime" : "20.10.2017 20:19:08"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Oder an der Batterie?",
+          "Title" : "Item_19-20.10.2017 20:19:58",
+          "CreateDateTime" : "20.10.2017 20:19:58"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Alles gut :). Was macht dein Arduino Projekt. Was bastelst du grade?",
+          "Title" : "Item_20-20.10.2017 20:21:49",
+          "CreateDateTime" : "20.10.2017 20:21:49"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Beim Arduino habe ich noch nicht weiter gemacht, jedoch bei meinem Forum. Sag Mal hast du eine Google Account? Dann könnten wir auch Hangout nutzen.",
+          "Title" : "Item_21-20.10.2017 20:26:59",
+          "CreateDateTime" : "20.10.2017 20:26:59"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Was machst du heute Abend?",
+          "Title" : "Item_22-04.11.2017 19:14:55",
+          "CreateDateTime" : "04.11.2017 19:14:55"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Fahre gleich zum Verein und du?",
+          "Title" : "Item_23-04.11.2017 19:18:07",
+          "CreateDateTime" : "04.11.2017 19:18:07"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Ok dann können wir uns da treffen",
+          "Title" : "Item_24-04.11.2017 19:19:30",
+          "CreateDateTime" : "04.11.2017 19:19:30"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Hi wann bist du wieder im ktt?",
+          "Title" : "Item_25-10.11.2017 23:52:49",
+          "CreateDateTime" : "10.11.2017 23:52:49"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Hallo, heute Abend so gegen 19:00 Uhr.",
+          "Title" : "Item_26-11.11.2017 12:12:47",
+          "CreateDateTime" : "11.11.2017 12:12:47"
+        },
+        {
+          "Type" : 2,
+          "Text" : "War gerade unterwegs..warum dein Anruf?",
+          "Title" : "Item_27-12.11.2017 00:49:51",
+          "CreateDateTime" : "12.11.2017 00:49:51"
+        },
+        {
+          "Type" : 1,
+          "Text" : "Sorry hatte nur wissen wollen ob du noch im Space bist :)",
+          "Title" : "Item_28-12.11.2017 00:51:40",
+          "CreateDateTime" : "12.11.2017 00:51:40"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ja, bin ich noch...",
+          "Title" : "Item_29-12.11.2017 00:56:00",
+          "CreateDateTime" : "12.11.2017 00:56:00"
+        },
+        {
+          "Type" : 2,
+          "Text" : "Ich wünsche dir ein frohes neues Jahr.",
+          "Title" : "Item_30-01.01.2018 01:32:08",
+          "CreateDateTime" : "01.01.2018 01:32:08"
+        }
+      ]
+    }
+  ]
+}
