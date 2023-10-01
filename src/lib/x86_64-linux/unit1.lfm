@@ -1,0 +1,230 @@
+object Form1: TForm1
+  Left = 287
+  Height = 745
+  Top = 199
+  Width = 1535
+  Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
+  ClientHeight = 745
+  ClientWidth = 1535
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  LCLVersion = '2.3.0.0'
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 695
+    Width = 1535
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 1535
+    TabOrder = 0
+    object BitBtn1: TBitBtn
+      Left = 15
+      Height = 30
+      Top = 8
+      Width = 139
+      Caption = 'Datenbank Init'
+      OnClick = BitBtn1Click
+      TabOrder = 0
+    end
+    object BitBtn2: TBitBtn
+      Left = 160
+      Height = 30
+      Top = 8
+      Width = 104
+      Caption = 'Add Note 1'
+      OnClick = BitBtn2Click
+      TabOrder = 1
+    end
+    object BitBtn3: TBitBtn
+      Left = 272
+      Height = 30
+      Top = 8
+      Width = 123
+      Caption = 'Note Add ...'
+      OnClick = BitBtn3Click
+      TabOrder = 2
+    end
+    object BitBtn4: TBitBtn
+      Left = 400
+      Height = 30
+      Top = 8
+      Width = 88
+      Caption = 'DB Save'
+      OnClick = BitBtn4Click
+      TabOrder = 3
+    end
+    object CheckBox1: TCheckBox
+      Left = 952
+      Height = 26
+      Top = 8
+      Width = 110
+      Caption = 'Auto Save'
+      Checked = True
+      OnClick = CheckBox1Click
+      State = cbChecked
+      TabOrder = 4
+    end
+    object BitBtn5: TBitBtn
+      Left = 496
+      Height = 30
+      Top = 8
+      Width = 115
+      Caption = 'DB Abfrage'
+      OnClick = BitBtn5Click
+      TabOrder = 5
+    end
+    object BitBtn6: TBitBtn
+      Left = 616
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'Tag Add'
+      OnClick = BitBtn6Click
+      TabOrder = 6
+    end
+    object BitBtn7: TBitBtn
+      Left = 696
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'Get Tags'
+      OnClick = BitBtn7Click
+      TabOrder = 7
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 88
+    Top = 0
+    Width = 1535
+    ActivePage = tsDataBase
+    Align = alTop
+    TabIndex = 0
+    TabOrder = 1
+    object tsDataBase: TTabSheet
+      Caption = 'DataBase'
+      ClientHeight = 52
+      ClientWidth = 1525
+      object btNewDB: TBitBtn
+        Left = 8
+        Height = 30
+        Top = 8
+        Width = 75
+        Caption = 'Neue...'
+        TabOrder = 0
+      end
+      object btOpenDB: TBitBtn
+        Left = 88
+        Height = 30
+        Top = 8
+        Width = 75
+        Caption = '&Öffnen'
+        TabOrder = 1
+      end
+      object btSaveDB: TBitBtn
+        Left = 168
+        Height = 30
+        Top = 8
+        Width = 96
+        Caption = '&Speichern'
+        TabOrder = 2
+      end
+      object btSaveAsDB: TBitBtn
+        Left = 288
+        Height = 30
+        Top = 8
+        Width = 168
+        Caption = 'Speichern Unter...'
+        TabOrder = 3
+      end
+      object btImportOldDB: TBitBtn
+        Left = 464
+        Height = 30
+        Top = 8
+        Width = 216
+        Caption = 'Altes Datenbankformat Importieren'
+        TabOrder = 4
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Notizen'
+    end
+    object tsTags: TTabSheet
+      Caption = 'Tags'
+    end
+    object tsFilter1: TTabSheet
+      Caption = 'Filter 1'
+    end
+    object tsFilter2: TTabSheet
+      Caption = 'Filter 2'
+    end
+  end
+  object OpenNotes: TPageControl
+    Left = 0
+    Height = 295
+    Top = 400
+    Width = 1535
+    Align = alClient
+    TabOrder = 2
+  end
+  object Splitter1: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 395
+    Width = 1535
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object NoteBrowser: TListView
+    Left = 0
+    Height = 307
+    Top = 88
+    Width = 1535
+    Align = alTop
+    Columns = <    
+      item
+        Caption = 'Title'
+        Width = 850
+        SortIndicator = siAscending
+      end    
+      item
+        Caption = 'Erstellt'
+        Width = 120
+        SortIndicator = siAscending
+      end    
+      item
+        Caption = 'Bearbeitet'
+        Width = 120
+        SortIndicator = siAscending
+      end    
+      item
+        Caption = 'Zugriff'
+        Width = 120
+        SortIndicator = siAscending
+      end    
+      item
+        Caption = 'A. Gelesen'
+        Width = 100
+        SortIndicator = siAscending
+      end    
+      item
+        Caption = 'Bearbeitungen'
+        Width = 215
+        SortIndicator = siAscending
+      end>
+    MultiSelect = True
+    ReadOnly = True
+    RowSelect = True
+    SortColumn = 0
+    SortDirection = sdDescending
+    SortType = stData
+    TabOrder = 4
+    ViewStyle = vsReport
+    OnColumnClick = NoteBrowserColumnClick
+    OnCompare = NoteBrowserCompare
+    OnDblClick = NoteBrowserDblClick
+    OnMouseDown = NoteBrowserMouseDown
+  end
+end

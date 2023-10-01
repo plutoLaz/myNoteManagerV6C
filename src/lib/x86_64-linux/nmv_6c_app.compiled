@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/home/pluto/fpcupdeluxe/fpc/bin/x86_64-linux/fpc.sh" Date="1686070466"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -O1 -gw3 -gl -l -vewnhibq -Fi/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/src/lib/x86_64-linux -Fu/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/u -Fu/home/pluto/fpcupdeluxe/lazarus/components/synedit/units/x86_64-linux/gtk2 -Fu/home/pluto/fpcupdeluxe/lazarus/lcl/units/x86_64-linux/gtk2 -Fu/home/pluto/fpcupdeluxe/lazarus/lcl/units/x86_64-linux -Fu/home/pluto/fpcupdeluxe/lazarus/components/freetype/lib/x86_64-linux -Fu/home/pluto/fpcupdeluxe/lazarus/components/lazutils/lib/x86_64-linux -Fu/home/pluto/fpcupdeluxe/lazarus/packager/units/x86_64-linux -Fu/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/src/ -FU/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/src/lib/x86_64-linux/ -FE/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/bin/ -o/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/bin/nmv_6c_app -dLCL -dLCLgtk2 nmv_6c_app.lpr"/>
+</CONFIG>

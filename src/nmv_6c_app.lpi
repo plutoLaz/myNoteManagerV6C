@@ -60,6 +60,7 @@
         <Filename Value="unit_editorframe.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="EditorFrame"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="unit_EditorFrame"/>
       </Unit>

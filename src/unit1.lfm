@@ -8,7 +8,7 @@ object Form1: TForm1
   ClientWidth = 1535
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.2.6.0'
+  LCLVersion = '2.3.0.0'
   object Panel1: TPanel
     Left = 0
     Height = 50
@@ -56,9 +56,9 @@ object Form1: TForm1
     end
     object CheckBox1: TCheckBox
       Left = 952
-      Height = 21
+      Height = 26
       Top = 8
-      Width = 83
+      Width = 110
       Caption = 'Auto Save'
       Checked = True
       OnClick = CheckBox1Click
@@ -104,8 +104,8 @@ object Form1: TForm1
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
-      ClientHeight = 62
-      ClientWidth = 1531
+      ClientHeight = 52
+      ClientWidth = 1525
       object btNewDB: TBitBtn
         Left = 8
         Height = 30
@@ -225,5 +225,6 @@ object Form1: TForm1
     OnColumnClick = NoteBrowserColumnClick
     OnCompare = NoteBrowserCompare
     OnDblClick = NoteBrowserDblClick
+    OnMouseDown = NoteBrowserMouseDown
   end
 end

@@ -65,6 +65,8 @@ type
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
     procedure NoteBrowserDblClick(Sender: TObject);
+    procedure NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
 
   public
@@ -277,6 +279,11 @@ begin
 end;
 
 procedure TForm1.NoteBrowserDblClick(Sender: TObject);
+begin
+end;
+
+procedure TForm1.NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
   NoteObject:TJSONObject;
   Temp_uuid:String;
@@ -296,7 +303,8 @@ begin
       NoteObject.Add('content', ContentStr);
     end;
 
-    AddOrChangeEditorTabSheet(NoteObject, False);
+    if (ssDouble in shift) or (ssMiddle in shift) then
+      AddOrChangeEditorTabSheet(NoteObject, ssMiddle in Shift);
 //    ShowMessage(NoteManagerV6C.GetContentFromNote(Temp_uuid));
   end;
 end;
@@ -397,6 +405,11 @@ begin
 
   if ContentStr <> '' then begin
     EditorTabSheet.Editor_Frame.SynEdit1.Lines.Text:=ContentStr;
+  end;
+
+  if aNewTab then begin
+    OpenNotes.ActivePage:=EditorTabSheet;
+    EditorTabSheet.Editor_Frame.SynEdit1.SetFocus;
   end;
 end; // TForm1.AddEditorTabSheet
 
