@@ -1,0 +1,127 @@
+object OptionsFm: TOptionsFm
+  Left = 625
+  Height = 720
+  Top = 161
+  Width = 898
+  BorderStyle = bsDialog
+  Caption = 'Tags Bearbeiten'
+  ClientHeight = 720
+  ClientWidth = 898
+  Position = poMainFormCenter
+  LCLVersion = '2.3.0.0'
+  object Panel2: TPanel
+    Left = 0
+    Height = 670
+    Top = 0
+    Width = 898
+    Align = alClient
+    ClientHeight = 670
+    ClientWidth = 898
+    TabOrder = 0
+    object PageControl1: TPageControl
+      Left = 1
+      Height = 668
+      Top = 1
+      Width = 896
+      ActivePage = TabSheet2
+      Align = alClient
+      TabIndex = 1
+      TabOrder = 0
+      OnChange = PageControl1Change
+      object TabSheet1: TTabSheet
+        Caption = 'Variante 1'
+        ClientHeight = 637
+        ClientWidth = 886
+        OnContextPopup = TabSheet1ContextPopup
+        object CheckListBox1: TCheckListBox
+          Left = 0
+          Height = 637
+          Top = 0
+          Width = 886
+          Align = alClient
+          ItemHeight = 0
+          OnDblClick = CheckListBox1DblClick
+          OnDragDrop = CheckListBox1DragDrop
+          OnDragOver = CheckListBox1DragOver
+          OnMouseDown = CheckListBox1MouseDown
+          TabOrder = 0
+          TopIndex = -1
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Variante 2'
+        ClientHeight = 637
+        ClientWidth = 886
+        object ListView1: TListView
+          Left = 0
+          Height = 637
+          Top = 0
+          Width = 886
+          Align = alClient
+          Checkboxes = True
+          Columns = <          
+            item
+              Caption = 'Title'
+              Width = 500
+            end          
+            item
+              Caption = 'Erstellt am'
+              Width = 150
+            end          
+            item
+              Caption = 'Farbe'
+              Width = 221
+            end>
+          ReadOnly = True
+          TabOrder = 0
+          ViewStyle = vsReport
+        end
+      end
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 50
+    Top = 670
+    Width = 898
+    Align = alBottom
+    ClientHeight = 50
+    ClientWidth = 898
+    TabOrder = 1
+    object Panel3: TPanel
+      Left = 697
+      Height = 48
+      Top = 1
+      Width = 200
+      Align = alRight
+      AutoSize = True
+      ClientHeight = 48
+      ClientWidth = 200
+      TabOrder = 0
+      object BitBtn1: TBitBtn
+        Left = 1
+        Height = 48
+        Top = 1
+        Width = 71
+        AutoSize = True
+        Default = True
+        DefaultCaption = True
+        Kind = bkOK
+        ModalResult = 1
+        TabOrder = 0
+      end
+      object BitBtn2: TBitBtn
+        Left = 74
+        Height = 48
+        Top = 1
+        Width = 125
+        AutoSize = True
+        Cancel = True
+        DefaultCaption = True
+        Kind = bkCancel
+        ModalResult = 2
+        TabOrder = 1
+      end
+    end
+  end
+end

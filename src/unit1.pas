@@ -6,8 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  Buttons, StdCtrls, fpjson, StrUtils, DateUtils,
-  unit_EditorFrame, unmv6c_sqlite, unmv6c_createtextbricks;
+  Buttons, StdCtrls, CheckLst, fpjson, StrUtils, DateUtils,
+  uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_createtextbricks;
 
 type
 
@@ -41,12 +41,21 @@ type
     btSaveAsDB: TBitBtn;
     btImportOldDB: TBitBtn;
     CheckBox1: TCheckBox;
+    CheckListBox1: TCheckListBox;
     NoteBrowser: TListView;
     PageControl1: TPageControl;
     OpenNotes: TPageControl;
+    PageControl2: TPageControl;
     Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
     Splitter1: TSplitter;
+    Splitter2: TSplitter;
     TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    TabSheet3: TTabSheet;
     tsDataBase: TTabSheet;
     tsTags: TTabSheet;
     tsFilter1: TTabSheet;
@@ -72,19 +81,26 @@ type
   public
     NoteManagerV6C:TPLNMV6C_sqlite;
     CreateTextBricks:TNMV6C_CreateTextBricks;
+    MyHorizontalBar:TMyHorizontalBar;
 
     AppDir:String;
     LastSortedColumn:Integer;
     procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject);
     procedure NotesAddToNoteBrowser(aNoteObject:TJSONObject; const aClear:Boolean = False);
 
+    procedure TagAddToTagList(aTagObject:TJSONObject);
+    procedure TagsAddToTagList(aTagObject:TJSONObject; const aClear:Boolean= False);
+
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
 
-    procedure SQLResultAddTag(aNoteObject:TJSONObject);
-    procedure SQLResultGetTags(aNoteObject:TJSONObject);
+    procedure SQLResultAddTag(aTagObject:TJSONObject);
+    procedure SQLResultGetTags(aTagObject:TJSONObject);
+
+    procedure ChangeItemIndex();
+    procedure BarChecked(sender:TObject);
   end;
 
 var
@@ -209,22 +225,29 @@ begin
   AppDir:=ExtractFileDir(ParamStr(0)) + DirectorySeparator;
   CreateTextBricks:=TNMV6C_CreateTextBricks.Create(AppDir + 'template' + DirectorySeparator);
 
+  MyHorizontalBar:=TMyHorizontalBar.Create(tsTags);
+  MyHorizontalBar.Parent:=tsTags;
+  MyHorizontalBar.Align:=alClient;
+  MyHorizontalBar.OnChangeIndex:=@ChangeItemIndex;
+  MyHorizontalBar.OnChecked:=@BarChecked;
+
   NoteManagerV6C:=TPLNMV6C_sqlite.Create;
   NoteManagerV6C.OnSQLResultAddNote:=@SQLResultAddNotes;
   NoteManagerV6C.OnSQLResultGetNotes:=@SQLResultGetNotes;
 
   NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
-
-  NoteManagerV6C.DB_Name:=AppDir + 'test01.db';
-
   CheckBox1.Checked:=NoteManagerV6C.AutoCommit;
 
+  NoteManagerV6C.DB_Name:=AppDir + 'test01.db';
+  NoteManagerV6C.GetNotes(nil, true);
+  NoteManagerV6C.GetTags();
+//   NoteManagerV6C.GetTags(False);
 end; // TForm1.FormCreate
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(NoteManagerV6C); FreeAndNil(CreateTextBricks);
+  FreeAndNil(NoteManagerV6C); FreeAndNil(CreateTextBricks); FreeAndNil(MyHorizontalBar);
 end; // TForm1.FormDestroy
 
 procedure TForm1.NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
@@ -372,6 +395,41 @@ begin
   end;
 end; // TForm1.NotesAddToNoteBrowser
 
+procedure TForm1.TagAddToTagList(aTagObject: TJSONObject);
+var
+  BarItem:TPLMyHorizontalBarItem;
+  jData:TJSONData;
+  TagName:String;
+begin
+  jData:=aTagObject.Find('name');
+  if Assigned(jData) then begin
+    TagName:=jData.AsString;
+
+    BarItem:=TPLMyHorizontalBarItem.Create;
+    MyHorizontalBar.BarList.Add(TagName, aTagObject);
+  end;
+end; // TForm1.TagAddToTagList
+
+procedure TForm1.TagsAddToTagList(aTagObject: TJSONObject; const aClear: Boolean);
+var
+  i:Integer;
+  JData:TJSONData;
+  TagObject:TJSONObject;
+  Tags:TJSONArray;
+begin
+  JData:=aTagObject.Find('Tags');
+  if Assigned(JData) then begin
+    if aClear then MyHorizontalBar.Clear();
+    MyHorizontalBar.BarList.AutoUpdate:=False;
+    Tags:=JData as TJSONArray;
+    for i:=0 to Tags.Count -1 do begin
+      TagObject:=Tags[i] as TJSONObject;
+      TagAddToTagList(TagObject);
+    end; // for i
+    MyHorizontalBar.BarList.AutoUpdate:=True;
+  end;
+end; // TForm1.TagsAddToTagList
+
 procedure TForm1.AddOrChangeEditorTabSheet(aNoteObject: TJSONObject; aNewTab: Boolean);
 var
   EditorTabSheet:TNMV6C_TabSheet;
@@ -391,16 +449,14 @@ begin
     EditorTabSheet:=TNMV6C_TabSheet.Create(OpenNotes);
     EditorTabSheet.Parent:=OpenNotes;
   end
-  else begin
+  else
     EditorTabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
-  end;
 
   EditorTabSheet.Caption:=TitleStr;
   EditorTabSheet.NoteObject:=aNoteObject;
 
-  if ContentStr <> '' then begin
+  if ContentStr <> '' then
     EditorTabSheet.Editor_Frame.SynEdit1.Lines.Text:=ContentStr;
-  end;
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
@@ -420,17 +476,29 @@ begin
   NotesAddToNoteBrowser(aNoteObject, true);
 end; // TForm1.SQLResultGetNote
 
-procedure TForm1.SQLResultAddTag(aNoteObject: TJSONObject);
+procedure TForm1.SQLResultAddTag(aTagObject: TJSONObject);
 begin
   writeln('SQLResultAddTag');
-  writeln(aNoteObject.FormatJSON());
+  writeln(aTagObject.FormatJSON());
 end; // TForm1.SQLResultAddTag
 
-procedure TForm1.SQLResultGetTags(aNoteObject: TJSONObject);
+procedure TForm1.SQLResultGetTags(aTagObject: TJSONObject);
 begin
   writeln('SQLResultGetTags');
-  writeln(aNoteObject.FormatJSON());
+  writeln(aTagObject.FormatJSON());
+
+  TagsAddToTagList(aTagObject);
 end; // TForm1.SQLResultGetTags
+
+procedure TForm1.ChangeItemIndex();
+begin
+
+end; // TForm1.ChangeItemIndex
+
+procedure TForm1.BarChecked(sender: TObject);
+begin
+
+end; // TForm1.BarChecked
 
 end.
 

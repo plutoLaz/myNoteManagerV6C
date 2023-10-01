@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 287
+  Left = 256
   Height = 745
-  Top = 199
+  Top = 178
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -95,16 +95,16 @@ object Form1: TForm1
   end
   object PageControl1: TPageControl
     Left = 0
-    Height = 88
+    Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsDataBase
+    ActivePage = tsTags
     Align = alTop
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
-      ClientHeight = 52
+      ClientHeight = 44
       ClientWidth = 1525
       object btNewDB: TBitBtn
         Left = 8
@@ -162,9 +162,9 @@ object Form1: TForm1
   end
   object OpenNotes: TPageControl
     Left = 0
-    Height = 295
-    Top = 400
-    Width = 1535
+    Height = 303
+    Top = 392
+    Width = 1187
     Align = alClient
     TabOrder = 2
   end
@@ -172,7 +172,7 @@ object Form1: TForm1
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 395
+    Top = 387
     Width = 1535
     Align = alTop
     ResizeAnchor = akTop
@@ -180,7 +180,7 @@ object Form1: TForm1
   object NoteBrowser: TListView
     Left = 0
     Height = 307
-    Top = 88
+    Top = 80
     Width = 1535
     Align = alTop
     Columns = <    
@@ -226,5 +226,79 @@ object Form1: TForm1
     OnCompare = NoteBrowserCompare
     OnDblClick = NoteBrowserDblClick
     OnMouseDown = NoteBrowserMouseDown
+  end
+  object Panel2: TPanel
+    Left = 1192
+    Height = 303
+    Top = 392
+    Width = 343
+    Align = alRight
+    ClientHeight = 303
+    ClientWidth = 343
+    TabOrder = 5
+    object PageControl2: TPageControl
+      Left = 1
+      Height = 301
+      Top = 1
+      Width = 341
+      ActivePage = TabSheet2
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 0
+      object TabSheet2: TTabSheet
+        Caption = 'Tags'
+        ClientHeight = 265
+        ClientWidth = 331
+        object CheckListBox1: TCheckListBox
+          Left = 0
+          Height = 232
+          Top = 0
+          Width = 331
+          Align = alClient
+          ItemHeight = 0
+          TabOrder = 0
+          TopIndex = -1
+        end
+        object Panel3: TPanel
+          Left = 0
+          Height = 33
+          Top = 232
+          Width = 331
+          Align = alBottom
+          ClientHeight = 33
+          ClientWidth = 331
+          TabOrder = 1
+          object SpeedButton1: TSpeedButton
+            Left = 296
+            Height = 22
+            Top = 8
+            Width = 23
+            Caption = '+'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object SpeedButton2: TSpeedButton
+            Left = 272
+            Height = 22
+            Top = 8
+            Width = 23
+            Caption = '-'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+        end
+      end
+      object TabSheet3: TTabSheet
+        Caption = 'Abschnitte'
+      end
+    end
+  end
+  object Splitter2: TSplitter
+    Left = 1187
+    Height = 303
+    Top = 392
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
   end
 end

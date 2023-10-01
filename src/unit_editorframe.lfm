@@ -6,8 +6,8 @@ object EditorFrame: TEditorFrame
   ClientHeight = 409
   ClientWidth = 741
   TabOrder = 0
-  DesignLeft = 422
-  DesignTop = 208
+  DesignLeft = 469
+  DesignTop = 370
   inline SynEdit1: TSynEdit
     Left = 0
     Height = 409

@@ -11,7 +11,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="59"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -21,11 +21,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="388"/>
-        <CursorPos X="41" Y="412"/>
-        <UsageCount Value="56"/>
+        <TopLine Value="222"/>
+        <CursorPos X="28" Y="244"/>
+        <UsageCount Value="59"/>
         <Bookmarks Count="1">
-          <Item0 X="23" Y="396" ID="1"/>
+          <Item0 Y="489" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -33,28 +33,28 @@
       <Unit>
         <Filename Value="../u/unmv6c_type.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="7"/>
         <CursorPos X="22" Y="33"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="51"/>
-        <CursorPos X="3" Y="66"/>
-        <UsageCount Value="56"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="80"/>
+        <CursorPos X="14" Y="89"/>
+        <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../u/unmv6c_createtextbricks.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="96"/>
         <CursorPos X="22" Y="110"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -64,19 +64,19 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="unit_EditorFrame"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="110" Y="5"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../../V6B/u/uplnotemanager6b_sqlite.pas"/>
         <UnitName Value="uplNoteManager6B_sqlite"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="435"/>
         <CursorPos Y="456"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -92,10 +92,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="136"/>
-        <CursorPos X="13" Y="151"/>
-        <UsageCount Value="24"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="161"/>
+        <CursorPos X="74" Y="167"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -137,10 +137,10 @@
       <Unit>
         <Filename Value="../../V6B/src/uplnoteeditorcontrol.pas"/>
         <UnitName Value="uplNoteEditorControl"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="375"/>
-        <CursorPos X="20" Y="366"/>
-        <UsageCount Value="24"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="461"/>
+        <CursorPos X="18" Y="467"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -151,127 +151,135 @@
         <CursorPos X="10" Y="78"/>
         <UsageCount Value="7"/>
       </Unit>
+      <Unit>
+        <Filename Value="../u/uplmyhorizontalbar.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="65"/>
+        <CursorPos X="3" Y="81"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="92" Column="76" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="402" Column="81" TopLine="387"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="456" Column="21" TopLine="440"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="92" Column="15" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="409" Column="3" TopLine="400"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="89" Column="15" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="384" Column="3" TopLine="376"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="92" Column="15" TopLine="74"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="410" Column="32" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="91" Column="15" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="399" Column="3" TopLine="396"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="89" Column="15" TopLine="76"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="384" Column="3" TopLine="376"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="92" Column="15" TopLine="74"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="413" Column="18" TopLine="401"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="91" Column="15" TopLine="77"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="400" Column="14" TopLine="383"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="408" Column="52" TopLine="383"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="428" Column="45" TopLine="402"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="418" Column="18" TopLine="405"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="213" Column="3" TopLine="211"/>
+      </Position>
+      <Position>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="548" Column="45" TopLine="537"/>
+        <Caret Line="79" Column="14" TopLine="64"/>
       </Position>
       <Position>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="564" Column="7" TopLine="538"/>
+        <Caret Line="860" Column="3" TopLine="846"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="332" Column="16" TopLine="315"/>
+        <Caret Line="218" Column="21" TopLine="211"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="23" Column="56"/>
+        <Caret Line="100" Column="15" TopLine="86"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="114" Column="32" TopLine="101"/>
+        <Caret Line="487" Column="3" TopLine="471"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="111" Column="32" TopLine="96"/>
+        <Caret Line="91" Column="15" TopLine="76"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="23" Column="24" TopLine="8"/>
+        <Caret Line="419" TopLine="405"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="106" Column="19" TopLine="103"/>
+        <Caret Line="99" Column="15" TopLine="77"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="19" Column="22" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="24" Column="18"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="109" Column="16" TopLine="104"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="79" Column="35" TopLine="63"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="356" Column="18" TopLine="353"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="359" Column="27" TopLine="352"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="79" Column="56" TopLine="64"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="374" Column="64" TopLine="353"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="298" Column="5" TopLine="273"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="79" Column="81" TopLine="67"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="390" Column="9" TopLine="366"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="79" Column="8" TopLine="64"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="388" Column="61" TopLine="366"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="299" Column="40" TopLine="284"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="296" Column="21" TopLine="284"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="79" Column="23" TopLine="64"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="388" Column="23" TopLine="376"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="67" Column="24" TopLine="49"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="282" Column="6" TopLine="280"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="307" Column="61" TopLine="280"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="301" Column="53" TopLine="279"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="81" Column="15" TopLine="66"/>
+        <Caret Line="490" Column="40" TopLine="471"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -279,16 +287,18 @@
       <Modes ActiveMode="default">
         <Mode Name="default">
           <local>
-            <LaunchingApplication Use="True"/>
+            <LaunchingApplication Use="True" PathPlusParams="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
           </local>
         </Mode>
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="LaunchingApplication" Type="File" Count="2">
-        <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
-        <Item2 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      <List Name="LaunchingApplication" Type="File" Count="3">
+        <Item1 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item2 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
+      <List Name="CommandLineParameters" Count="1"/>
     </HistoryLists>
   </ProjectSession>
 </CONFIG>
