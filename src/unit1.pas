@@ -392,11 +392,6 @@ begin
     EditorTabSheet.Parent:=OpenNotes;
   end
   else begin
-
-    {jData:=aNoteObject.Find('uuid');
-    if Assigned(jData) then begin
-      uuidStr:=jData.AsString;
-    end;}
     EditorTabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
   end;
 
