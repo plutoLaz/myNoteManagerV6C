@@ -407,6 +407,7 @@ begin
 
     BarItem:=TPLMyHorizontalBarItem.Create;
     MyHorizontalBar.BarList.Add(TagName, aTagObject);
+    CheckListBox1.Items.AddObject(TagName, aTagObject);
   end;
 end; // TForm1.TagAddToTagList
 
