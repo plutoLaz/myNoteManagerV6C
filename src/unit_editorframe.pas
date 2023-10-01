@@ -5,14 +5,17 @@ unit unit_EditorFrame;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, SynEdit;
+  Classes, SysUtils, Forms, Controls, ExtCtrls, StdCtrls, SynEdit;
 
 type
 
   { TEditorFrame }
 
   TEditorFrame = class(TFrame)
-    SynEdit1: TSynEdit;
+    edTitle: TEdit;
+    Label1: TLabel;
+    Panel1: TPanel;
+    SEEditor: TSynEdit;
   private
 
   public

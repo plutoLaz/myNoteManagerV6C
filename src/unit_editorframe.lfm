@@ -8,10 +8,10 @@ object EditorFrame: TEditorFrame
   TabOrder = 0
   DesignLeft = 469
   DesignTop = 370
-  inline SynEdit1: TSynEdit
+  inline SEEditor: TSynEdit
     Left = 0
-    Height = 409
-    Top = 0
+    Height = 352
+    Top = 57
     Width = 741
     Align = alClient
     Font.Height = -13
@@ -502,6 +502,35 @@ object EditorFrame: TEditorFrame
         MouseActionsExpanded = <>
         MouseActionsCollapsed = <>
       end
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Height = 57
+    Top = 0
+    Width = 741
+    Align = alTop
+    AutoSize = True
+    ClientHeight = 57
+    ClientWidth = 741
+    TabOrder = 1
+    object Label1: TLabel
+      Left = 1
+      Height = 22
+      Top = 1
+      Width = 739
+      Align = alTop
+      Caption = 'Title'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object edTitle: TEdit
+      Left = 1
+      Height = 33
+      Top = 23
+      Width = 739
+      Align = alTop
+      TabOrder = 0
     end
   end
 end

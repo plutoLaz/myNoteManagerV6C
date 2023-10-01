@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 256
+  Left = 319
   Height = 745
-  Top = 178
+  Top = 174
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -98,9 +98,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsTags
+    ActivePage = TabSheet1
     Align = alTop
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -131,7 +131,7 @@ object Form1: TForm1
         TabOrder = 2
       end
       object btSaveAsDB: TBitBtn
-        Left = 288
+        Left = 272
         Height = 30
         Top = 8
         Width = 168
@@ -139,16 +139,34 @@ object Form1: TForm1
         TabOrder = 3
       end
       object btImportOldDB: TBitBtn
-        Left = 464
+        Left = 448
         Height = 30
         Top = 8
-        Width = 216
+        Width = 312
         Caption = 'Altes Datenbankformat Importieren'
         TabOrder = 4
       end
     end
     object TabSheet1: TTabSheet
       Caption = 'Notizen'
+      ClientHeight = 44
+      ClientWidth = 1525
+      object btNewNote: TBitBtn
+        Left = 8
+        Height = 30
+        Top = 8
+        Width = 75
+        Caption = '&Neu'
+        TabOrder = 0
+      end
+      object btSaveNote: TBitBtn
+        Left = 87
+        Height = 30
+        Top = 8
+        Width = 99
+        Caption = '&Speichern'
+        TabOrder = 1
+      end
     end
     object tsTags: TTabSheet
       Caption = 'Tags'
@@ -167,6 +185,8 @@ object Form1: TForm1
     Width = 1187
     Align = alClient
     TabOrder = 2
+    OnCloseTabClicked = OpenNotesCloseTabClicked
+    Options = [nboShowCloseButtons]
   end
   object Splitter1: TSplitter
     Cursor = crVSplit

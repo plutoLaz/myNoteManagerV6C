@@ -14,6 +14,7 @@ type
   { TNMV6C_TabSheet }
   TNMV6C_TabSheet = class(TTabSheet)
   private
+    fModified: Boolean;
 
   protected
 
@@ -23,6 +24,9 @@ type
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
+
+    procedure ChangeUserInput(sender:TObject);
+    property Modified:Boolean read fModified write fModified;
   published
   end; // TNMV6C_TabSheet
 
@@ -35,6 +39,8 @@ type
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
+    btNewNote: TBitBtn;
+    btSaveNote: TBitBtn;
     btNewDB: TBitBtn;
     btOpenDB: TBitBtn;
     btSaveDB: TBitBtn;
@@ -76,6 +82,7 @@ type
     procedure NoteBrowserDblClick(Sender: TObject);
     procedure NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure OpenNotesCloseTabClicked(Sender: TObject);
   private
 
   public
@@ -87,6 +94,7 @@ type
     LastSortedColumn:Integer;
     procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject);
     procedure NotesAddToNoteBrowser(aNoteObject:TJSONObject; const aClear:Boolean = False);
+    function NoteSave(var aNoteObject:TJSONObject):Boolean;
 
     procedure TagAddToTagList(aTagObject:TJSONObject);
     procedure TagsAddToTagList(aTagObject:TJSONObject; const aClear:Boolean= False);
@@ -128,6 +136,10 @@ begin
   Editor_Frame:=TEditorFrame.Create(self);
   Editor_Frame.Parent:=self;
   Editor_Frame.Align:=alClient;
+  Editor_Frame.edTitle.OnChange:=@ChangeUserInput;
+  Editor_Frame.SEEditor.OnChange:=@ChangeUserInput;
+
+  fModified:=False;
 end; // TNMV6C_TabSheet.Create
 
 destructor TNMV6C_TabSheet.Destroy;
@@ -135,6 +147,11 @@ begin
   FreeAndNil(Editor_Frame);
   inherited Destroy;
 end; // TNMV6C_TabSheet.Destroy
+
+procedure TNMV6C_TabSheet.ChangeUserInput(sender: TObject);
+begin
+
+end; // TNMV6C_TabSheet.ChangeUserInput
 
 
 { TForm1 }
@@ -332,6 +349,26 @@ begin
   end;
 end;
 
+procedure TForm1.OpenNotesCloseTabClicked(Sender: TObject);
+var
+  PLEditorTab:TNMV6C_TabSheet;
+//  Reply, BoxStyle: Integer;
+begin
+  PLEditorTab:=sender as TNMV6C_TabSheet;
+
+{  if PLEditorTab.Modified then begin
+    BoxStyle := MB_ICONERROR + MB_YESNOCANCEL;
+    Reply := Application.MessageBox('Speichern?', 'Noch nicht gespeichert', BoxStyle);
+    if Reply = IDYES then begin
+      if not NoteSave(PLEditorTab) then
+        exit;
+    end;
+    if Reply = IDCANCEL then
+      exit;
+  end;}
+  FreeAndNil(PLEditorTab);
+end;
+
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject);
 var
   ListItem:TListItem;
@@ -395,9 +432,28 @@ begin
   end;
 end; // TForm1.NotesAddToNoteBrowser
 
+function TForm1.NoteSave(var aNoteObject: TJSONObject): Boolean;
+var
+  jData:TJSONData;
+begin
+{  jData:=EditorTabSheet.NoteObject.Find('title');
+  if Assigned(jData) then
+    jData.AsString:=EditorTabSheet.EditorFrame.EdNoteTitle.Text
+  else
+    EditorTabSheet.NoteObject.Add('title', EditorTabSheet.EditorFrame.EdNoteTitle.Text);
+
+  jData:=EditorTabSheet.NoteObject.Find('content');
+  if Assigned(jData) then
+    jData.AsString:=EditorTabSheet.EditorFrame.EdMemo.Lines.Text
+  else
+    EditorTabSheet.NoteObject.Add('content', EditorTabSheet.EditorFrame.EdMemo.Lines.Text);
+
+  NoteSave(EditorTabSheet);}
+end; // TForm1.NoteSave
+
 procedure TForm1.TagAddToTagList(aTagObject: TJSONObject);
 var
-  BarItem:TPLMyHorizontalBarItem;
+//  BarItem:TPLMyHorizontalBarItem;
   jData:TJSONData;
   TagName:String;
 begin
@@ -405,7 +461,7 @@ begin
   if Assigned(jData) then begin
     TagName:=jData.AsString;
 
-    BarItem:=TPLMyHorizontalBarItem.Create;
+//    BarItem:=TPLMyHorizontalBarItem.Create;
     MyHorizontalBar.BarList.Add(TagName, aTagObject);
     CheckListBox1.Items.AddObject(TagName, aTagObject);
   end;
@@ -457,11 +513,11 @@ begin
   EditorTabSheet.NoteObject:=aNoteObject;
 
   if ContentStr <> '' then
-    EditorTabSheet.Editor_Frame.SynEdit1.Lines.Text:=ContentStr;
+    EditorTabSheet.Editor_Frame.SEEditor.Lines.Text:=ContentStr;
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
-    EditorTabSheet.Editor_Frame.SynEdit1.SetFocus;
+    EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
   end;
 end; // TForm1.AddEditorTabSheet
 

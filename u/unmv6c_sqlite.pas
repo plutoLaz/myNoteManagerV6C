@@ -2,6 +2,9 @@
   Autor: Michael Springwald
 
   Datum: Dienstag, 26.09.2023
+
+  Neue Filter Funktion für, Tags
+  SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (5,9));
 }
 
 unit unmv6c_sqlite;
@@ -63,16 +66,13 @@ type
     function DBInit():boolean;
 
 {}  function AddNote(var aNoteObject:TJSONObject):Boolean; // TOnSQLResultAddNote
-{} function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
+{}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
     function DeleteNote(var aJObject:TJSONObject):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
     function GetTagListFromTagID(const aUUID:String):Boolean; // TOnSQLResultGetTagListFromTagID
 
 {}  function AddTag(var aTagObject:TJSONObject; const aTagMetaData:Boolean = False):Boolean; // TOnSQLResultAddTag
-
-    // Brauche ich wohl nicht mehr. So wie es derzeit aussieht.
-    function AddTags(const aTagList:TJSONArray):Boolean; // TOnSQLResultAddTag
 
     function UpdateTag():Boolean; // TOnSQLResultUpdateTag
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
@@ -829,11 +829,6 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.AddTag
-
-function TPLNMV6C_sqlite.AddTags(const aTagList: TJSONArray): Boolean;
-begin
-  result:=False;
-end; // TPLNMV6C_sqlite.AddTags
 
 function TPLNMV6C_sqlite.UpdateTag: Boolean;
 begin
