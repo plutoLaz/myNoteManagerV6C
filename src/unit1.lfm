@@ -1,11 +1,12 @@
 object Form1: TForm1
-  Left = 319
+  Left = 425
   Height = 745
-  Top = 174
+  Top = 175
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
   ClientWidth = 1535
+  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '2.3.0.0'
@@ -148,23 +149,28 @@ object Form1: TForm1
       end
     end
     object TabSheet1: TTabSheet
+      AutoSize = True
       Caption = 'Notizen'
       ClientHeight = 44
       ClientWidth = 1525
       object btNewNote: TBitBtn
-        Left = 8
-        Height = 30
-        Top = 8
-        Width = 75
+        Left = 0
+        Height = 44
+        Top = 0
+        Width = 48
+        Align = alLeft
+        AutoSize = True
         Caption = '&Neu'
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
-        Left = 87
-        Height = 30
-        Top = 8
-        Width = 99
-        Caption = '&Speichern'
+        Left = 48
+        Height = 44
+        Top = 0
+        Width = 97
+        Action = acSaveNote
+        Align = alLeft
+        AutoSize = True
         TabOrder = 1
       end
     end
@@ -180,8 +186,8 @@ object Form1: TForm1
   end
   object OpenNotes: TPageControl
     Left = 0
-    Height = 303
-    Top = 392
+    Height = 264
+    Top = 431
     Width = 1187
     Align = alClient
     TabOrder = 2
@@ -192,7 +198,7 @@ object Form1: TForm1
     Cursor = crVSplit
     Left = 0
     Height = 5
-    Top = 387
+    Top = 426
     Width = 1535
     Align = alTop
     ResizeAnchor = akTop
@@ -249,16 +255,16 @@ object Form1: TForm1
   end
   object Panel2: TPanel
     Left = 1192
-    Height = 303
-    Top = 392
+    Height = 264
+    Top = 431
     Width = 343
     Align = alRight
-    ClientHeight = 303
+    ClientHeight = 264
     ClientWidth = 343
     TabOrder = 5
     object PageControl2: TPageControl
       Left = 1
-      Height = 301
+      Height = 262
       Top = 1
       Width = 341
       ActivePage = TabSheet2
@@ -267,11 +273,11 @@ object Form1: TForm1
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
-        ClientHeight = 265
+        ClientHeight = 226
         ClientWidth = 331
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 232
+          Height = 193
           Top = 0
           Width = 331
           Align = alClient
@@ -282,7 +288,7 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 0
           Height = 33
-          Top = 232
+          Top = 193
           Width = 331
           Align = alBottom
           ClientHeight = 33
@@ -315,10 +321,77 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 1187
-    Height = 303
-    Top = 392
+    Height = 264
+    Top = 431
     Width = 5
     Align = alRight
     ResizeAnchor = akRight
+  end
+  object Panel4: TPanel
+    Left = 0
+    Height = 34
+    Top = 392
+    Width = 1535
+    Align = alTop
+    ClientHeight = 34
+    ClientWidth = 1535
+    TabOrder = 7
+    object Label2: TLabel
+      Left = 8
+      Height = 22
+      Top = 8
+      Width = 69
+      Caption = 'Notizen'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lbNoteCount: TLabel
+      Left = 88
+      Height = 22
+      Top = 8
+      Width = 11
+      Caption = '0'
+      ParentColor = False
+    end
+    object Label3: TLabel
+      Left = 232
+      Height = 22
+      Top = 8
+      Width = 180
+      Caption = 'Datenbank geöffnet'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lbDataBaseName: TLabel
+      Left = 416
+      Height = 22
+      Top = 8
+      Width = 44
+      Caption = 'keine'
+      ParentColor = False
+      ParentShowHint = False
+      ShowHint = True
+    end
+  end
+  object Splitter3: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 387
+    Width = 1535
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+  object ActionList1: TActionList
+    Left = 376
+    Top = 464
+    object acSaveNote: TAction
+      Caption = 'Speichern'
+      Hint = 'Notiz Speichern'
+      OnExecute = acSaveNoteExecute
+      ShortCut = 16467
+    end
   end
 end

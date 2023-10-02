@@ -14,7 +14,7 @@ unit unmv6c_sqlite;
 interface
 
 uses
-  Classes, SysUtils, uuid, DB, SQLDB, SQLite3Conn, fpjson, unmv6c_type;
+  Classes, SysUtils, clocale, uuid, DB, SQLDB, SQLite3Conn, fpjson, unmv6c_type;
 
 type
 
@@ -66,7 +66,7 @@ type
     function DBInit():boolean;
 
 {}  function AddNote(var aNoteObject:TJSONObject):Boolean; // TOnSQLResultAddNote
-{} function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
+{}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
     function DeleteNote(var aJObject:TJSONObject):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
@@ -174,7 +174,7 @@ begin
       TempQuery.SQL.Clear;
       TempQuery.SQL.Add('CREATE TRIGGER IF NOT EXISTS note_update BEFORE UPDATE ON notes');
       TempQuery.SQL.Add('BEGIN');
-      TempQuery.SQL.Add('UPDATE notes SET mcount = mcount + 1, mtime = (DATETIME(''now'')) WHERE id = new.id AND (title != new.title OR content != new.content);');
+      TempQuery.SQL.Add('UPDATE notes SET mcount = mcount + 1, mtime = (DATETIME(''now'',''local'')) WHERE id = new.id AND (title != new.title OR content != new.content);');
       TempQuery.SQL.Add('END;');
       TempQuery.ExecSQL;
       TempQuery.SQL.Clear;
@@ -563,6 +563,7 @@ begin
 
       doOnSQLResultUpdateNote(aNoteObject);
     finally
+      TempQuery.Close;
       FreeAndNil(TempQuery);
     end;
   except

@@ -14,7 +14,7 @@ unit unmv6c_sqlite;
 interface
 
 uses
-  Classes, SysUtils, uuid, DB, SQLDB, SQLite3Conn, fpjson, unmv6c_type;
+  Classes, SysUtils, clocale, uuid, DB, SQLDB, SQLite3Conn, fpjson, unmv6c_type;
 
 type
 
@@ -174,7 +174,7 @@ begin
       TempQuery.SQL.Clear;
       TempQuery.SQL.Add('CREATE TRIGGER IF NOT EXISTS note_update BEFORE UPDATE ON notes');
       TempQuery.SQL.Add('BEGIN');
-      TempQuery.SQL.Add('UPDATE notes SET mcount = mcount + 1, mtime = (DATETIME(''now'')) WHERE id = new.id AND (title != new.title OR content != new.content);');
+      TempQuery.SQL.Add('UPDATE notes SET mcount = mcount + 1, mtime = (DATETIME(''now'',''localtime'')) WHERE id = new.id AND (title != new.title OR content != new.content);');
       TempQuery.SQL.Add('END;');
       TempQuery.ExecSQL;
       TempQuery.SQL.Clear;
@@ -563,6 +563,7 @@ begin
 
       doOnSQLResultUpdateNote(aNoteObject);
     finally
+      TempQuery.Close;
       FreeAndNil(TempQuery);
     end;
   except
