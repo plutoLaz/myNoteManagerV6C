@@ -99,9 +99,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = TabSheet1
+    ActivePage = tsDataBase
     Align = alTop
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -145,6 +145,7 @@ object Form1: TForm1
         Top = 8
         Width = 312
         Caption = 'Altes Datenbankformat Importieren'
+        OnClick = btImportOldDBClick
         TabOrder = 4
       end
     end
@@ -393,5 +394,9 @@ object Form1: TForm1
       OnExecute = acSaveNoteExecute
       ShortCut = 16467
     end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 240
+    Top = 286
   end
 end

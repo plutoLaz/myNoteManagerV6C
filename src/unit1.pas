@@ -60,6 +60,7 @@ type
     lbDataBaseName: TLabel;
     lbNoteCount: TLabel;
     NoteBrowser: TListView;
+    OpenDialog1: TOpenDialog;
     PageControl1: TPageControl;
     OpenNotes: TPageControl;
     PageControl2: TPageControl;
@@ -88,6 +89,7 @@ type
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
+    procedure btImportOldDBClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -119,6 +121,8 @@ type
     procedure TagsAddToTagList(aTagObject:TJSONObject; const aClear:Boolean= False);
 
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
+
+    function LoadDataBase(const aFileName:String):Boolean;
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -314,6 +318,14 @@ procedure TForm1.BitBtn8Click(Sender: TObject);
 begin
 end;
 
+procedure TForm1.btImportOldDBClick(Sender: TObject);
+begin
+  OpenDialog1.InitialDir:=AppDir;
+  if OpenDialog1.Execute then begin
+    NoteManagerV6C.ImportFromOldDataBase(OpenDialog1.FileName);
+  end;
+end;
+
 procedure TForm1.CheckBox1Click(Sender: TObject);
 begin
   NoteManagerV6C.AutoCommit:=CheckBox1.Checked;
@@ -349,10 +361,7 @@ begin
 
   LoadConfigFile(ConfigFile);
 
-  NoteManagerV6C.DB_Name:=AppDir + 'test01.db';
-  LastDBFile:=NoteManagerV6C.DB_Name;
-  NoteManagerV6C.GetNotes(nil, true);
-  NoteManagerV6C.GetTags();
+  LoadDataBase(AppDir + 'test01.db');
 //   NoteManagerV6C.GetTags(False);
 end; // TForm1.FormCreate
 
@@ -485,7 +494,7 @@ begin
   ListItem.SubItems.Add(''); // atime
   ListItem.SubItems.Add(''); // acount
   ListItem.SubItems.Add(''); // mcount
-  ListItem.Data:=aNoteObject;
+  ListItem.Data:=aNoteObject.clone;
 
   for i:=0 to aNoteObject.Count -1 do begin
     TempStr:=aNoteObject.Names[i];
@@ -661,6 +670,18 @@ begin
   end;
 end; // TForm1.AddEditorTabSheet
 
+function TForm1.LoadDataBase(const aFileName: String): Boolean;
+begin
+  result:=False;
+
+  NoteManagerV6C.DB_Name:=aFileName;
+  LastDBFile:=NoteManagerV6C.DB_Name;
+  NoteManagerV6C.GetNotes(nil, true);
+  NoteManagerV6C.GetTags();
+
+  result:=True;
+end; // TForm1.LoadDataBase
+
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
   writeln('SQLResultAddNotes');
@@ -707,6 +728,7 @@ procedure TForm1.SQLResultAddTag(aTagObject: TJSONObject);
 begin
   writeln('SQLResultAddTag');
   writeln(aTagObject.FormatJSON());
+  TagsAddToTagList(aTagObject);
 end; // TForm1.SQLResultAddTag
 
 procedure TForm1.SQLResultGetTags(aTagObject: TJSONObject);
@@ -796,10 +818,10 @@ begin
         if Assigned(JData) then
           WindowState:=TWindowState(JData.AsInteger);
 
-        JData:=JObject.Find('lastDBFile');
+{        JData:=JObject.Find('lastDBFile');
         if Assigned(JData) then begin
           LastDBFile:=JData.AsString;
-        end;
+        end;}
 
 
       {  JData:=JObject.Find('OpenNotes');
@@ -863,8 +885,7 @@ begin
       Config.Add('NoteBrowser.Height',NoteBrowser.Height);
       Config.Add('WindowState',Integer(WindowState));
 
-      Config.Add('lastDBFile',LastDBFile);
-      writeln('LastDBFile: ', LastDBFile);
+//      Config.Add('lastDBFile',LastDBFile);
 
     {  OpenPadList:=TJSONArray.Create();
       for x:=0 to PageControl1.PageCount -1 do begin
