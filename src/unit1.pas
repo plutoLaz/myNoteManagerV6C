@@ -68,6 +68,7 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
+    SaveDialog1: TSaveDialog;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
     Splitter1: TSplitter;
@@ -90,6 +91,7 @@ type
     procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
+    procedure btNewDBClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -112,6 +114,7 @@ type
 
     AppDir, ConfigFile:String;
     LastSortedColumn:Integer;
+
     procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject);
     procedure NotesAddToNoteBrowser(aNoteObject:TJSONObject; const aClear:Boolean = False);
     function FindNoteIDInNoteBrowser(const aUUID:String):TListItem;
@@ -123,6 +126,7 @@ type
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
 
     function LoadDataBase(const aFileName:String):Boolean;
+    function Clear():Boolean;
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -323,6 +327,21 @@ begin
   OpenDialog1.InitialDir:=AppDir;
   if OpenDialog1.Execute then begin
     NoteManagerV6C.ImportFromOldDataBase(OpenDialog1.FileName);
+  end;
+end;
+
+procedure TForm1.btNewDBClick(Sender: TObject);
+begin
+  SaveDialog1.InitialDir:=AppDir;
+  if SaveDialog1.Execute then begin
+    if Clear() then begin
+      if Assigned(NoteManagerV6C) then FreeAndNil(NoteManagerV6C);
+      lbDataBaseName.Caption:=ExtractFileName(SaveDialog1.FileName);
+      lbDataBaseName.Hint:=SaveDialog1.FileName;
+
+      NoteManagerV6C:=TPLNMV6C_sqlite.Create;
+      NoteManagerV6C.DB_Name:=SaveDialog1.FileName;
+    end;
   end;
 end;
 
@@ -681,6 +700,26 @@ begin
 
   result:=True;
 end; // TForm1.LoadDataBase
+
+function TForm1.Clear: Boolean;
+var
+  i:Integer;
+begin
+  result:=False;
+
+  NoteBrowser.Items.Clear;
+  MyHorizontalBar.Clear();
+  for i:=OpenNotes.PageCount - 1 downto 0 do begin
+    OpenNotes.Page[i].Destroy;
+  end;
+  CheckListBox1.Items.Clear;
+  PageControl2.PageIndex:=0;
+  lbNoteCount.Caption:='0';
+  lbDataBaseName.Caption:='keine';
+  NoteManagerV6C.DB_Name:='';
+
+  result:=True;
+end; // TForm1.Clear
 
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin

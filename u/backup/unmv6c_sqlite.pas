@@ -79,7 +79,7 @@ type
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 
-{}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote und TOnSQLResultAddTag
+{}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
 {}  property OnSQLResultAddNote:TOnSQLResultAddNote read fOnSQLResultAddNote write fOnSQLResultAddNote;
     property OnSQLResultUpdateNote:TOnSQLResultUpdateNote read fOnSQLResultUpdateNote write fOnSQLResultUpdateNote;
@@ -416,19 +416,26 @@ var
       if not Assigned(Data) then begin
         Temp_ctime.AsDateTime:=now;
         _aNoteObject.Add('ctime', DateTimeToStr(now))
+      end
+      else begin
+        Temp_ctime.AsDateTime:=StrToDateTime(Data.AsString, myFormatSettings);
       end;
 
        Data:=_aNoteObject.Find('mtime');
        if not Assigned(Data) then begin
          _aNoteObject.Add('mtime', DateTimeToStr(now));
          Temp_mtime.AsDateTime:=now;
-       end;
+       end
+       else
+         Temp_mtime.AsDateTime:=StrToDateTime(Data.AsString, myFormatSettings);
 
        Data:=_aNoteObject.Find('atime');
        if not Assigned(Data) then begin
          _aNoteObject.Add('atime', DateTimeToStr(now));
          Temp_atime.AsDateTime:=now;
-       end;
+       end
+       else
+         Temp_atime.AsDateTime:=StrToDateTime(Data.AsString, myFormatSettings);
 
        Data:=_aNoteObject.Find('acount');
        if not Assigned(Data) then _aNoteObject.Add('acount', 0);
@@ -440,6 +447,7 @@ var
        if Assigned(Data) then _aNoteObject.Add('id', SQlConnector.GetInsertID);
 
        TempQuery.ExecSQL;
+//      end;
       result:=True;
     except
       on E: Exception do begin
@@ -614,7 +622,7 @@ var
   Fild:TField;
   FildName:String;
   msgStr:String;
-
+  TagIDListStr:String;
   x:Integer;
 begin
   result:=False;
@@ -623,10 +631,23 @@ begin
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
       if aSQLStr = '' then begin
-        TempQuery.SQL.Add('select id, uuid, title, ');
-        if aWihtContent then
-          TempQuery.SQL.Add('content, ');
-        TempQuery.SQL.Add('ctime, mtime, atime, mcount,acount from notes;')
+        // SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (5,9));
+        if Assigned(aTagFilterList) then begin
+          writeln('TEST');
+          if aTagFilterList.Count > 0 then begin
+            TagIDListStr:=aTagFilterList.AsString;
+
+            TagIDListStr:=copy(TagIDListStr, 2, TagIDListStr.Length -1);
+            writeln(TagIDListStr);
+            exit;
+          end;
+        end
+        else begin
+          TempQuery.SQL.Add('select id, uuid, title, ');
+          if aWihtContent then
+            TempQuery.SQL.Add('content, ');
+          TempQuery.SQL.Add('ctime, mtime, atime, mcount,acount from notes;')
+        end;
       end
       else
         TempQuery.SQL.Add(aSQLStr);
@@ -645,9 +666,21 @@ begin
               'uuid':NoteObject.Add('uuid', Fild.AsString);
               'title':NoteObject.Add('title',trim(Fild.AsString));
               'content':NoteObject.Add('content',trim(Fild.AsString));
-              'ctime':NoteObject.Add('ctime',Fild.AsString);
-              'mtime':NoteObject.Add('mtime',Fild.AsString);
-              'atime':NoteObject.Add('atime',Fild.AsString);
+              'ctime': begin
+                 if not Fild.IsNull then
+                   NoteObject.Add('ctime',Fild.AsString);
+               end;
+
+              'mtime': begin
+                 if not Fild.IsNull then
+                   NoteObject.Add('mtime',Fild.AsString);
+               end;
+
+              'atime': begin
+                 if not Fild.IsNull then
+                   NoteObject.Add('atime',Fild.AsString);
+              end;
+
               'mcount':NoteObject.Add('mcount',Fild.AsInteger);
               'acount':NoteObject.Add('acount',Fild.AsInteger);
             end;
