@@ -46,7 +46,6 @@ type
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
-    BitBtn8: TBitBtn;
     btNewNote: TBitBtn;
     btSaveNote: TBitBtn;
     btNewDB: TBitBtn;
