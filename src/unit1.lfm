@@ -1,12 +1,13 @@
 object Form1: TForm1
-  Left = 377
+  Left = 360
   Height = 745
-  Top = 175
+  Top = 176
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
   ClientWidth = 1535
   OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   LCLVersion = '2.2.6.0'
@@ -25,7 +26,6 @@ object Form1: TForm1
       Top = 8
       Width = 139
       Caption = 'Datenbank Init'
-      OnClick = BitBtn1Click
       TabOrder = 0
     end
     object BitBtn2: TBitBtn
@@ -56,7 +56,7 @@ object Form1: TForm1
       TabOrder = 3
     end
     object CheckBox1: TCheckBox
-      Left = 952
+      Left = 1040
       Height = 21
       Top = 8
       Width = 83
@@ -99,53 +99,64 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsDataBase
+    ActivePage = TabSheet1
     Align = alTop
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
       ClientHeight = 54
       ClientWidth = 1531
       object btNewDB: TBitBtn
-        Left = 8
-        Height = 30
-        Top = 8
-        Width = 75
+        Left = 0
+        Height = 54
+        Top = 0
+        Width = 50
+        Align = alLeft
+        AutoSize = True
         Caption = 'Neue...'
         OnClick = btNewDBClick
         TabOrder = 0
       end
       object btOpenDB: TBitBtn
-        Left = 88
-        Height = 30
-        Top = 8
-        Width = 75
+        Left = 50
+        Height = 54
+        Top = 0
+        Width = 48
+        Align = alLeft
+        AutoSize = True
         Caption = '&Öffnen'
+        OnClick = btOpenDBClick
         TabOrder = 1
       end
       object btSaveDB: TBitBtn
-        Left = 168
-        Height = 30
-        Top = 8
-        Width = 96
+        Left = 98
+        Height = 54
+        Top = 0
+        Width = 68
+        Align = alLeft
+        AutoSize = True
         Caption = '&Speichern'
         TabOrder = 2
       end
       object btSaveAsDB: TBitBtn
-        Left = 272
-        Height = 30
-        Top = 8
-        Width = 168
-        Caption = 'Speichern Unter...'
+        Left = 166
+        Height = 54
+        Top = 0
+        Width = 112
+        Align = alLeft
+        AutoSize = True
+        Caption = 'Speichern &Unter...'
         TabOrder = 3
       end
       object btImportOldDB: TBitBtn
-        Left = 448
-        Height = 30
-        Top = 8
-        Width = 312
-        Caption = 'Altes Datenbankformat Importieren'
+        Left = 278
+        Height = 54
+        Top = 0
+        Width = 210
+        Align = alLeft
+        AutoSize = True
+        Caption = 'Altes Datenbankformat &Importieren'
         OnClick = btImportOldDBClick
         TabOrder = 4
       end
@@ -193,6 +204,7 @@ object Form1: TForm1
     Width = 1187
     Align = alClient
     TabOrder = 2
+    OnChange = OpenNotesChange
     OnCloseTabClicked = OpenNotesCloseTabClicked
     Options = [nboShowCloseButtons]
   end
@@ -252,7 +264,6 @@ object Form1: TForm1
     ViewStyle = vsReport
     OnColumnClick = NoteBrowserColumnClick
     OnCompare = NoteBrowserCompare
-    OnDblClick = NoteBrowserDblClick
     OnMouseDown = NoteBrowserMouseDown
   end
   object Panel2: TPanel
@@ -284,6 +295,7 @@ object Form1: TForm1
           Width = 337
           Align = alClient
           ItemHeight = 0
+          OnClickCheck = CheckListBox1ClickCheck
           TabOrder = 0
           TopIndex = -1
         end
@@ -303,6 +315,7 @@ object Form1: TForm1
             Width = 23
             Caption = '+'
             Font.Style = [fsBold]
+            OnClick = SpeedButton1Click
             ParentFont = False
           end
           object SpeedButton2: TSpeedButton
@@ -387,7 +400,7 @@ object Form1: TForm1
     ResizeAnchor = akTop
   end
   object ActionList1: TActionList
-    Left = 376
+    Left = 216
     Top = 464
     object acSaveNote: TAction
       Caption = 'Speichern'
@@ -397,11 +410,11 @@ object Form1: TForm1
     end
   end
   object OpenDialog1: TOpenDialog
-    Left = 240
-    Top = 286
+    Left = 144
+    Top = 464
   end
   object SaveDialog1: TSaveDialog
-    Left = 161
-    Top = 235
+    Left = 64
+    Top = 464
   end
 end

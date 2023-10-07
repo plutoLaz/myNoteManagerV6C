@@ -5,9 +5,10 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls, clocale,
+  Classes, SysUtils, clocale, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   Buttons, StdCtrls, CheckLst, ActnList, fpjson, jsonparser, StrUtils, DateUtils,
-  uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_createtextbricks;
+  LCLType, unit2,
+  uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_type, unmv6c_createtextbricks;
 
 type
 
@@ -82,27 +83,29 @@ type
     tsFilter1: TTabSheet;
     tsFilter2: TTabSheet;
     procedure acSaveNoteExecute(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
-    procedure BitBtn8Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
+    procedure btOpenDBClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure CheckListBox1ClickCheck(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
-    procedure NoteBrowserDblClick(Sender: TObject);
     procedure NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure OpenNotesChange(Sender: TObject);
     procedure OpenNotesCloseTabClicked(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
   private
     fLastDBFile: String;
     procedure SetLastDBFile(AValue: String);
@@ -115,18 +118,27 @@ type
     AppDir, ConfigFile:String;
     LastSortedColumn:Integer;
 
+    procedure InitDB();
+
     procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject);
     procedure NotesAddToNoteBrowser(aNoteObject:TJSONObject; const aClear:Boolean = False);
     function FindNoteIDInNoteBrowser(const aUUID:String):TListItem;
+    function FindNoteIDInOpenNotes(const aUUID:String):TNMV6C_TabSheet;
     function NoteSave(aEditorTab:TNMV6C_TabSheet):Boolean;
 
     procedure TagAddToTagList(aTagObject:TJSONObject);
     procedure TagsAddToTagList(aTagObject:TJSONObject; const aClear:Boolean= False);
+    function FindTagInCheckList(const aID:integer):integer;
+    procedure UpdateTagCheckList(const aNoteUUID: String);
 
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
 
-    function LoadDataBase(const aFileName:String):Boolean;
+    function LoadDataBase(const aFileName:String; const aReloadDB:Boolean = False):Boolean;
     function Clear():Boolean;
+
+    procedure CheckAllTab(var aStringList:TStrings);
+    function CheckSave(EditorTab:TNMV6C_TabSheet):boolean;
+    function CheckSaveNotes():Boolean;
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -135,7 +147,6 @@ type
     procedure SQLResultAddTag(aTagObject:TJSONObject);
     procedure SQLResultGetTags(aTagObject:TJSONObject);
 
-    procedure ChangeItemIndex();
     procedure BarChecked(sender:TObject);
 
     procedure LoadConfigFile(const aConfigFile:String);
@@ -236,12 +247,6 @@ begin
 end; // TNMV6C_TabSheet.ChangeUserInput
 
 
-{ TForm1 }
-procedure TForm1.BitBtn1Click(Sender: TObject);
-begin
-
-end; // TForm1.BitBtn1Click
-
 procedure TForm1.acSaveNoteExecute(Sender: TObject);
 begin
   if Assigned(OpenNotes.ActivePage) then
@@ -318,10 +323,6 @@ begin
   NoteManagerV6C.GetTags(False);
 end;
 
-procedure TForm1.BitBtn8Click(Sender: TObject);
-begin
-end;
-
 procedure TForm1.btImportOldDBClick(Sender: TObject);
 begin
   OpenDialog1.InitialDir:=AppDir;
@@ -331,17 +332,27 @@ begin
 end;
 
 procedure TForm1.btNewDBClick(Sender: TObject);
+var
+  CanNew:Boolean;
 begin
   SaveDialog1.InitialDir:=AppDir;
-  if SaveDialog1.Execute then begin
+  CanNew:=CheckSaveNotes();
+  if (CanNew) and (SaveDialog1.Execute) then begin
     if Clear() then begin
       if Assigned(NoteManagerV6C) then FreeAndNil(NoteManagerV6C);
       lbDataBaseName.Caption:=ExtractFileName(SaveDialog1.FileName);
       lbDataBaseName.Hint:=SaveDialog1.FileName;
-
-      NoteManagerV6C:=TPLNMV6C_sqlite.Create;
+      InitDB();
       NoteManagerV6C.DB_Name:=SaveDialog1.FileName;
     end;
+  end;
+end;
+
+procedure TForm1.btOpenDBClick(Sender: TObject);
+begin
+  OpenDialog1.InitialDir:=AppDir;
+  if OpenDialog1.Execute then begin
+    LoadDataBase(OpenDialog1.FileName, true);
   end;
 end;
 
@@ -351,9 +362,41 @@ begin
   if CheckBox1.Checked then NoteManagerV6C.SQLTransaction.Commit;
 end;
 
+procedure TForm1.CheckListBox1ClickCheck(Sender: TObject);
+var
+  NoteObject, TagObject:TJSONObject;
+  jData:TJSONData;
+  TabSheet:TNMV6C_TabSheet;
+  TagID:Integer;
+  NoteID:String;
+begin
+  if CheckListBox1.ItemIndex > -1 then begin
+    TabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
+    NoteObject:=TabSheet.NoteObject;
+    jData:=NoteObject.Find('uuid');
+    if Assigned(jData) then begin
+      NoteID:=jData.AsString;
+
+      TagObject:=CheckListBox1.Items.Objects[CheckListBox1.ItemIndex] as TJSONObject;
+      TagID:=TagObject.Elements['id'].AsInteger;
+      if CheckListBox1.Checked[CheckListBox1.ItemIndex] then begin
+        NoteManagerV6C.NoteLinketToTag(NoteID, TagID, TA_ADD)
+      end
+      else begin
+        NoteManagerV6C.NoteLinketToTag(NoteID, TagID,TA_REMOVE)
+      end;
+    end;
+  end;
+end;
+
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SaveConfigFile(ConfigFile);
+end;
+
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose:=CheckSaveNotes();
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -366,16 +409,10 @@ begin
   MyHorizontalBar:=TMyHorizontalBar.Create(tsTags);
   MyHorizontalBar.Parent:=tsTags;
   MyHorizontalBar.Align:=alClient;
-  MyHorizontalBar.OnChangeIndex:=@ChangeItemIndex;
+//  MyHorizontalBar.OnChangeIndex:=@ChangeItemIndex;
   MyHorizontalBar.OnChecked:=@BarChecked;
 
-  NoteManagerV6C:=TPLNMV6C_sqlite.Create;
-  NoteManagerV6C.OnSQLResultAddNote:=@SQLResultAddNotes;
-  NoteManagerV6C.OnSQLResultGetNotes:=@SQLResultGetNotes;
-  NoteManagerV6C.OnSQLResultUpdateNote:=@SQLResultUpdateNote;
-
-  NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
-  NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
+  InitDB();
   CheckBox1.Checked:=NoteManagerV6C.AutoCommit;
 
   LoadConfigFile(ConfigFile);
@@ -440,10 +477,6 @@ begin
     Compare := -Compare;
 end;
 
-procedure TForm1.NoteBrowserDblClick(Sender: TObject);
-begin
-end;
-
 procedure TForm1.NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var
@@ -451,10 +484,14 @@ var
   Temp_uuid:String;
   ContentStr:String;
   JData:TJSONData;
+
+  TempTabSheet:TNMV6C_TabSheet;
 begin
   if Assigned(NoteBrowser.Selected) then begin
     NoteObject:=TJSONObject(NoteBrowser.Selected.Data);
     Temp_uuid:=NoteObject.Elements['uuid'].AsString;
+
+
     ContentStr:=NoteManagerV6C.GetContentFromNote(Temp_uuid);
 
     JData:=NoteObject.Find('content');
@@ -471,14 +508,24 @@ begin
   end;
 end;
 
+procedure TForm1.OpenNotesChange(Sender: TObject);
+var
+  EditorTabSheet:TNMV6C_TabSheet;
+  NoteUUID:String;
+begin
+  EditorTabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
+  NoteUUID:=EditorTabSheet.NoteObject.Elements['uuid'].AsString;
+  UpdateTagCheckList(NoteUUID);
+end;
+
 procedure TForm1.OpenNotesCloseTabClicked(Sender: TObject);
 var
   PLEditorTab:TNMV6C_TabSheet;
-//  Reply, BoxStyle: Integer;
+  Reply, BoxStyle: Integer;
 begin
   PLEditorTab:=sender as TNMV6C_TabSheet;
 
-{  if PLEditorTab.Modified then begin
+  if PLEditorTab.Modified then begin
     BoxStyle := MB_ICONERROR + MB_YESNOCANCEL;
     Reply := Application.MessageBox('Speichern?', 'Noch nicht gespeichert', BoxStyle);
     if Reply = IDYES then begin
@@ -487,8 +534,22 @@ begin
     end;
     if Reply = IDCANCEL then
       exit;
-  end;}
+  end;
   FreeAndNil(PLEditorTab);
+end;
+
+procedure TForm1.SpeedButton1Click(Sender: TObject);
+var
+  TagObject:TJSONObject;
+  TagStr:String;
+begin
+  TagStr:='';
+  if InputQuery('Einen Tag Namen eingeben', 'Tag Name', TagStr) then begin
+    TagObject:=TJSONObject.Create();
+    TagObject.Add('name',TagStr);
+
+    NoteManagerV6C.AddTag(TagObject, False, False);
+  end;
 end;
 
 procedure TForm1.SetLastDBFile(AValue: String);
@@ -499,6 +560,17 @@ begin
     lbDataBaseName.Hint:=AValue;
   end;
 end; // TForm1.SetLastDBFile
+
+procedure TForm1.InitDB;
+begin
+  NoteManagerV6C:=TPLNMV6C_sqlite.Create;
+  NoteManagerV6C.OnSQLResultAddNote:=@SQLResultAddNotes;
+  NoteManagerV6C.OnSQLResultGetNotes:=@SQLResultGetNotes;
+  NoteManagerV6C.OnSQLResultUpdateNote:=@SQLResultUpdateNote;
+
+  NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
+  NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
+end; // TForm1.InitDB
 
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject);
 var
@@ -560,6 +632,10 @@ begin
       NoteAddToNoteBrowser(NoteObject);
     end; // for i
     NoteBrowser.EndUpdate;
+    NoteBrowser.SortColumn:=1;
+    NoteBrowser.SortDirection:=sdDescending;
+    NoteBrowser.Sort;
+
   end;
   lbNoteCount.Caption:=IntToStr(NoteBrowser.Items.Count);
 end; // TForm1.NotesAddToNoteBrowser
@@ -582,6 +658,41 @@ begin
     end;
   end; // for i
 end; // TForm1.FindNoteIDInNoteBrowser
+
+function TForm1.FindNoteIDInOpenNotes(const aUUID: String): TNMV6C_TabSheet;
+var
+  i:Integer;
+  TabSheet:TNMV6C_TabSheet;
+  NoteObject:TJSONObject;
+  jData:TJSONData;
+  msgStr:string;
+begin
+  result:=nil;
+  try
+    try
+      for i:=0 to OpenNotes.PageCount - 1 do begin
+        TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+        NoteObject:=TabSheet.NoteObject;
+        jData:=NoteObject.Find('uuid');
+        if Assigned(jData) then begin
+          if jData.AsString = aUUID then begin
+            result:=TabSheet;
+            break;
+          end;
+        end;
+
+      end; // for i
+    finally
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TForm1.FindNoteIDInOpenNotes:',msgStr);
+//       doOnSQLResultError(EVT_ERROR,msgStr,'TForm1.FindNoteIDInOpenNotes');
+      raise;
+    end;
+  end;
+end; // TForm1.FindNoteIDInOpenNotes
 
 function TForm1.NoteSave(aEditorTab: TNMV6C_TabSheet): Boolean;
 var
@@ -618,17 +729,20 @@ end; // TForm1.NoteSave
 
 procedure TForm1.TagAddToTagList(aTagObject: TJSONObject);
 var
-//  BarItem:TPLMyHorizontalBarItem;
   jData:TJSONData;
   TagName:String;
 begin
   jData:=aTagObject.Find('name');
   if Assigned(jData) then begin
     TagName:=jData.AsString;
-
-//    BarItem:=TPLMyHorizontalBarItem.Create;
     MyHorizontalBar.BarList.Add(TagName, aTagObject);
-    CheckListBox1.Items.AddObject(TagName, aTagObject);
+
+    jData:=aTagObject.Find('id');
+    if Assigned(jData) then begin
+      if FindTagInCheckList(jData.AsInteger) = -1 then begin
+        CheckListBox1.Items.AddObject(TagName, aTagObject);
+      end;
+    end;
   end;
 end; // TForm1.TagAddToTagList
 
@@ -649,15 +763,66 @@ begin
       TagAddToTagList(TagObject);
     end; // for i
     MyHorizontalBar.BarList.AutoUpdate:=True;
+  end
+  else begin
+    TagAddToTagList(aTagObject);
   end;
 end; // TForm1.TagsAddToTagList
+
+function TForm1.FindTagInCheckList(const aID: integer): integer;
+var
+  i:Integer;
+
+  TagObject:TJSONObject;
+  jData:TJSONData;
+begin
+  result:=-1;
+  for i:=0 to CheckListBox1.Items.Count -1 do begin
+    TagObject:=CheckListBox1.Items.Objects[i] as TJSONObject;
+
+    jData:=TagObject.Find('id');
+    if Assigned(jData) then begin
+      if jData.AsInteger = aID then begin
+        result:=i;
+        break;
+      end;
+    end;
+  end; // for i
+end; // TForm1.FindTagInCheckList
+
+procedure TForm1.UpdateTagCheckList(const aNoteUUID: String);
+var
+  TagObject:TJSONObject;
+  i, x:Integer;
+  TagID1, TagID2:Integer;
+
+  TagList:TJSONArray;
+begin
+  CheckListBox1.CheckAll(cbUnchecked);
+
+  TagList:=NoteManagerV6C.GetTagListFromTagID(aNoteUUID);
+  if Assigned(TagList) then begin
+
+    for i:=0 to CheckListBox1.Items.Count -1 do begin
+      TagObject:=CheckListBox1.Items.Objects[i] as TJSONObject;
+      TagID1:=TagObject.Elements['id'].AsInteger;
+
+      for x:=0 to TagList.Count -1 do begin
+        TagID2:=TagList[x].AsInteger;
+        if TagID1 = TagID2 then begin
+          CheckListBox1.Checked[i]:=true;
+        end;
+      end;
+    end; // for i
+  end;
+end; // TForm1.UpdateTagCheckList
 
 procedure TForm1.AddOrChangeEditorTabSheet(aNoteObject: TJSONObject; aNewTab: Boolean);
 var
   EditorTabSheet:TNMV6C_TabSheet;
   jData:TJSONData;
 
-  TitleStr, ContentStr, uuidStr:String;
+  TitleStr, ContentStr:String;
 begin
   TitleStr:=''; ContentStr:='';
   jData:=aNoteObject.Find('title');
@@ -687,11 +852,30 @@ begin
     OpenNotes.ActivePage:=EditorTabSheet;
     EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
   end;
+
+  jData:=aNoteObject.Find('uuid');
+  if Assigned(jData) then begin
+    UpdateTagCheckList(jData.AsString);
+  end;
 end; // TForm1.AddEditorTabSheet
 
-function TForm1.LoadDataBase(const aFileName: String): Boolean;
+function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean): Boolean;
+var
+  CanOpen:Boolean;
 begin
   result:=False;
+  if aReloadDB then begin
+    CanOpen:=CheckSaveNotes();
+    if (CanOpen) and (clear) then begin
+      if Assigned(NoteManagerV6C) then FreeAndNil(NoteManagerV6C);
+      InitDB();
+    end
+    else
+      exit;
+  end;
+
+  lbDataBaseName.Caption:=ExtractFileName(aFileName);
+  lbDataBaseName.Hint:=aFileName;
 
   NoteManagerV6C.DB_Name:=aFileName;
   LastDBFile:=NoteManagerV6C.DB_Name;
@@ -720,6 +904,74 @@ begin
 
   result:=True;
 end; // TForm1.Clear
+
+procedure TForm1.CheckAllTab(var aStringList: TStrings);
+var
+  i:Integer;
+  EditorTab:TNMV6C_TabSheet;
+begin
+  for i:=0 to OpenNotes.PageCount - 1 do begin
+    EditorTab:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+    if EditorTab.Modified then begin
+      aStringList.AddObject(EditorTab.Caption, EditorTab);
+    end;
+  end; // for i
+
+end; // TForm1.CheckAllTab
+
+function TForm1.CheckSave(EditorTab: TNMV6C_TabSheet): boolean;
+var
+  Reply, BoxStyle: Integer;
+begin
+  result:=False;
+  if EditorTab.Modified then begin
+    BoxStyle := MB_ICONERROR+ MB_YESNOCANCEL;
+    Reply := Application.MessageBox('Speichern?', 'Noch nicht gespeichert', BoxStyle);
+    if Reply = IDCANCEL then
+      exit
+    else begin
+      if Reply = IDYES then
+        result:=NoteSave(EditorTab)
+      else
+        result:=True;
+    end;
+  end
+  else
+    result:=true;
+end; // TForm1.CheckSave
+
+function TForm1.CheckSaveNotes: Boolean;
+var
+  StrList:TStrings;
+  UserInput, i:Integer;
+begin
+  result:=False;
+
+  Form2.CheckListBox1.Items.Clear;
+  StrList:=TStringList.Create;
+  CheckAllTab(StrList);
+
+  Form2.CheckListBox1.Items.AddStrings(StrList);
+  if StrList.Count > 0 then begin
+    UserInput:=Form2.ShowModal;
+    case UserInput of
+      mrYes: begin
+        for i:=0 to Form2.CheckListBox1.Items.Count -1  do begin
+          if Form2.CheckListBox1.Checked[i] then begin
+            result:=NoteSave(StrList.Objects[i] as TNMV6C_TabSheet);
+            if not result then break;
+          end;
+        end; // for i
+      end; // mrOK
+
+      mrNo: begin
+        result:=true;
+      end;
+    end;
+  end
+  else
+    result:=true;
+end; // TForm1.CheckSaveNotes
 
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
@@ -778,14 +1030,25 @@ begin
   TagsAddToTagList(aTagObject);
 end; // TForm1.SQLResultGetTags
 
-procedure TForm1.ChangeItemIndex();
-begin
-
-end; // TForm1.ChangeItemIndex
-
 procedure TForm1.BarChecked(sender: TObject);
+var
+  i:Integer;
+  BarItem:TPLMyHorizontalBarItem;
+  TagList:TJSONArray;
+  TagObject:TJSONObject;
+  TagID:Integer;
 begin
+  TagList:=TJSONArray.Create();
+  for i:=0 to MyHorizontalBar.BarList.Count -1 do begin
+    BarItem:=MyHorizontalBar.BarList[i];
+    TagObject:=(BarItem.Data as TJSONObject);
 
+    if BarItem.Checked then begin
+      TagID:=TagObject.Elements['id'].AsInteger;
+      TagList.Add(TagID);
+    end;
+  end;
+  NoteManagerV6C.GetNotes(TagList);
 end; // TForm1.BarChecked
 
 procedure TForm1.LoadConfigFile(const aConfigFile: String);

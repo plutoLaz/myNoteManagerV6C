@@ -20,6 +20,11 @@ type
                          EVT_INFO    = 2
                        ); // TPLOnErrorEvent
 
+  TPLNMV6C_TagAction = (
+                         TA_REMOVE = 0,
+                         TA_ADD    = 1
+                       );
+
   TOnSQLResultAddNote = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultUpdateNote = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultDeleteNote = procedure(aNoteObject:TJSONObject) of object;
@@ -30,7 +35,7 @@ type
   TOnSQLResultAddTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultUpdateTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultDeleteTag = procedure(aTagObject:TJSONObject) of object;
-  TOnSQLResultGet = procedure(aTagObject:TJSONObject) of object;
+  TOnSQLResultGetTags = procedure(aTagObject:TJSONObject) of object;
 
   TOnSQLResultError = procedure(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String) of Object;
 

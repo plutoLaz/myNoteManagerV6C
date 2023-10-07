@@ -70,10 +70,11 @@ type
     function DeleteNote(var aJObject:TJSONObject):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
-    function GetTagListFromTagID(const aUUID:String):Boolean; // TOnSQLResultGetTagListFromTagID
+    function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
 
 {}  function AddTag(var aTagObject:TJSONObject; const aTagMetaData:Boolean = False; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddTag
 {}  function AddNote_Tags(const aNoteID:String; const aJArray:TJSONArray):Integer;
+    function NoteLinketToTag(const aNoteID:string; const aTagID:Integer; const aTagAction:TPLNMV6C_TagAction):Boolean;
 
     function UpdateTag():Boolean; // TOnSQLResultUpdateTag
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
@@ -82,7 +83,7 @@ type
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
 {}  property OnSQLResultAddNote:TOnSQLResultAddNote read fOnSQLResultAddNote write fOnSQLResultAddNote;
-    property OnSQLResultUpdateNote:TOnSQLResultUpdateNote read fOnSQLResultUpdateNote write fOnSQLResultUpdateNote;
+{}  property OnSQLResultUpdateNote:TOnSQLResultUpdateNote read fOnSQLResultUpdateNote write fOnSQLResultUpdateNote;
     property OnSQLResultDeleteNote:TOnSQLResultDeleteNote read fOnSQLResultDeleteNote write fOnSQLResultDeleteNote;
 {}  property OnSQLResultGetNotes:TOnSQLResultGetNotes read fOnSQLResultGetNotes write fOnSQLResultGetNotes;
 {}  property OnSQLResultGetContent:TOnSQLResultGetContent read fOnSQLResultGetContent write fOnSQLResultGetContent;
@@ -220,7 +221,8 @@ begin
 
   if fDB_Name <> AValue then begin
     fDB_Name:=AValue;
-    CreateDB();
+    if AValue <> '' then
+      CreateDB();
   end;
 end; // TPLNMV6C_sqlite.SetDB_Name
 
@@ -407,10 +409,16 @@ var
 
       Temp_title.AsString:=NoteTitle;
       Temp_content.AsString:=NoteContent;
-      Temp_uuid.AsString:=TempUuid.ToString();
 
       Data:=_aNoteObject.Find('uuid');
-      if not Assigned(Data) then _aNoteObject.Add('uuid', TempUuid.ToString);
+      if not Assigned(Data) then begin
+        _aNoteObject.Add('uuid', TempUuid.ToString);
+        Temp_uuid.AsString:=TempUuid.ToString();
+      end
+      else begin
+        Temp_uuid.AsString:=Data.AsString;
+      end;
+
 
       Data:=_aNoteObject.Find('ctime');
       if not Assigned(Data) then begin
@@ -447,7 +455,6 @@ var
        if Assigned(Data) then _aNoteObject.Add('id', SQlConnector.GetInsertID);
 
        TempQuery.ExecSQL;
-//      end;
       result:=True;
     except
       on E: Exception do begin
@@ -474,7 +481,7 @@ begin
     try
       TempQuery.DataBase:=SQlConnector;
       if not aExtModus then
-        TempQuery.SQL.Add('INSERT INTO notes (')
+        TempQuery.SQL.Add('1INSERT INTO notes (')
       else
         TempQuery.SQL.Add('INSERT OR IGNORE INTO notes (');
 
@@ -628,19 +635,18 @@ begin
   result:=False;
   try
     try
+      TagIDListStr:='';
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
       if aSQLStr = '' then begin
         // SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (5,9));
-        if Assigned(aTagFilterList) then begin
-          writeln('TEST');
-          if aTagFilterList.Count > 0 then begin
-            TagIDListStr:=aTagFilterList.AsString;
-
-            TagIDListStr:=copy(TagIDListStr, 2, TagIDListStr.Length -1);
-            writeln(TagIDListStr);
-            exit;
-          end;
+        if (Assigned(aTagFilterList)) and (aTagFilterList.Count > 0) then begin
+          for x:=0 to aTagFilterList.Count -1 do begin
+            TagIDListStr+=aTagFilterList[x].AsString;
+            if x < aTagFilterList.Count -1 then
+              TagIDListStr+=',';
+          end; // for x
+          TempQuery.SQL.Add(format('SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (%s))',[TagIDListStr]));
         end
         else begin
           TempQuery.SQL.Add('select id, uuid, title, ');
@@ -652,7 +658,7 @@ begin
       else
         TempQuery.SQL.Add(aSQLStr);
       TempQuery.Open;
-
+       writeln(TempQuery.RecordCount);
       if TempQuery.RecordCount > 0 then begin
         Notes:=TJSONArray.Create();
         TempQuery.First;
@@ -746,10 +752,46 @@ begin
   end;
 end; // TPLNMV6C_sqlite.GetContentFromNote
 
-function TPLNMV6C_sqlite.GetTagListFromTagID(const aUUID: String): Boolean;
+function TPLNMV6C_sqlite.GetTagListFromTagID(const aUUID: String): TJSONArray;
+var
+  TempQuery:TSQLQuery;
+  FildName, msgStr:String;
+  Fild:TField;
+  x:Integer;
 begin
-  result:=False;
-end; // TPLNMV6C_sqlite.GetTagListFromTagID
+  result:=nil;
+  msgStr:='';
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+      TempQuery.SQL.Text:='SELECT * FROM note_tags WHERE note_id =:note_id';
+      TempQuery.ParamByName('note_id').AsString:=aUUID;
+      TempQuery.Open;
+
+      if TempQuery.RecordCount > 0 then begin
+        TempQuery.First;
+        Result:=TJSONArray.Create();
+        while not TempQuery.Eof do begin
+          Fild:=TempQuery.FindField('tag_id');
+          if Assigned(Fild) then begin
+            Result.Add(Fild.AsInteger);
+          end;
+          TempQuery.Next;
+        end;
+        writeln('GetTagListFromTagID', Result.FormatJSON());
+      end;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=e.ClassName;
+      writeln('TPLNoteManager6B_sqlite.GetTagListFromTagID :', e.ClassName);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNoteManager6B_sqlite.GetTagListFromTagID');
+      //DoErrorEvent(EVT_ERROR,E.Message,'TPLNoteManager6B_sqlite.GetTagListFromTagID');
+    end;
+  end;      end; // TPLNMV6C_sqlite.GetTagListFromTagID
 
 function TPLNMV6C_sqlite.AddTag(var aTagObject: TJSONObject;
   const aTagMetaData: Boolean; const aExtModus: Boolean): Boolean;
@@ -937,6 +979,53 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.AddNote_Tags
+
+function TPLNMV6C_sqlite.NoteLinketToTag(const aNoteID: string; const aTagID: Integer; const aTagAction: TPLNMV6C_TagAction): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:string;
+begin
+  result:=false;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      case aTagAction of
+        TA_ADD: begin
+          TempQuery.SQL.Add('INSERT OR IGNORE INTO note_tags (');
+            TempQuery.SQL.Add('note_id,');
+            TempQuery.SQL.Add('tag_id');
+          TempQuery.SQL.Add(') VALUES (');
+            TempQuery.SQL.Add(':note_id,');
+            TempQuery.SQL.Add(':tag_id');
+          TempQuery.SQL.Add(');');
+
+          TempQuery.ParamByName('note_id').AsString:=aNoteID;
+          TempQuery.ParamByName('tag_id').AsInteger:=aTagID;
+        end; // TA_ADD
+
+        TA_REMOVE: begin
+          TempQuery.SQL.Add('DELETE FROM note_tags WHERE note_id = ' + IntToStr(aTagID) + ';');
+        end; // TA_REMOVE
+      end; // case
+
+      TempQuery.ExecSQL;
+
+      if AutoCommit then SQLTransaction.Commit;
+      result:=True;
+    finally
+      TempQuery.Close;
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.NoteLinketToTag: ',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.NoteLinketToTag');
+      raise;
+    end;
+  end;
+end; // TPLNMV6C_sqlite.NoteLinketToTag
 
 function TPLNMV6C_sqlite.UpdateTag: Boolean;
 begin
