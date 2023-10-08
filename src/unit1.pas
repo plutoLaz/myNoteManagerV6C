@@ -401,6 +401,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  CheckListBox1.Enabled:=False;
   Randomize;
   AppDir:=ExtractFileDir(ParamStr(0)) + DirectorySeparator;
   ConfigFile:=AppDir + 'config.json';
@@ -536,6 +537,8 @@ begin
       exit;
   end;
   FreeAndNil(PLEditorTab);
+
+  CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end;
 
 procedure TForm1.SpeedButton1Click(Sender: TObject);
@@ -857,6 +860,7 @@ begin
   if Assigned(jData) then begin
     UpdateTagCheckList(jData.AsString);
   end;
+  CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end; // TForm1.AddEditorTabSheet
 
 function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean): Boolean;

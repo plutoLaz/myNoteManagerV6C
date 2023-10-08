@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="617"/>
-        <CursorPos Y="638"/>
+        <TopLine Value="401"/>
+        <CursorPos X="31" Y="404"/>
         <UsageCount Value="119"/>
         <Bookmarks Count="1">
           <Item0 X="34" Y="340" ID="3"/>
@@ -210,18 +210,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="27">
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="842" Column="4" TopLine="839"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="518" Column="18" TopLine="510"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="143" Column="27" TopLine="128"/>
@@ -321,22 +310,44 @@
         <Filename Value="../../V6B/src/unit1.pas"/>
         <Caret Line="1411" Column="66" TopLine="1385"/>
       </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="627" Column="27" TopLine="617"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="540" Column="56" TopLine="521"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="134" Column="15" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="850" Column="61" TopLine="837"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="99" Column="15" TopLine="89"/>
+      </Position>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode="default">
         <Mode Name="default">
           <local>
-            <LaunchingApplication Use="True"/>
+            <LaunchingApplication Use="True" PathPlusParams="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
           </local>
         </Mode>
       </Modes>
     </RunParams>
     <HistoryLists>
-      <List Name="LaunchingApplication" Type="File" Count="2">
-        <Item1 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
-        <Item2 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+      <List Name="LaunchingApplication" Type="File" Count="3">
+        <Item1 Value="/usr/bin/konsole -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
+        <Item2 Value="/usr/bin/xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </List>
+      <List Name="WorkingDirectory" Type="File" Count="1"/>
+      <List Name="CommandLineParameters" Count="1"/>
     </HistoryLists>
   </ProjectSession>
 </CONFIG>
