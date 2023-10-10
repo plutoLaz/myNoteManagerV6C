@@ -174,6 +174,7 @@ object Form1: TForm1
         Align = alLeft
         AutoSize = True
         Caption = '&Neu'
+        OnClick = btNewNoteClick
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
@@ -185,6 +186,16 @@ object Form1: TForm1
         Align = alLeft
         AutoSize = True
         TabOrder = 1
+      end
+      object btDeleteNote: TBitBtn
+        Left = 102
+        Height = 54
+        Top = 0
+        Width = 75
+        Align = alLeft
+        Caption = '&Löschen'
+        OnClick = btDeleteNoteClick
+        TabOrder = 2
       end
     end
     object tsTags: TTabSheet
@@ -264,6 +275,7 @@ object Form1: TForm1
     ViewStyle = vsReport
     OnColumnClick = NoteBrowserColumnClick
     OnCompare = NoteBrowserCompare
+    OnContextPopup = NoteBrowserContextPopup
     OnMouseDown = NoteBrowserMouseDown
   end
   object Panel2: TPanel
@@ -407,6 +419,11 @@ object Form1: TForm1
       Hint = 'Notiz Speichern'
       OnExecute = acSaveNoteExecute
       ShortCut = 16467
+    end
+    object acDeleteNote: TAction
+      Caption = '&Löschen'
+      OnExecute = acDeleteNoteExecute
+      ShortCut = 46
     end
   end
   object OpenDialog1: TOpenDialog

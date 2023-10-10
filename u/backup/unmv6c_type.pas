@@ -23,7 +23,7 @@ type
   TPLNMV6C_TagAction = (
                          TA_REMOVE = 0,
                          TA_ADD    = 1
-                       );
+                       ); // TPLNMV6C_TagAction
 
   TOnSQLResultAddNote = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultUpdateNote = procedure(aNoteObject:TJSONObject) of object;

@@ -41,7 +41,7 @@ type
   protected
     procedure doOnSQLResultAddNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultAddTag(aNoteObject:TJSONObject);
-    procedure doOnSQLResultDeleteNote(aNoteObject:TJSONObject);
+    procedure doOnSQLResultDeleteNote(aNoteIDList: TJSONArray);
     procedure doOnSQLResultDeleteTag(aNoteObject:TJSONObject);
     procedure doOnSQLResultUpdateNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetTagListFromTagID(aNoteObject:TJSONObject);
@@ -67,7 +67,7 @@ type
 
 {}  function AddNote(var aNoteObject:TJSONObject; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddNote
 {}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
-    function DeleteNote(var aJObject:TJSONObject):Boolean; //  TOnSQLResultDeleteNote
+{}  function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
     function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
@@ -237,9 +237,9 @@ begin
   if Assigned(fOnSQLResultAddTag) then fOnSQLResultAddTag(aNoteObject);
 end; // TPLNMV6C_sqlite.doOnSQLResultAddTag
 
-procedure TPLNMV6C_sqlite.doOnSQLResultDeleteNote(aNoteObject: TJSONObject);
+procedure TPLNMV6C_sqlite.doOnSQLResultDeleteNote(aNoteIDList: TJSONArray);
 begin
-  if Assigned(fOnSQLResultDeleteNote) then fOnSQLResultDeleteNote(aNoteObject);
+  if Assigned(fOnSQLResultDeleteNote) then fOnSQLResultDeleteNote(aNoteIDList);
 end; // TPLNMV6C_sqlite.doOnSQLResultDeleteNote
 
 procedure TPLNMV6C_sqlite.doOnSQLResultDeleteTag(aNoteObject: TJSONObject);
@@ -615,9 +615,41 @@ begin
   end;
 end; // TPLNMV6C_sqlite.UpdateNote
 
-function TPLNMV6C_sqlite.DeleteNote(var aJObject: TJSONObject): Boolean;
+function TPLNMV6C_sqlite.DeleteNote(const aNoteIDList: TJSONArray): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:String;
+  uuidP:TParam;
+  i:Integer;
 begin
-  result:=False;
+  result:=false;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('DELETE FROM notes WHERE uuid=:uuid');
+      uuidP:=TempQuery.ParamByName('uuid');
+      for i:=0 to aNoteIDList.Count - 1 do begin
+        uuidP.AsString:=aNoteIDList[i].AsString;
+        TempQuery.ExecSQL;
+      end; // for i
+      result:=True;
+    finally
+      TempQuery.Close;
+      FreeAndNil(TempQuery);
+      if AutoCommit then SQLTransaction.Commit;
+      doOnSQLResultDeleteNote(aNoteIDList);
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.DeleteNote:',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.DeleteNote');
+      raise;
+    end;
+  end;
+
 end; // TPLNMV6C_sqlite.DeleteNote
 
 function TPLNMV6C_sqlite.GetNotes(const aTagFilterList: TJSONArray; const aWihtContent: Boolean; const aSQLStr: String; aCreateStatistik: boolean): Boolean;

@@ -27,7 +27,7 @@ type
 
   TOnSQLResultAddNote = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultUpdateNote = procedure(aNoteObject:TJSONObject) of object;
-  TOnSQLResultDeleteNote = procedure(aNoteObject:TJSONObject) of object;
+  TOnSQLResultDeleteNote = procedure(aNoteIDList: TJSONArray) of object;
   TOnSQLResultGetNotes = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetContent = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetTagListFromTagID = procedure(aNoteObject:TJSONObject) of object;

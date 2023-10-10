@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, clocale, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   Buttons, StdCtrls, CheckLst, ActnList, fpjson, jsonparser, StrUtils, DateUtils,
   LCLType, unit2,
-  uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_type, unmv6c_createtextbricks;
+  uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_type, unmv6c_createtextbricks, Types;
 
 type
 
@@ -39,6 +39,7 @@ type
   { TForm1 }
   TForm1 = class(TForm)
     acSaveNote: TAction;
+    acDeleteNote: TAction;
     ActionList1: TActionList;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
@@ -47,6 +48,7 @@ type
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
+    btDeleteNote: TBitBtn;
     btNewNote: TBitBtn;
     btSaveNote: TBitBtn;
     btNewDB: TBitBtn;
@@ -82,6 +84,7 @@ type
     tsTags: TTabSheet;
     tsFilter1: TTabSheet;
     tsFilter2: TTabSheet;
+    procedure acDeleteNoteExecute(Sender: TObject);
     procedure acSaveNoteExecute(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
@@ -89,8 +92,10 @@ type
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
+    procedure btDeleteNoteClick(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
+    procedure btNewNoteClick(Sender: TObject);
     procedure btOpenDBClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure CheckListBox1ClickCheck(Sender: TObject);
@@ -101,6 +106,8 @@ type
     procedure NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
+    procedure NoteBrowserContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
     procedure NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure OpenNotesChange(Sender: TObject);
@@ -143,6 +150,7 @@ type
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
     procedure SQLResultUpdateNote(aNoteObject:TJSONObject);
+    procedure SQLResultDeleteNote(aNoteIDList: TJSONArray);
 
     procedure SQLResultAddTag(aTagObject:TJSONObject);
     procedure SQLResultGetTags(aTagObject:TJSONObject);
@@ -253,6 +261,44 @@ begin
     NoteSave(OpenNotes.ActivePage as TNMV6C_TabSheet);
 end;
 
+procedure TForm1.acDeleteNoteExecute(Sender: TObject);
+var
+  msgStr, uuidStr:String;
+  NoteObject:TJSONObject;
+  JArray:TJSONArray;
+
+  Reply, BoxStyle: Integer;
+  i:Integer;
+begin
+  try
+    BoxStyle := MB_ICONERROR+ MB_YESNOCANCEL;
+    Reply := Application.MessageBox('Wirklich löschen ?', 'Löschen?', BoxStyle);
+    if Reply = IDCANCEL then
+      exit
+    else begin
+      if Reply = IDYES then begin
+        JArray:=TJSONArray.Create();
+        for i:=NoteBrowser.Items.Count -1 downto 0 do begin
+          if NoteBrowser.Items[i].Selected then begin
+            NoteObject:=TJSONObject(NoteBrowser.Items[i].Data);
+            uuidStr:=NoteObject.Elements['uuid'].AsString;
+            JArray.Add(uuidStr);
+          end;
+        end; // for i
+        NoteManagerV6C.DeleteNote(JArray);
+      end
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.DeleteNote:',msgStr);
+//      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.DeleteNote');
+      raise;
+    end;
+  end;
+end;
+
 procedure TForm1.BitBtn2Click(Sender: TObject);
 var
   NoteObject:TJSONObject;
@@ -323,6 +369,10 @@ begin
   NoteManagerV6C.GetTags(False);
 end;
 
+procedure TForm1.btDeleteNoteClick(Sender: TObject);
+begin
+end;
+
 procedure TForm1.btImportOldDBClick(Sender: TObject);
 begin
   OpenDialog1.InitialDir:=AppDir;
@@ -345,6 +395,19 @@ begin
       InitDB();
       NoteManagerV6C.DB_Name:=SaveDialog1.FileName;
     end;
+  end;
+end;
+
+procedure TForm1.btNewNoteClick(Sender: TObject);
+var
+  JNoteObject:TJSONObject;
+  NoteTitle:String;
+begin
+  NoteTitle:='';
+  if InputQuery('Notiz Title eingeben', 'Title', NoteTitle) then begin
+    JNoteObject:=TJSONObject.Create();
+    JNoteObject.Add('title', NoteTitle);
+    NoteManagerV6C.AddNote(JNoteObject);
   end;
 end;
 
@@ -441,41 +504,50 @@ var
   JObject1, JObject2:TJSONObject;
   DateTime1, DateTime2:String;
 begin
-  case NoteBrowser.SortColumn of
-    0 : Compare := NaturalCompareText(Item1.Caption, Item2.Caption);
+  try
+    case NoteBrowser.SortColumn of
+      0 : Compare := NaturalCompareText(Item1.Caption, Item2.Caption);
 
-    1 : begin
-      JObject1:=TJSONObject(Item1.Data);
-      JObject2:=TJSONObject(Item2.Data);
-      DateTime1:=JObject1.Elements['ctime'].AsString;
-      DateTime2:=JObject2.Elements['ctime'].AsString;
-      if (DateTime1 <> '') and (DateTime2 <> '') then
-        Compare := CompareTextAsDateTime(DateTime1, DateTime2);
-    end; // ctime
+      1 : begin
+        JObject1:=TJSONObject(Item1.Data);
+        JObject2:=TJSONObject(Item2.Data);
+        DateTime1:=JObject1.Elements['ctime'].AsString;
+        DateTime2:=JObject2.Elements['ctime'].AsString;
+        if (DateTime1 <> '') and (DateTime2 <> '') then
+          Compare := CompareTextAsDateTime(DateTime1, DateTime2);
+      end; // ctime
 
-    2 : begin
-      JObject1:=TJSONObject(Item1.Data);
-      JObject2:=TJSONObject(Item2.Data);
-      DateTime1:=JObject1.Elements['mtime'].AsString;
-      DateTime2:=JObject2.Elements['mtime'].AsString;
+      2 : begin
+        JObject1:=TJSONObject(Item1.Data);
+        JObject2:=TJSONObject(Item2.Data);
+        DateTime1:=JObject1.Elements['mtime'].AsString;
+        DateTime2:=JObject2.Elements['mtime'].AsString;
 
-      if (DateTime1 <> '') and (DateTime2 <> '') then
-        Compare := CompareTextAsDateTime(DateTime1, DateTime2);
-    end; // mtime
+        if (DateTime1 <> '') and (DateTime2 <> '') then
+          Compare := CompareTextAsDateTime(DateTime1, DateTime2);
+      end; // mtime
 
-    3 : begin
-      JObject1:=TJSONObject(Item1.Data);
-      JObject2:=TJSONObject(Item2.Data);
-      DateTime1:=JObject1.Elements['atime'].AsString;
-      DateTime2:=JObject2.Elements['atime'].AsString;
+      3 : begin
+        JObject1:=TJSONObject(Item1.Data);
+        JObject2:=TJSONObject(Item2.Data);
+        DateTime1:=JObject1.Elements['atime'].AsString;
+        DateTime2:=JObject2.Elements['atime'].AsString;
 
-      if (DateTime1 <> '') and (DateTime2 <> '') then
-        Compare := CompareTextAsDateTime(DateTime1, DateTime2);
-    end;
-  end; // atime
+        if (DateTime1 <> '') and (DateTime2 <> '') then
+          Compare := CompareTextAsDateTime(DateTime1, DateTime2);
+      end;
+    end; // atime
 
-  if TListView(Sender).SortDirection = sdDescending then
-    Compare := -Compare;
+    if TListView(Sender).SortDirection = sdDescending then
+      Compare := -Compare;
+  except
+  end;
+end;
+
+procedure TForm1.NoteBrowserContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
+begin
+
 end;
 
 procedure TForm1.NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
@@ -570,6 +642,7 @@ begin
   NoteManagerV6C.OnSQLResultAddNote:=@SQLResultAddNotes;
   NoteManagerV6C.OnSQLResultGetNotes:=@SQLResultGetNotes;
   NoteManagerV6C.OnSQLResultUpdateNote:=@SQLResultUpdateNote;
+  NoteManagerV6C.OnSQLResultDeleteNote:=@SQLResultDeleteNote;
 
   NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
@@ -634,13 +707,16 @@ begin
       NoteObject:=Notes[i] as TJSONObject;
       NoteAddToNoteBrowser(NoteObject);
     end; // for i
-    NoteBrowser.EndUpdate;
-    NoteBrowser.SortColumn:=1;
-    NoteBrowser.SortDirection:=sdDescending;
-    NoteBrowser.Sort;
-
+  end
+  else begin
+    NoteAddToNoteBrowser(aNoteObject);
   end;
   lbNoteCount.Caption:=IntToStr(NoteBrowser.Items.Count);
+  NoteBrowser.EndUpdate;
+  NoteBrowser.SortColumn:=1;
+  NoteBrowser.SortDirection:=sdDescending;
+  NoteBrowser.Sort;
+
 end; // TForm1.NotesAddToNoteBrowser
 
 function TForm1.FindNoteIDInNoteBrowser(const aUUID: String): TListItem;
@@ -1018,6 +1094,36 @@ begin
   end;
 
 end; // TForm1.SQLResultUpdateNote
+
+procedure TForm1.SQLResultDeleteNote(aNoteIDList: TJSONArray);
+var
+  NoteTabSheet:TNMV6C_TabSheet;
+  NoteObject:TJSONObject;
+  uuidStr:String;
+  i, x:Integer;
+begin
+  for i:=aNoteIDList.Count -1 downto 0 do begin
+
+    for x:=NoteBrowser.Items.Count -1 downto 0 do begin
+      NoteObject:=TJSONObject(NoteBrowser.Items[x].Data);
+      uuidStr:=NoteObject.Elements['uuid'].AsString;
+      if uuidStr = aNoteIDList[i].AsString then begin
+        NoteBrowser.Items.Delete(x);
+      end;
+    end; // for x
+
+    for x:=OpenNotes.PageCount -1 downto 0 do begin
+      NoteTabSheet:=OpenNotes.Page[x] as TNMV6C_TabSheet;
+      NoteObject:=NoteTabSheet.NoteObject;
+      uuidStr:=NoteObject.Elements['uuid'].AsString;
+      if uuidStr = aNoteIDList[i].AsString then begin
+        FreeAndNil(NoteTabSheet);
+      end;
+    end; // for x
+
+  end;
+
+end; // TForm1.SQLResultDeleteNote
 
 procedure TForm1.SQLResultAddTag(aTagObject: TJSONObject);
 begin
