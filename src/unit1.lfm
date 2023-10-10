@@ -99,9 +99,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = TabSheet1
+    ActivePage = tsDataBase
     Align = alTop
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -192,9 +192,8 @@ object Form1: TForm1
         Height = 54
         Top = 0
         Width = 75
+        Action = acDeleteNote
         Align = alLeft
-        Caption = '&Löschen'
-        OnClick = btDeleteNoteClick
         TabOrder = 2
       end
     end
@@ -275,7 +274,6 @@ object Form1: TForm1
     ViewStyle = vsReport
     OnColumnClick = NoteBrowserColumnClick
     OnCompare = NoteBrowserCompare
-    OnContextPopup = NoteBrowserContextPopup
     OnMouseDown = NoteBrowserMouseDown
   end
   object Panel2: TPanel

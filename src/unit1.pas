@@ -92,7 +92,6 @@ type
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
-    procedure btDeleteNoteClick(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
     procedure btNewNoteClick(Sender: TObject);
@@ -106,8 +105,6 @@ type
     procedure NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
-    procedure NoteBrowserContextPopup(Sender: TObject; MousePos: TPoint;
-      var Handled: Boolean);
     procedure NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure OpenNotesChange(Sender: TObject);
@@ -369,10 +366,6 @@ begin
   NoteManagerV6C.GetTags(False);
 end;
 
-procedure TForm1.btDeleteNoteClick(Sender: TObject);
-begin
-end;
-
 procedure TForm1.btImportOldDBClick(Sender: TObject);
 begin
   OpenDialog1.InitialDir:=AppDir;
@@ -542,12 +535,6 @@ begin
       Compare := -Compare;
   except
   end;
-end;
-
-procedure TForm1.NoteBrowserContextPopup(Sender: TObject; MousePos: TPoint;
-  var Handled: Boolean);
-begin
-
 end;
 
 procedure TForm1.NoteBrowserMouseDown(Sender: TObject; Button: TMouseButton;
