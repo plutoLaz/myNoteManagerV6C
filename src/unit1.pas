@@ -496,6 +496,7 @@ procedure TForm1.NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem; Da
 var
   JObject1, JObject2:TJSONObject;
   DateTime1, DateTime2:String;
+  msgStr:String;
 begin
   try
     case NoteBrowser.SortColumn of
@@ -534,6 +535,13 @@ begin
     if TListView(Sender).SortDirection = sdDescending then
       Compare := -Compare;
   except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.AddNote:',msgStr);
+//    doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddNote');
+      raise;
+    end;
+
   end;
 end;
 
@@ -684,25 +692,35 @@ var
   NoteObject:TJSONObject;
   Notes:TJSONArray;
   JData:TJSONData;
+  msgStr:String;
 begin
-  JData:=aNoteObject.Find('Notes');
-  if Assigned(JData) then begin
-    Notes:=JData as TJSONArray;
-    if aClear then NoteBrowser.Items.Clear;
-    NoteBrowser.BeginUpdate;
-    for i:=0 to Notes.Count -1 do begin
-      NoteObject:=Notes[i] as TJSONObject;
-      NoteAddToNoteBrowser(NoteObject);
-    end; // for i
-  end
-  else begin
-    NoteAddToNoteBrowser(aNoteObject);
+  try
+    JData:=aNoteObject.Find('Notes');
+    if Assigned(JData) then begin
+      Notes:=JData as TJSONArray;
+      if aClear then NoteBrowser.Items.Clear;
+      NoteBrowser.BeginUpdate;
+      for i:=0 to Notes.Count -1 do begin
+        NoteObject:=Notes[i] as TJSONObject;
+        NoteAddToNoteBrowser(NoteObject);
+      end; // for i
+      NoteBrowser.EndUpdate;
+    end
+    else begin
+      NoteAddToNoteBrowser(aNoteObject);
+    end;
+    lbNoteCount.Caption:=IntToStr(NoteBrowser.Items.Count);
+    NoteBrowser.SortColumn:=1;
+    NoteBrowser.SortDirection:=sdDescending;
+    NoteBrowser.Sort;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TForm1.NotesAddToNoteBrowser:',msgStr);
+//       doOnSQLResultError(EVT_ERROR,msgStr,'TForm1.FindNoteIDInOpenNotes');
+      raise;
+    end;
   end;
-  lbNoteCount.Caption:=IntToStr(NoteBrowser.Items.Count);
-  NoteBrowser.EndUpdate;
-  NoteBrowser.SortColumn:=1;
-  NoteBrowser.SortDirection:=sdDescending;
-  NoteBrowser.Sort;
 
 end; // TForm1.NotesAddToNoteBrowser
 
