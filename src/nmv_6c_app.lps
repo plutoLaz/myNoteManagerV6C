@@ -218,6 +218,7 @@
         <Filename Value="unit1.pas"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Caret Line="1088" Column="12" TopLine="1073"/>
       </Position>
       <Position>
@@ -362,6 +363,8 @@
         <Filename Value="unit1.pas"/>
         <Caret Line="99" Column="15" TopLine="89"/>
 =======
+=======
+>>>>>>> a182da2 (test)
         <Caret Line="507" Column="10" TopLine="498"/>
       </Position>
       <Position>
@@ -468,6 +471,18 @@
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="128" Column="15" TopLine="113"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="676" Column="16" TopLine="668"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="127" Column="15" TopLine="122"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="650" Column="3" TopLine="645"/>
       </Position>
     </JumpHistory>
     <RunParams>
