@@ -10,7 +10,7 @@ object Form1: TForm1
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.3.0.0'
+  LCLVersion = '2.2.6.0'
   object Panel1: TPanel
     Left = 0
     Height = 50
@@ -57,9 +57,9 @@ object Form1: TForm1
     end
     object CheckBox1: TCheckBox
       Left = 1040
-      Height = 26
+      Height = 21
       Top = 8
-      Width = 110
+      Width = 83
       Caption = 'Auto Save'
       Checked = True
       OnClick = CheckBox1Click
@@ -99,19 +99,19 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsDataBase
+    ActivePage = TabSheet1
     Align = alTop
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
-      ClientHeight = 44
-      ClientWidth = 1525
+      ClientHeight = 54
+      ClientWidth = 1531
       object btNewDB: TBitBtn
         Left = 0
-        Height = 44
+        Height = 54
         Top = 0
-        Width = 73
+        Width = 50
         Align = alLeft
         AutoSize = True
         Caption = 'Neue...'
@@ -119,10 +119,10 @@ object Form1: TForm1
         TabOrder = 0
       end
       object btOpenDB: TBitBtn
-        Left = 73
-        Height = 44
+        Left = 50
+        Height = 54
         Top = 0
-        Width = 74
+        Width = 48
         Align = alLeft
         AutoSize = True
         Caption = '&Öffnen'
@@ -130,30 +130,30 @@ object Form1: TForm1
         TabOrder = 1
       end
       object btSaveDB: TBitBtn
-        Left = 147
-        Height = 44
+        Left = 98
+        Height = 54
         Top = 0
-        Width = 97
+        Width = 68
         Align = alLeft
         AutoSize = True
         Caption = '&Speichern'
         TabOrder = 2
       end
       object btSaveAsDB: TBitBtn
-        Left = 244
-        Height = 44
+        Left = 166
+        Height = 54
         Top = 0
-        Width = 163
+        Width = 112
         Align = alLeft
         AutoSize = True
         Caption = 'Speichern &Unter...'
         TabOrder = 3
       end
       object btImportOldDB: TBitBtn
-        Left = 407
-        Height = 44
+        Left = 278
+        Height = 54
         Top = 0
-        Width = 313
+        Width = 210
         Align = alLeft
         AutoSize = True
         Caption = 'Altes Datenbankformat &Importieren'
@@ -164,13 +164,13 @@ object Form1: TForm1
     object TabSheet1: TTabSheet
       AutoSize = True
       Caption = 'Notizen'
-      ClientHeight = 44
-      ClientWidth = 1525
+      ClientHeight = 54
+      ClientWidth = 1531
       object btNewNote: TBitBtn
         Left = 0
-        Height = 44
+        Height = 54
         Top = 0
-        Width = 48
+        Width = 34
         Align = alLeft
         AutoSize = True
         Caption = '&Neu'
@@ -178,10 +178,10 @@ object Form1: TForm1
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
-        Left = 48
-        Height = 44
+        Left = 34
+        Height = 54
         Top = 0
-        Width = 97
+        Width = 68
         Action = acSaveNote
         Align = alLeft
         AutoSize = True
@@ -296,13 +296,13 @@ object Form1: TForm1
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
-        ClientHeight = 226
-        ClientWidth = 331
+        ClientHeight = 236
+        ClientWidth = 337
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 193
+          Height = 203
           Top = 0
-          Width = 331
+          Width = 337
           Align = alClient
           ItemHeight = 0
           OnClickCheck = CheckListBox1ClickCheck
@@ -312,11 +312,11 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 0
           Height = 33
-          Top = 193
-          Width = 331
+          Top = 203
+          Width = 337
           Align = alBottom
           ClientHeight = 33
-          ClientWidth = 331
+          ClientWidth = 337
           TabOrder = 1
           object SpeedButton1: TSpeedButton
             Left = 296
@@ -363,9 +363,9 @@ object Form1: TForm1
     TabOrder = 7
     object Label2: TLabel
       Left = 8
-      Height = 22
+      Height = 16
       Top = 8
-      Width = 69
+      Width = 50
       Caption = 'Notizen'
       Font.Style = [fsBold]
       ParentColor = False
@@ -373,17 +373,17 @@ object Form1: TForm1
     end
     object lbNoteCount: TLabel
       Left = 88
-      Height = 22
+      Height = 16
       Top = 8
-      Width = 11
+      Width = 7
       Caption = '0'
       ParentColor = False
     end
     object Label3: TLabel
       Left = 232
-      Height = 22
+      Height = 16
       Top = 8
-      Width = 180
+      Width = 128
       Caption = 'Datenbank geöffnet'
       Font.Style = [fsBold]
       ParentColor = False
@@ -391,9 +391,9 @@ object Form1: TForm1
     end
     object lbDataBaseName: TLabel
       Left = 416
-      Height = 22
+      Height = 16
       Top = 8
-      Width = 44
+      Width = 31
       Caption = 'keine'
       ParentColor = False
       ParentShowHint = False
@@ -422,6 +422,10 @@ object Form1: TForm1
       Caption = '&Löschen'
       OnExecute = acDeleteNoteExecute
       ShortCut = 46
+    end
+    object acNewNote: TAction
+      Caption = 'Neu...'
+      OnExecute = acNewNoteExecute
     end
   end
   object OpenDialog1: TOpenDialog

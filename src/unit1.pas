@@ -40,6 +40,7 @@ type
   TForm1 = class(TForm)
     acSaveNote: TAction;
     acDeleteNote: TAction;
+    acNewNote: TAction;
     ActionList1: TActionList;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
@@ -85,6 +86,7 @@ type
     tsFilter1: TTabSheet;
     tsFilter2: TTabSheet;
     procedure acDeleteNoteExecute(Sender: TObject);
+    procedure acNewNoteExecute(Sender: TObject);
     procedure acSaveNoteExecute(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
@@ -296,6 +298,20 @@ begin
   end;
 end;
 
+procedure TForm1.acNewNoteExecute(Sender: TObject);
+var
+  JNoteObject:TJSONObject;
+  NoteTitle:String;
+begin
+  NoteTitle:='';
+  if InputQuery('Notiz Title eingeben', 'Title', NoteTitle) then begin
+    JNoteObject:=TJSONObject.Create();
+    JNoteObject.Add('title', NoteTitle);
+    JNoteObject.Add('AutoOpen', True);
+    NoteManagerV6C.AddNote(JNoteObject);
+  end;
+end;
+
 procedure TForm1.BitBtn2Click(Sender: TObject);
 var
   NoteObject:TJSONObject;
@@ -392,16 +408,7 @@ begin
 end;
 
 procedure TForm1.btNewNoteClick(Sender: TObject);
-var
-  JNoteObject:TJSONObject;
-  NoteTitle:String;
 begin
-  NoteTitle:='';
-  if InputQuery('Notiz Title eingeben', 'Title', NoteTitle) then begin
-    JNoteObject:=TJSONObject.Create();
-    JNoteObject.Add('title', NoteTitle);
-    NoteManagerV6C.AddNote(JNoteObject);
-  end;
 end;
 
 procedure TForm1.btOpenDBClick(Sender: TObject);
@@ -681,6 +688,10 @@ begin
 
       'mcount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
       'acount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
+      'AutoOpen': begin
+        if aNoteObject.Items[i].AsBoolean then;
+          AddOrChangeEditorTabSheet(aNoteObject, true);
+      end;
     end; // case of
   end; // for i
   NoteBrowser.Items.AddItem(ListItem);
@@ -1096,6 +1107,10 @@ begin
 
     jData:=aNoteObject.Find('mcount');
     if Assigned(jData) then ListItem.SubItems[4]:=jData.AsString;
+
+    jData:=aNoteObject.Find('title');
+    if Assigned(jData) then ListItem.Caption:=jData.AsString;
+
   end;
 
 end; // TForm1.SQLResultUpdateNote
