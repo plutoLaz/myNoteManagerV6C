@@ -456,7 +456,7 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SaveConfigFile(ConfigFile);
-  //LastOpenNotesToTable();
+//  LastOpenNotesToTable();
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -961,6 +961,8 @@ function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean):
 var
   CanOpen:Boolean;
   LastOpenNotes:TJSONArray;
+//  i:Integer;
+//  NoteID:String;
 begin
   result:=False;
   if aReloadDB then begin
@@ -983,7 +985,10 @@ begin
 
   LastOpenNotes:=TJSONArray.Create();
   NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
-  writeln(LastOpenNotes.FormatJSON());
+{  for i:=0 to LastOpenNotes.Count -1 do begin
+    NoteID:=LastOpenNotes[i].AsString;
+    AddOrChangeEditorTabSheet();
+  end;}
 
   result:=True;
 end; // TForm1.LoadDataBase

@@ -172,7 +172,7 @@ begin
     SQLScript.Script.Add('');
 
     SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
-      SQLScript.Script.Add('note_id INTEGER NOT NULL');
+      SQLScript.Script.Add('note_id BLOB NOT NULL');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
 

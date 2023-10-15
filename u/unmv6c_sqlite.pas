@@ -172,7 +172,7 @@ begin
     SQLScript.Script.Add('');
 
     SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
-      SQLScript.Script.Add('note_id INTEGER NOT NULL');
+      SQLScript.Script.Add('note_id BLOB NOT NULL');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
 
@@ -1203,8 +1203,7 @@ begin
       if TempQuery.RecordCount > 0 then begin
         TempQuery.First;
         while not TempQuery.Eof do begin
-          writeln(TempQuery.Fields[0].AsString);
-          aLastOpenNotesArray.Add(TempQuery.Fields);
+          aLastOpenNotesArray.Add(TempQuery.Fields[0].AsString);
           TempQuery.Next;
         end;
       end;
