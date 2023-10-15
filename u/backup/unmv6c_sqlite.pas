@@ -67,7 +67,7 @@ type
 
 {}  function AddNote(var aNoteObject:TJSONObject; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddNote
 {}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
-    function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
+{}  function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
     function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
@@ -79,6 +79,9 @@ type
     function UpdateTag():Boolean; // TOnSQLResultUpdateTag
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
+
+{}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
+    function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
 
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
@@ -167,6 +170,12 @@ begin
       SQLScript.Script.Add('FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
+
+    SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
+      SQLScript.Script.Add('note_id INTEGER NOT NULL');
+    SQLScript.Script.Add(');');
+    SQLScript.Script.Add('');
+
     SQLScript.ExecuteScript;
 
     try
@@ -1130,6 +1139,89 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetTags
+
+function TPLNMV6C_sqlite.AddLastOpenNotes(const aLastOpenNotesArray: TJSONArray): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:String;
+  uuid:String;
+  i:Integer;
+  Temp_uuid:TParam;
+begin
+  try
+    result:=false;
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('DELETE FROM last_open_notes;');
+      TempQuery.ExecSQL;
+      TempQuery.SQL.Clear;
+
+      TempQuery.SQL.Add('INSERT INTO last_open_notes ( ');
+      TempQuery.SQL.Add('note_id');
+      TempQuery.SQL.Add(')');
+      TempQuery.SQL.Add('VALUES (');
+      TempQuery.SQL.Add(':note_id');
+      TempQuery.SQL.Add(');');
+
+      Temp_uuid:=TempQuery.ParamByName('note_id');
+      TempQuery.Prepare;
+      for i:=0 to aLastOpenNotesArray.Count - 1 do begin
+        uuid:=aLastOpenNotesArray[i].AsString;
+        Temp_uuid.AsString:=uuid;
+        TempQuery.ExecSQL;
+      end; // for i
+      TempQuery.UnPrepare;
+      if AutoCommit then SQLTransaction.Commit;
+      result:=true;
+    finally
+      FreeAndNil(msgStr);
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.AddLastOpenNotes :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddLastOpenNotes');
+    end;
+  end;
+
+end; // TPLNMV6C_sqlite.AddLastOpenNotes
+
+function TPLNMV6C_sqlite.GetLastOpenNotes(var aLastOpenNotesArray: TJSONArray): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:String;
+begin
+  result:=false;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('SELECT * FROM last_open_notes;');
+      TempQuery.Open;
+      if TempQuery.RecordCount > 0 then begin
+        TempQuery.First;
+        while not TempQuery.Eof do begin
+          writeln(TempQuery.Fields[0].AsString);
+          aLastOpenNotesArray.Add(TempQuery.Fields[0].AsString);
+          TempQuery.Next;
+        end;
+      end;
+      TempQuery.Close;
+      result:=true;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.GetLastOpenNotes :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.GetLastOpenNotes');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.GetLastOpenNotes
 
 function TPLNMV6C_sqlite.ImportFromOldDataBase(const aFileName: String): Boolean;
   procedure ConvertOldTagIdToNewTagID(const aTagJArray:TJSONArray; var aOldTagArray:TJSONArray);

@@ -145,6 +145,7 @@ type
     procedure CheckAllTab(var aStringList:TStrings);
     function CheckSave(EditorTab:TNMV6C_TabSheet):boolean;
     function CheckSaveNotes():Boolean;
+    function LastOpenNotesToTable():Boolean;
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -455,6 +456,7 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SaveConfigFile(ConfigFile);
+  //LastOpenNotesToTable();
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -958,6 +960,7 @@ end; // TForm1.AddEditorTabSheet
 function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean): Boolean;
 var
   CanOpen:Boolean;
+  LastOpenNotes:TJSONArray;
 begin
   result:=False;
   if aReloadDB then begin
@@ -977,6 +980,10 @@ begin
   LastDBFile:=NoteManagerV6C.DB_Name;
   NoteManagerV6C.GetNotes(nil, true);
   NoteManagerV6C.GetTags();
+
+  LastOpenNotes:=TJSONArray.Create();
+  NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
+  writeln(LastOpenNotes.FormatJSON());
 
   result:=True;
 end; // TForm1.LoadDataBase
@@ -1068,6 +1075,30 @@ begin
   else
     result:=true;
 end; // TForm1.CheckSaveNotes
+
+function TForm1.LastOpenNotesToTable: Boolean;
+var
+  i:Integer;
+  Notes:TJSONArray;
+  TabSheet:TNMV6C_TabSheet;
+  jData:TJSONData;
+begin
+  result:=false;
+  try
+    Notes:=TJSONArray.Create();
+    for i:=0 to OpenNotes.PageCount - 1 do begin
+      TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+      jData:=TabSheet.NoteObject.Find('uuid');
+      if Assigned(jData) then begin
+        Notes.Add(jData.AsString);
+      end;
+    end;
+    NoteManagerV6C.AddLastOpenNotes(Notes);
+    result:=true;
+  finally
+    FreeAndNil(Notes);
+  end;
+end; // TForm1.LastOpenNotesToTable
 
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
