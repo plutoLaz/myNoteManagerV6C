@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, clocale, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
-  Buttons, StdCtrls, CheckLst, ActnList, fpjson, jsonparser, StrUtils, DateUtils,
+  Buttons, StdCtrls, CheckLst, ActnList, fpjson, jsonparser, StrUtils, DateUtils, SynEdit,
   LCLType, unit2,
   uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_type, unmv6c_createtextbricks, Types;
 
@@ -123,6 +123,7 @@ type
 
     AppDir, ConfigFile:String;
     LastSortedColumn:Integer;
+    LastSynEdit:TSynEdit;
 
     procedure InitDB();
 
@@ -466,6 +467,7 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  LastSynEdit:=nil;
   CheckListBox1.Enabled:=False;
   Randomize;
   AppDir:=ExtractFileDir(ParamStr(0)) + DirectorySeparator;
@@ -964,7 +966,9 @@ begin
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
-//    EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
+    //LastSynEdit:=;
+    //if Form1.CanFocus then
+    //  EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
   end;
 
   jData:=aNoteObject.Find('uuid');

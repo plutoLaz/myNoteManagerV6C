@@ -8,7 +8,7 @@
         <Filename Value="nmv_6c_app.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -18,14 +18,14 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="708"/>
-        <CursorPos X="36" Y="728"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="941"/>
+        <CursorPos Y="970"/>
+        <UsageCount Value="40"/>
         <Bookmarks Count="4">
-          <Item0 X="3" Y="458" ID="4"/>
-          <Item1 Y="704" ID="1"/>
-          <Item2 X="17" Y="1000" ID="2"/>
-          <Item3 X="21" Y="967" ID="5"/>
+          <Item0 X="3" Y="459" ID="4"/>
+          <Item1 Y="706" ID="1"/>
+          <Item2 X="17" Y="1004" ID="2"/>
+          <Item3 X="23" Y="971" ID="5"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -33,15 +33,15 @@
       <Unit>
         <Filename Value="../u/unmv6c_type.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="730"/>
         <CursorPos X="42" Y="761"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
         <Bookmarks Count="1">
           <Item0 X="28" Y="493" ID="3"/>
         </Bookmarks>
@@ -50,7 +50,7 @@
       <Unit>
         <Filename Value="../u/unmv6c_createtextbricks.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="unit_editorframe.pas"/>
@@ -59,7 +59,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="unit_EditorFrame"/>
-        <UsageCount Value="30"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="66" Y="8"/>
+        <UsageCount Value="40"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="unit2.pas"/>
@@ -68,50 +72,27 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit2"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="40"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/controls.pp"/>
+        <UnitName Value="Controls"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="2310"/>
+        <CursorPos X="14" Y="2330"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/include/wincontrol.inc"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="3637"/>
+        <CursorPos X="19" Y="3658"/>
+        <UsageCount Value="15"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="704" TopLine="668"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="142" Column="25" TopLine="118"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="989" Column="17" TopLine="965"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="690" Column="34" TopLine="670"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="993" TopLine="969"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="708" Column="36" TopLine="675"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="470" Column="70" TopLine="455"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="706" TopLine="676"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="469" Column="3" TopLine="466"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="142" Column="22" TopLine="110"/>
-      </Position>
+    <JumpHistory HistoryIndex="26">
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="979" Column="3" TopLine="971"/>
@@ -190,6 +171,45 @@
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="729" Column="3" TopLine="713"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="732" Column="30" TopLine="714"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="967" Column="48" TopLine="941"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/controls.pp"/>
+        <Caret Line="2330" Column="14" TopLine="2311"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="967" Column="53" TopLine="941"/>
+      </Position>
+      <Position>
+        <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/controls.pp"/>
+        <Caret Line="2330" Column="14" TopLine="2310"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="967" Column="24" TopLine="941"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="126" Column="25" TopLine="105"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="105" Column="23" TopLine="100"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="470" Column="14" TopLine="467"/>
       </Position>
     </JumpHistory>
     <RunParams>
