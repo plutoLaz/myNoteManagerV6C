@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 360
+  Left = 438
   Height = 745
-  Top = 176
+  Top = 174
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -170,15 +170,15 @@ object Form1: TForm1
         Left = 0
         Height = 54
         Top = 0
-        Width = 34
+        Width = 43
+        Action = acNewNote
         Align = alLeft
         AutoSize = True
-        Caption = '&Neu'
         OnClick = btNewNoteClick
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
-        Left = 34
+        Left = 43
         Height = 54
         Top = 0
         Width = 68
@@ -188,7 +188,7 @@ object Form1: TForm1
         TabOrder = 1
       end
       object btDeleteNote: TBitBtn
-        Left = 102
+        Left = 111
         Height = 54
         Top = 0
         Width = 75

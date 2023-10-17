@@ -68,7 +68,7 @@ type
 {}  function AddNote(var aNoteObject:TJSONObject; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddNote
 {}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
 {}  function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
-{}  function GetNotes(const aTagFilterList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
+{}  function GetNotes(const aTagFilterList, aNodeIdList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
     function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
 
@@ -81,7 +81,7 @@ type
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 
 {}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
-    function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
+{}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
 
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
@@ -661,7 +661,9 @@ begin
 
 end; // TPLNMV6C_sqlite.DeleteNote
 
-function TPLNMV6C_sqlite.GetNotes(const aTagFilterList: TJSONArray; const aWihtContent: Boolean; const aSQLStr: String; aCreateStatistik: boolean): Boolean;
+function TPLNMV6C_sqlite.GetNotes(const aTagFilterList,
+  aNodeIdList: TJSONArray; const aWihtContent: Boolean; const aSQLStr: String;
+  aCreateStatistik: boolean): Boolean;
 var
   TempQuery:TSQLQuery;
 
@@ -671,9 +673,11 @@ var
   FildName:String;
   msgStr:String;
   TagIDListStr:String;
+  NodeIdListStr:String;
   x:Integer;
+  AutoOpen:boolean;
 begin
-  result:=False;
+  result:=False; AutoOpen:=False;
   try
     try
       TagIDListStr:='';
@@ -690,10 +694,22 @@ begin
           TempQuery.SQL.Add(format('SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (%s))',[TagIDListStr]));
         end
         else begin
-          TempQuery.SQL.Add('select id, uuid, title, ');
-          if aWihtContent then
-            TempQuery.SQL.Add('content, ');
-          TempQuery.SQL.Add('ctime, mtime, atime, mcount,acount from notes;')
+          if Assigned(aNodeIdList) then begin
+            NodeIdListStr:='';
+            AutoOpen:=true;
+            for x:=0 to aNodeIdList.Count -1 do begin
+              NodeIdListStr+='"' + aNodeIdList[x].AsString + '"';
+              if x < aNodeIdList.Count -1 then
+                NodeIdListStr+=',';
+            end;
+            TempQuery.SQL.Add(format('SELECT * FROM notes WHERE uuid in (%s)',[NodeIdListStr]));
+          end
+          else begin
+            TempQuery.SQL.Add('select id, uuid, title, ');
+            if aWihtContent then
+              TempQuery.SQL.Add('content, ');
+            TempQuery.SQL.Add('ctime, mtime, atime, mcount,acount from notes;')
+          end;
         end;
       end
       else
@@ -732,12 +748,17 @@ begin
               'acount':NoteObject.Add('acount',Fild.AsInteger);
             end;
           end; // for x
+          if AutoOpen then begin
+            NoteObject.Add('AutoOpen', True);
+            NoteObject.Add('NotAddToNoteBrowser', True);
+          end;
           Notes.Add(NoteObject);
           TempQuery.Next;
         end;
         TempQuery.Close;
 
         GetNoteObject:=TJSONObject.Create();
+        GetNoteObject.Add('NoClear', True);
         GetNoteObject.Add('Notes', Notes);
         doOnSQLResultGetNote(GetNoteObject);
         result:=True;
@@ -1203,7 +1224,6 @@ begin
       if TempQuery.RecordCount > 0 then begin
         TempQuery.First;
         while not TempQuery.Eof do begin
-          writeln(TempQuery.Fields[0].AsString);
           aLastOpenNotesArray.Add(TempQuery.Fields[0].AsString);
           TempQuery.Next;
         end;

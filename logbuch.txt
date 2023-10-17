@@ -1,0 +1,23 @@
+Dokument Angelegt am Dienstag, 17.10.2023
+=========================================
+
+01) Dienstag, 17.10.2023
+
+  Es geht um die Methode, GetNodes und darum,
+  wie die zuletzt geöffneten Notizen,
+  erneut beim Starten geöffnet werden können.
+
+  Eine Idee, wäre eine neue Methode zu erstellen etwa,
+  GetNodesByID, die aber wiederum, etwas ähnliches machen
+  würde, wie die GetNodes Methode.
+
+  Die zweite Idee wäre, die GetNodes Methode zu erweitern.
+  Wie ich es schon mit den Tags gemacht habe.
+
+  Das wäre wohl das einfachste. Ich möchte ja keine drei Methoden haben,
+  wo es nur wenige Unterschiede gibt.
+
+  Ich werde mir die zweite Idee anschauen, ob das Umsetztbar ist/wird.
+
+  Update: Ich habe jetzt, diese Variante umgeetzt, hat aber einige unschönheiten.
+  Ob das so bleibt, ist eine andere Frage.

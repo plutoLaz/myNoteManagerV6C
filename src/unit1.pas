@@ -361,7 +361,7 @@ end;
 
 procedure TForm1.BitBtn5Click(Sender: TObject);
 begin
-  NoteManagerV6C.GetNotes(nil, true);
+  NoteManagerV6C.GetNotes(nil, nil, true);
 end;
 
 procedure TForm1.BitBtn6Click(Sender: TObject);
@@ -455,7 +455,7 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  SaveConfigFile(ConfigFile);
+  //SaveConfigFile(ConfigFile);
 //  LastOpenNotesToTable();
 end;
 
@@ -658,6 +658,7 @@ var
   i:Integer;
   TempStr:String;
   TempDateTime:TDateTime;
+  jData:TJSONData;
 begin
   ListItem:=TListItem.Create(NoteBrowser.Items);
   ListItem.SubItems.Add(''); // ctime
@@ -667,36 +668,47 @@ begin
   ListItem.SubItems.Add(''); // mcount
   ListItem.Data:=aNoteObject.clone;
 
-  for i:=0 to aNoteObject.Count -1 do begin
-    TempStr:=aNoteObject.Names[i];
+  jData:=aNoteObject.Find('NotAddToNoteBrowser');
+  if not Assigned(jData) then begin
+    for i:=0 to aNoteObject.Count -1 do begin
+      TempStr:=aNoteObject.Names[i];
 
-    case TempStr of
-      'title':ListItem.Caption:=aNoteObject.Items[i].AsString;
+      case TempStr of
+        'title': ListItem.Caption:=aNoteObject.Items[i].AsString;
 
-      'ctime': begin
-        TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
-        ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
-      end; // ctime
+        'ctime': begin
+          TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
+          ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
+        end; // ctime
 
-      'mtime': begin
-        TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
-        ListItem.SubItems[1]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
-      end; // mtime
+        'mtime': begin
+          TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
+          ListItem.SubItems[1]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
+        end; // mtime
 
-      'atime': begin
-        TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
-        ListItem.SubItems[2]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
-      end; // atime
+        'atime': begin
+          TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
+          ListItem.SubItems[2]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
+        end; // atime
 
-      'mcount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
-      'acount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
-      'AutoOpen': begin
-        if aNoteObject.Items[i].AsBoolean then;
-          AddOrChangeEditorTabSheet(aNoteObject, true);
-      end;
-    end; // case of
-  end; // for i
-  NoteBrowser.Items.AddItem(ListItem);
+        'mcount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
+        'acount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
+
+        'AutoOpen': begin
+          if aNoteObject.Items[i].AsBoolean then
+            AddOrChangeEditorTabSheet(aNoteObject, true);
+        end;
+      end; // case of
+    end; // for i
+    NoteBrowser.Items.AddItem(ListItem);
+  end
+  else begin
+
+    jData:=aNoteObject.Find('AutoOpen');
+    if Assigned(jData) then begin
+      AddOrChangeEditorTabSheet(aNoteObject, true);
+    end;
+  end;
 end; // TForm1.NoteAddToNoteBrowser
 
 procedure TForm1.NotesAddToNoteBrowser(aNoteObject: TJSONObject; const aClear: Boolean);
@@ -711,7 +723,12 @@ begin
     JData:=aNoteObject.Find('Notes');
     if Assigned(JData) then begin
       Notes:=JData as TJSONArray;
-      if aClear then NoteBrowser.Items.Clear;
+      if aClear then begin
+        JData:=aNoteObject.Find('NoClear');
+        if not Assigned(JData) then
+          NoteBrowser.Items.Clear;
+      end;
+
       NoteBrowser.BeginUpdate;
       for i:=0 to Notes.Count -1 do begin
         NoteObject:=Notes[i] as TJSONObject;
@@ -947,7 +964,7 @@ begin
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
-    EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
+//    EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
   end;
 
   jData:=aNoteObject.Find('uuid');
@@ -980,11 +997,12 @@ begin
 
   NoteManagerV6C.DB_Name:=aFileName;
   LastDBFile:=NoteManagerV6C.DB_Name;
-  NoteManagerV6C.GetNotes(nil, true);
+  NoteManagerV6C.GetNotes(nil, nil, true);
   NoteManagerV6C.GetTags();
 
   LastOpenNotes:=TJSONArray.Create();
   NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
+  NoteManagerV6C.GetNotes(nil, LastOpenNotes);
 {  for i:=0 to LastOpenNotes.Count -1 do begin
     NoteID:=LastOpenNotes[i].AsString;
     AddOrChangeEditorTabSheet();
@@ -1214,7 +1232,7 @@ begin
       TagList.Add(TagID);
     end;
   end;
-  NoteManagerV6C.GetNotes(TagList);
+  NoteManagerV6C.GetNotes(TagList,nil);
 end; // TForm1.BarChecked
 
 procedure TForm1.LoadConfigFile(const aConfigFile: String);
@@ -1228,7 +1246,7 @@ var
   MS:TMemoryStream;
   msgStr:String;
 
-//  OpenNotes:TJSONArray;
+  OpenLastNodes:TJSONArray;
 begin
   try
     try
@@ -1292,16 +1310,11 @@ begin
         end;}
 
 
-      {  JData:=JObject.Find('OpenNotes');
+        JData:=JObject.Find('OpenNotes');
         if Assigned(JData) then begin
-          OpenNotes:=JData as TJSONArray;
-
-          Notes:=TJSONObject.Create;
-          Notes.Add('NotesOpenByID', OpenNotes);
-          writeln(Notes.FormatJSON());
-
-          NoteManager6B_sqlite.GetNotes(Notes);
-        end; }
+          OpenLastNodes:=JData as TJSONArray;
+          NoteManagerV6C.GetNotes(nil,OpenLastNodes);
+        end;
       end;
     finally
       FreeAndNil(JObject); FreeAndNil(JParser);
