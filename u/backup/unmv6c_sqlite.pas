@@ -5,6 +5,10 @@
 
   Neue Filter Funktion für, Tags
   SELECT * FROM notes WHERE UUID IN (SELECT note_id FROM note_tags WHERE tag_id in (5,9));
+
+  SELECT * FROM notes WHERE UUID = (SELECT value FROM config WHERE key = 'last_focus_note');
+
+  {859CA510-6A69-11EE-8000-000000000000}
 }
 
 unit unmv6c_sqlite;
@@ -68,7 +72,7 @@ type
 {}  function AddNote(var aNoteObject:TJSONObject; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddNote
 {}  function UpdateNote(var aNoteObject:TJSONObject):Boolean; //  TOnSQLResultUpdateNote
 {}  function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
-{}  function GetNotes(const aTagFilterList, aNodeIdList:TJSONArray; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
+{}  function GetNotes(const aTagFilterList, aNodeIdList:TJSONArray; const alast_focus_note:String; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
     function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
 
@@ -82,6 +86,9 @@ type
 
 {}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
 {}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
+
+{}  function AddLastOpenNotes2(const aLastOpenNotesArray:TJSONArray; const alast_focus_note:String):Boolean;
+    function GetLastOpenNotes2(var aLastOpenNotesArray:TJSONArray; var alast_focus_note:string):Boolean;
 
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
@@ -173,6 +180,12 @@ begin
 
     SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
       SQLScript.Script.Add('note_id BLOB NOT NULL');
+    SQLScript.Script.Add(');');
+    SQLScript.Script.Add('');
+
+    SQLScript.Script.Add('CREATE TABLE if not exists config (');
+      SQLScript.Script.Add('key BLOB NOT NULL UNIQUE,');
+      SQLScript.Script.Add('value BLOB NOT NULL');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
 
@@ -662,8 +675,9 @@ begin
 end; // TPLNMV6C_sqlite.DeleteNote
 
 function TPLNMV6C_sqlite.GetNotes(const aTagFilterList,
-  aNodeIdList: TJSONArray; const aWihtContent: Boolean; const aSQLStr: String;
-  aCreateStatistik: boolean): Boolean;
+  aNodeIdList: TJSONArray; const alast_focus_note: String;
+  const aWihtContent: Boolean; const aSQLStr: String; aCreateStatistik: boolean
+  ): Boolean;
 var
   TempQuery:TSQLQuery;
 
@@ -758,7 +772,9 @@ begin
         TempQuery.Close;
 
         GetNoteObject:=TJSONObject.Create();
-        GetNoteObject.Add('NoClear', True);
+        GetNoteObject.Add('NoClear', true);
+        if alast_focus_note then
+          GetNoteObject.Add('LastFocusNote', alast_focus_note);
         GetNoteObject.Add('Notes', Notes);
         doOnSQLResultGetNote(GetNoteObject);
         result:=True;
@@ -1196,7 +1212,7 @@ begin
       if AutoCommit then SQLTransaction.Commit;
       result:=true;
     finally
-      FreeAndNil(msgStr);
+      FreeAndNil(TempQuery);
     end;
 
   except
@@ -1242,6 +1258,103 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetLastOpenNotes
+
+
+// config  last_open_notes
+
+function TPLNMV6C_sqlite.AddLastOpenNotes2(const aLastOpenNotesArray: TJSONArray; const alast_focus_note: String): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+begin
+  result:=false;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('INSERT OR REPLACE INTO config ( ');
+      TempQuery.SQL.Add('key, ');
+      TempQuery.SQL.Add('value');
+      TempQuery.SQL.Add(')');
+      TempQuery.SQL.Add('VALUES (');
+      TempQuery.SQL.Add(':key, ');
+      TempQuery.SQL.Add(':value');
+      TempQuery.SQL.Add(');');
+
+      TempQuery.ParamByName('key').AsString:='last_open_notes';
+      TempQuery.ParamByName('value').AsString:=aLastOpenNotesArray.FormatJSON();
+      TempQuery.ExecSQL;
+
+      TempQuery.ParamByName('key').AsString:='last_focus_note';
+      TempQuery.ParamByName('value').AsString:=alast_focus_note;
+
+      TempQuery.ExecSQL;
+      if AutoCommit then SQLTransaction.Commit;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+
+    result:=true;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.AddLastOpenNotes2 :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddLastOpenNotes2');
+    end;
+  end;
+
+end; // TPLNMV6C_sqlite.AddLastOpenNotes2
+
+function TPLNMV6C_sqlite.GetLastOpenNotes2(var aLastOpenNotesArray: TJSONArray; var alast_focus_note: string): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+  TempField:TField;
+  jData:TJSONData;
+begin
+  result:=false;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('SELECT * FROM config WHERE key = "last_open_notes"; ');
+      TempQuery.Open;
+
+      if TempQuery.RecordCount >= 0 then begin
+        TempField:=TempQuery.Fields.FieldByName('value');
+
+        if Assigned(TempField) then begin
+          jData:=GetJSON(TempField.AsString);
+          aLastOpenNotesArray:=jData as TJSONArray;
+        end;
+      end;
+
+      TempQuery.Close;
+      TempQuery.SQL.Clear;
+      TempQuery.SQL.Add('SELECT * FROM config WHERE key = "last_focus_note"; ');
+      TempQuery.Open;
+
+      if TempQuery.RecordCount >= 0 then begin
+        TempField:=TempQuery.Fields.FieldByName('value');
+
+        if Assigned(TempField) then begin
+          alast_focus_note:=TempField.AsString;
+        end;
+      end;
+
+
+    finally
+      FreeAndNil(TempQuery);
+    end;
+    result:=true;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.GetLastOpenNotes2 :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.GetLastOpenNotes2');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.GetLastOpenNotes2
 
 function TPLNMV6C_sqlite.ImportFromOldDataBase(const aFileName: String): Boolean;
   procedure ConvertOldTagIdToNewTagID(const aTagJArray:TJSONArray; var aOldTagArray:TJSONArray);

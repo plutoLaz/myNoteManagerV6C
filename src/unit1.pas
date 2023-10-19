@@ -104,6 +104,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
@@ -127,7 +128,7 @@ type
 
     procedure InitDB();
 
-    procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject);
+    procedure NoteAddToNoteBrowser(aNoteObject:TJSONObject; const aLastFocusNote:String = '');
     procedure NotesAddToNoteBrowser(aNoteObject:TJSONObject; const aClear:Boolean = False);
     function FindNoteIDInNoteBrowser(const aUUID:String):TListItem;
     function FindNoteIDInOpenNotes(const aUUID:String):TNMV6C_TabSheet;
@@ -147,6 +148,7 @@ type
     function CheckSave(EditorTab:TNMV6C_TabSheet):boolean;
     function CheckSaveNotes():Boolean;
     function LastOpenNotesToTable():Boolean;
+    function LastOpenNotesToTable2():Boolean;
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -362,7 +364,7 @@ end;
 
 procedure TForm1.BitBtn5Click(Sender: TObject);
 begin
-  NoteManagerV6C.GetNotes(nil, nil, true);
+  NoteManagerV6C.GetNotes(nil, nil, '', true);
 end;
 
 procedure TForm1.BitBtn6Click(Sender: TObject);
@@ -458,6 +460,7 @@ procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   //SaveConfigFile(ConfigFile);
 //  LastOpenNotesToTable();
+  LastOpenNotesToTable2();
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -493,6 +496,18 @@ procedure TForm1.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(NoteManagerV6C); FreeAndNil(CreateTextBricks); FreeAndNil(MyHorizontalBar);
 end; // TForm1.FormDestroy
+
+procedure TForm1.FormShow(Sender: TObject);
+var
+  TabSheet:TNMV6C_TabSheet;
+begin
+  if OpenNotes.PageCount > 0 then begin
+    if OpenNotes.ActivePage is TNMV6C_TabSheet then begin
+      TabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
+      TabSheet.Editor_Frame.SEEditor.SetFocus;
+    end;
+  end;
+end;
 
 procedure TForm1.NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
 begin
@@ -654,13 +669,15 @@ begin
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
 end; // TForm1.InitDB
 
-procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject);
+procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
+  const aLastFocusNote: String);
 var
   ListItem:TListItem;
   i:Integer;
   TempStr:String;
   TempDateTime:TDateTime;
   jData:TJSONData;
+  NoteID:String;
 begin
   ListItem:=TListItem.Create(NoteBrowser.Items);
   ListItem.SubItems.Add(''); // ctime
@@ -709,6 +726,9 @@ begin
     jData:=aNoteObject.Find('AutoOpen');
     if Assigned(jData) then begin
       AddOrChangeEditorTabSheet(aNoteObject, true);
+
+      //      NoteID:=aNoteObject.Elements['uuid'].AsString;
+
     end;
   end;
 end; // TForm1.NoteAddToNoteBrowser
@@ -720,8 +740,16 @@ var
   Notes:TJSONArray;
   JData:TJSONData;
   msgStr:String;
+  LastFocusNote:String;
+  TabSheet:TNMV6C_TabSheet;
 begin
   try
+    LastFocusNote:='';
+    jData:=aNoteObject.Find('LastFocusNote');
+    if Assigned(jData) then begin
+      LastFocusNote:=jData.AsString;
+    end;
+
     JData:=aNoteObject.Find('Notes');
     if Assigned(JData) then begin
       Notes:=JData as TJSONArray;
@@ -734,9 +762,16 @@ begin
       NoteBrowser.BeginUpdate;
       for i:=0 to Notes.Count -1 do begin
         NoteObject:=Notes[i] as TJSONObject;
-        NoteAddToNoteBrowser(NoteObject);
+        NoteAddToNoteBrowser(NoteObject, LastFocusNote);
       end; // for i
       NoteBrowser.EndUpdate;
+      if LastFocusNote <> '' then begin
+        TabSheet:=FindNoteIDInOpenNotes(LastFocusNote);
+        if Assigned(TabSheet) then begin
+          OpenNotes.ActivePage:=TabSheet;
+        end;
+      end;
+
     end
     else begin
       NoteAddToNoteBrowser(aNoteObject);
@@ -966,6 +1001,7 @@ begin
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
+
     //LastSynEdit:=;
     //if Form1.CanFocus then
     //  EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
@@ -982,6 +1018,7 @@ function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean):
 var
   CanOpen:Boolean;
   LastOpenNotes:TJSONArray;
+  last_focus_note:string;
 //  i:Integer;
 //  NoteID:String;
 begin
@@ -1001,12 +1038,19 @@ begin
 
   NoteManagerV6C.DB_Name:=aFileName;
   LastDBFile:=NoteManagerV6C.DB_Name;
-  NoteManagerV6C.GetNotes(nil, nil, true);
+  NoteManagerV6C.GetNotes(nil, nil, '', true);
   NoteManagerV6C.GetTags();
 
+  last_focus_note:='';
   LastOpenNotes:=TJSONArray.Create();
-  NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
-  NoteManagerV6C.GetNotes(nil, LastOpenNotes);
+  //NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
+//  writeln('GetLastOpenNotes2');
+  NoteManagerV6C.GetLastOpenNotes2(LastOpenNotes, last_focus_note);
+//  writeln(LastOpenNotes.FormatJSON());
+//  writeln('last_focus_note');
+//  writeln(last_focus_note);
+  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
+
 {  for i:=0 to LastOpenNotes.Count -1 do begin
     NoteID:=LastOpenNotes[i].AsString;
     AddOrChangeEditorTabSheet();
@@ -1127,6 +1171,34 @@ begin
   end;
 end; // TForm1.LastOpenNotesToTable
 
+function TForm1.LastOpenNotesToTable2: Boolean;
+var
+  i:Integer;
+  Notes:TJSONArray;
+  TabSheet:TNMV6C_TabSheet;
+  jData:TJSONData;
+  Note_ID:String;
+begin
+  result:=false;
+  try
+    Notes:=TJSONArray.Create();
+    for i:=0 to OpenNotes.PageCount - 1 do begin
+      TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+      jData:=TabSheet.NoteObject.Find('uuid');
+      if Assigned(jData) then begin
+        if TabSheet = OpenNotes.ActivePage then
+          Note_ID:=jData.AsString;
+        Notes.Add(jData.AsString);
+      end;
+    end;
+
+    NoteManagerV6C.AddLastOpenNotes2(Notes, Note_ID);
+    result:=true;
+  finally
+    FreeAndNil(Notes);
+  end;
+end; // TForm1.LastOpenNotesToTable2
+
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
   writeln('SQLResultAddNotes');
@@ -1236,7 +1308,7 @@ begin
       TagList.Add(TagID);
     end;
   end;
-  NoteManagerV6C.GetNotes(TagList,nil);
+  NoteManagerV6C.GetNotes(TagList,nil,'');
 end; // TForm1.BarChecked
 
 procedure TForm1.LoadConfigFile(const aConfigFile: String);
@@ -1314,11 +1386,11 @@ begin
         end;}
 
 
-        JData:=JObject.Find('OpenNotes');
+{        JData:=JObject.Find('OpenNotes');
         if Assigned(JData) then begin
           OpenLastNodes:=JData as TJSONArray;
-          NoteManagerV6C.GetNotes(nil,OpenLastNodes);
-        end;
+          NoteManagerV6C.GetNotes(nil,OpenLastNodes,'');
+        end;                                            }
       end;
     finally
       FreeAndNil(JObject); FreeAndNil(JParser);
