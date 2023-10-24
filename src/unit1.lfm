@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 383
+  Left = 355
   Height = 745
-  Top = 174
+  Top = 197
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -95,14 +95,15 @@ object Form1: TForm1
       TabOrder = 7
     end
   end
-  object PageControl1: TPageControl
+  object btNoteWithoutTags: TPageControl
+    Tag = 10
     Left = 0
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsTags
+    ActivePage = tsFilter1
     Align = alTop
-    TabIndex = 2
+    TabIndex = 3
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -175,7 +176,6 @@ object Form1: TForm1
         Action = acNewNote
         Align = alLeft
         AutoSize = True
-        OnClick = btNewNoteClick
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
@@ -203,6 +203,119 @@ object Form1: TForm1
     end
     object tsFilter1: TTabSheet
       Caption = 'Filter 1'
+      ClientHeight = 54
+      ClientWidth = 1531
+      object btToDay: TBitBtn
+        Tag = 1
+        Left = 8
+        Height = 26
+        Top = 8
+        Width = 45
+        AutoSize = True
+        Caption = '&Heute'
+        OnClick = btToDayClick
+        TabOrder = 0
+      end
+      object btYesterday: TBitBtn
+        Tag = 2
+        Left = 64
+        Height = 26
+        Top = 8
+        Width = 56
+        AutoSize = True
+        Caption = 'Gestern'
+        OnClick = btToDayClick
+        TabOrder = 1
+      end
+      object btDayBeforeYesterday: TBitBtn
+        Tag = 3
+        Left = 128
+        Height = 26
+        Top = 8
+        Width = 73
+        AutoSize = True
+        Caption = 'Vorgestern'
+        OnClick = btToDayClick
+        TabOrder = 2
+      end
+      object btNowWeek: TBitBtn
+        Tag = 4
+        Left = 208
+        Height = 26
+        Top = 8
+        Width = 87
+        AutoSize = True
+        Caption = 'Diese Woche'
+        OnClick = btToDayClick
+        TabOrder = 3
+      end
+      object btLastWeek: TBitBtn
+        Tag = 5
+        Left = 304
+        Height = 26
+        Top = 8
+        Width = 90
+        AutoSize = True
+        Cancel = True
+        Caption = 'Letzte Woche'
+        OnClick = btToDayClick
+        TabOrder = 4
+      end
+      object btNowMonat: TBitBtn
+        Tag = 6
+        Left = 408
+        Height = 26
+        Top = 8
+        Width = 89
+        AutoSize = True
+        Caption = 'Diesen Monat'
+        OnClick = btToDayClick
+        TabOrder = 5
+      end
+      object btLastMonat: TBitBtn
+        Tag = 7
+        Left = 504
+        Height = 26
+        Top = 8
+        Width = 92
+        AutoSize = True
+        Caption = 'Letzten Monat'
+        OnClick = btToDayClick
+        TabOrder = 6
+      end
+      object btNowYear: TBitBtn
+        Tag = 8
+        Left = 608
+        Height = 26
+        Top = 8
+        Width = 78
+        AutoSize = True
+        Caption = 'Dieses Jahr'
+        OnClick = btToDayClick
+        TabOrder = 7
+      end
+      object btLastYear: TBitBtn
+        Tag = 9
+        Left = 696
+        Height = 26
+        Top = 8
+        Width = 81
+        AutoSize = True
+        Caption = 'Letztes Jahr'
+        OnClick = btToDayClick
+        TabOrder = 8
+      end
+      object BitBtn8: TBitBtn
+        Tag = 10
+        Left = 784
+        Height = 26
+        Top = 8
+        Width = 168
+        AutoSize = True
+        Caption = 'Notizen ohne Tags auflisten'
+        OnClick = btToDayClick
+        TabOrder = 9
+      end
     end
     object tsFilter2: TTabSheet
       Caption = 'Filter 2'

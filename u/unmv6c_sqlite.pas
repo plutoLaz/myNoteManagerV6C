@@ -397,8 +397,7 @@ begin
   end;
 end; // TPLNMV6C_sqlite.DBInit
 
-function TPLNMV6C_sqlite.AddNote(var aNoteObject: TJSONObject;
-  const aExtModus: Boolean): Boolean;
+function TPLNMV6C_sqlite.AddNote(var aNoteObject: TJSONObject; const aExtModus: Boolean): Boolean;
 var
   TempQuery:TSQLQuery;
 
@@ -441,7 +440,6 @@ var
       else begin
         Temp_uuid.AsString:=Data.AsString;
       end;
-
 
       Data:=_aNoteObject.Find('ctime');
       if not Assigned(Data) then begin
@@ -487,7 +485,6 @@ var
         raise;
       end;
     end;
-
   end; // _AddNote
 
 var
@@ -1412,7 +1409,7 @@ function TPLNMV6C_sqlite.ImportFromOldDataBase(const aFileName: String): Boolean
     for x:=0 to aOldTagArray.Count - 1 do begin
       for i:=0 to aTagJArray.Count -1 do begin
         TagObject:=aTagJArray[i] as TJSONObject;
-        NewTagID:=TagObject['id'].AsInteger;
+//        NewTagID:=TagObject['id'].AsInteger;
         OldTagID:=TagObject['oldID'].AsInteger;
 
         if aOldTagArray[x].AsInteger = OldTagID then begin
@@ -1552,7 +1549,7 @@ begin
                   ConvertOldTagIdToNewTagID(TagJArray, TagList);
                 end;
               end;
-            end; // for
+            end; // for x
             NoteJArray.Add(JObj);
             NoteID:=JObj.Elements['uuid'].AsString;
             AddNote_Tags(NoteID,TagList);

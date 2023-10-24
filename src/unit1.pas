@@ -49,14 +49,24 @@ type
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
+    BitBtn8: TBitBtn;
+    btDayBeforeYesterday: TBitBtn;
     btDeleteNote: TBitBtn;
+    btLastMonat: TBitBtn;
+    btLastWeek: TBitBtn;
+    btLastYear: TBitBtn;
     btNewNote: TBitBtn;
+    btNowMonat: TBitBtn;
+    btNowWeek: TBitBtn;
+    btNowYear: TBitBtn;
     btSaveNote: TBitBtn;
     btNewDB: TBitBtn;
     btOpenDB: TBitBtn;
     btSaveDB: TBitBtn;
     btSaveAsDB: TBitBtn;
     btImportOldDB: TBitBtn;
+    btToDay: TBitBtn;
+    btYesterday: TBitBtn;
     CheckBox1: TCheckBox;
     CheckListBox1: TCheckListBox;
     Label2: TLabel;
@@ -65,7 +75,7 @@ type
     lbNoteCount: TLabel;
     NoteBrowser: TListView;
     OpenDialog1: TOpenDialog;
-    PageControl1: TPageControl;
+    btNoteWithoutTags: TPageControl;
     OpenNotes: TPageControl;
     PageControl2: TPageControl;
     Panel1: TPanel;
@@ -96,8 +106,8 @@ type
     procedure BitBtn7Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
-    procedure btNewNoteClick(Sender: TObject);
     procedure btOpenDBClick(Sender: TObject);
+    procedure btToDayClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure CheckListBox1ClickCheck(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -412,16 +422,85 @@ begin
   end;
 end;
 
-procedure TForm1.btNewNoteClick(Sender: TObject);
-begin
-end;
-
 procedure TForm1.btOpenDBClick(Sender: TObject);
 begin
   OpenDialog1.InitialDir:=AppDir;
   if OpenDialog1.Execute then begin
     LoadDataBase(OpenDialog1.FileName, true);
   end;
+end;
+
+procedure TForm1.btToDayClick(Sender: TObject);
+var
+  btnButton:TBitBtn;
+  sqlStr:string;
+  sqlStr1, sqlStr2:String;
+begin
+  btnButton:=sender as TBitBtn;
+  sqlStr:=''; sqlStr1:=''; sqlStr2:='';
+
+  case btnButton.tag of
+    1: begin
+      sqlStr1:='datetime("now", "Start of Day")';
+      sqlStr2:='datetime("now", "weekday 0", "Start of Day","-1 second")';
+    end; // Heute
+
+    2: begin
+      sqlStr1:='datetime("now", "-1 day", "Start of Day")';
+      sqlStr2:='datetime("now", "2 day", "Start of Day","-1 second")';
+    end; // Gestern
+
+    3: begin
+      sqlStr1:='datetime("now", "-1 day", "Start of Day")';
+      sqlStr2:='datetime("now", "1 day", "Start of Day","-1 second")';
+    end; // Vorgestern
+
+    4: begin
+      sqlStr1:='datetime("now", "weekday 1", "-7 day", "Start of Day", "localtime")';
+      sqlStr2:='datetime("now", "weekday 1", "-1 day", "localtime")';
+    end; // Diese Woche
+
+    5: begin
+      sqlStr1:='datetime("now", "weekday 1", "-14 day", "Start of Day", "localtime")';
+      sqlStr2:='datetime("now", "weekday 1", "-8 day", "localtime")';
+
+    end; // Letzte Woche
+
+    6: begin
+      sqlStr1:='datetime("now", "start of month", "localtime")';
+      sqlStr2:='datetime("now", "localtime", "localtime")';
+    end; // Diesen Monat
+
+    7: begin
+      sqlStr1:='datetime("now", "start of month", "-1 month","localtime", "localtime")';
+      sqlStr2:='datetime("now", "localtime", "localtime")';
+    end; // Letzten Monat
+
+    8: begin
+      sqlStr1:='datetime("now", "localtime", "start of year", "localtime")';
+      sqlStr2:='datetime("now", "localtime", "localtime")';
+    end; // Dieses Jahr
+
+    9: begin
+      sqlStr1:='datetime("now", "localtime", "start of year", "-1 year", "localtime")';
+      sqlStr2:='datetime("now", "localtime", "start of year", "localtime")';
+    end; // Letztes Jahrs
+
+    10: begin
+      sqlStr:='SELECT * FROM notes WHERE uuid NOT IN (SELECT note_id FROM note_tags) ORDER BY ctime DESC';
+    end;
+  end;
+
+  if (sqlStr1 <> '') and (sqlStr2 <> '') then begin
+    sqlStr:=format('SELECT ' +
+                  '*' +
+                  'FROM notes ' +
+                  'WHERE datetime(ctime) ' +
+                  'BETWEEN %s and ' +
+                  '%s order by ctime DESC',[sqlStr1, sqlStr2]);
+  end;
+  if sqlStr <> '' then
+    NoteManagerV6C.GetNotes(nil, nil, '', False, sqlStr);
 end;
 
 procedure TForm1.CheckBox1Click(Sender: TObject);
@@ -1472,8 +1551,8 @@ begin
 //      Config.Add('lastDBFile',LastDBFile);
 
     {  OpenPadList:=TJSONArray.Create();
-      for x:=0 to PageControl1.PageCount -1 do begin
-        EditorTabSheet:=PageControl1.Pages[x] as TMyEditorTabSheet;
+      for x:=0 to btNoteWithoutTags.PageCount -1 do begin
+        EditorTabSheet:=btNoteWithoutTags.Pages[x] as TMyEditorTabSheet;
         Data:=EditorTabSheet.NoteObject.Elements['uuid'];
         OpenPadList.Add(Data);
       end; // for x
