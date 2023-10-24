@@ -772,9 +772,11 @@ begin
         TempQuery.Close;
 
         GetNoteObject:=TJSONObject.Create();
-        GetNoteObject.Add('NoClear', true);
-        if alast_focus_note then
+        if alast_focus_note <> '' then begin
+          GetNoteObject.Add('NoClear', true);
+
           GetNoteObject.Add('LastFocusNote', alast_focus_note);
+        end;
         GetNoteObject.Add('Notes', Notes);
         doOnSQLResultGetNote(GetNoteObject);
         result:=True;
