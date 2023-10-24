@@ -159,6 +159,7 @@ type
     procedure SQLResultGetTags(aTagObject:TJSONObject);
 
     procedure BarChecked(sender:TObject);
+    procedure ChangeItemIndex();
 
     procedure LoadConfigFile(const aConfigFile:String);
     procedure SaveConfigFile(const aConfigFile:String);
@@ -480,7 +481,7 @@ begin
   MyHorizontalBar:=TMyHorizontalBar.Create(tsTags);
   MyHorizontalBar.Parent:=tsTags;
   MyHorizontalBar.Align:=alClient;
-//  MyHorizontalBar.OnChangeIndex:=@ChangeItemIndex;
+  MyHorizontalBar.OnChangeIndex:=@ChangeItemIndex;
   MyHorizontalBar.OnChecked:=@BarChecked;
 
   InitDB();
@@ -1039,7 +1040,7 @@ begin
   NoteManagerV6C.DB_Name:=aFileName;
   LastDBFile:=NoteManagerV6C.DB_Name;
   NoteManagerV6C.GetNotes(nil, nil, '', true);
-  NoteManagerV6C.GetTags();
+  NoteManagerV6C.GetTags(true);
 
   last_focus_note:='';
   LastOpenNotes:=TJSONArray.Create();
@@ -1310,6 +1311,32 @@ begin
   end;
   NoteManagerV6C.GetNotes(TagList,nil,'');
 end; // TForm1.BarChecked
+
+procedure TForm1.ChangeItemIndex;
+var
+  TagObject:TJSONObject;
+  i:Integer;
+  jArray:TJSONArray;
+  BarItem:TPLMyHorizontalBarItem;
+begin
+  jArray:=TJSONArray.Create;
+  BarItem:=nil;
+
+  CheckListBox1.Items.Clear;
+  for i:=0 to MyHorizontalBar.BarList.Count -1 do begin
+    if Assigned(MyHorizontalBar.BarList[i].Data) then begin
+      BarItem:=MyHorizontalBar.BarList[i];
+
+      TagObject:=BarItem.Data as TJSONObject;
+      TagObject.Elements['userindex'].AsInteger:=i;
+      jArray.Add(TagObject);
+
+      CheckListBox1.Items.AddObject(TagObject.Elements['name'].AsString,TagObject);
+    end;
+  end;
+  NoteManagerV6C.ChangeAllTagUserIndex(jArray);
+
+end;
 
 procedure TForm1.LoadConfigFile(const aConfigFile: String);
 var

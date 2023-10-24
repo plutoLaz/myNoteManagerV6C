@@ -8,7 +8,7 @@ object OptionsFm: TOptionsFm
   ClientHeight = 720
   ClientWidth = 898
   Position = poMainFormCenter
-  LCLVersion = '2.3.0.0'
+  LCLVersion = '2.2.6.0'
   object Panel2: TPanel
     Left = 0
     Height = 670
@@ -23,21 +23,21 @@ object OptionsFm: TOptionsFm
       Height = 668
       Top = 1
       Width = 896
-      ActivePage = TabSheet2
+      ActivePage = TabSheet1
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       OnChange = PageControl1Change
       object TabSheet1: TTabSheet
         Caption = 'Variante 1'
-        ClientHeight = 637
-        ClientWidth = 886
+        ClientHeight = 642
+        ClientWidth = 892
         OnContextPopup = TabSheet1ContextPopup
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 637
+          Height = 642
           Top = 0
-          Width = 886
+          Width = 892
           Align = alClient
           ItemHeight = 0
           OnDblClick = CheckListBox1DblClick
@@ -50,13 +50,13 @@ object OptionsFm: TOptionsFm
       end
       object TabSheet2: TTabSheet
         Caption = 'Variante 2'
-        ClientHeight = 637
-        ClientWidth = 886
+        ClientHeight = 642
+        ClientWidth = 892
         object ListView1: TListView
           Left = 0
-          Height = 637
+          Height = 642
           Top = 0
-          Width = 886
+          Width = 892
           Align = alClient
           Checkboxes = True
           Columns = <          
@@ -70,7 +70,7 @@ object OptionsFm: TOptionsFm
             end          
             item
               Caption = 'Farbe'
-              Width = 221
+              Width = 227
             end>
           ReadOnly = True
           TabOrder = 0
@@ -89,20 +89,20 @@ object OptionsFm: TOptionsFm
     ClientWidth = 898
     TabOrder = 1
     object Panel3: TPanel
-      Left = 697
+      Left = 730
       Height = 48
       Top = 1
-      Width = 200
+      Width = 167
       Align = alRight
       AutoSize = True
       ClientHeight = 48
-      ClientWidth = 200
+      ClientWidth = 167
       TabOrder = 0
       object BitBtn1: TBitBtn
         Left = 1
-        Height = 48
+        Height = 26
         Top = 1
-        Width = 71
+        Width = 47
         AutoSize = True
         Default = True
         DefaultCaption = True
@@ -112,9 +112,9 @@ object OptionsFm: TOptionsFm
       end
       object BitBtn2: TBitBtn
         Left = 74
-        Height = 48
+        Height = 26
         Top = 1
-        Width = 125
+        Width = 92
         AutoSize = True
         Cancel = True
         DefaultCaption = True

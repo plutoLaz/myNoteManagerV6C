@@ -83,6 +83,7 @@ type
     function UpdateTag():Boolean; // TOnSQLResultUpdateTag
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
+     function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
 {}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
 {}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
@@ -1177,6 +1178,49 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetTags
+
+function TPLNMV6C_sqlite.ChangeAllTagUserIndex(const aTagArray: TJSONArray): boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:string;
+  PUserIndex, Pid:TParam;
+  i:Integer;
+  TagObject:TJSONObject;
+begin
+  result:=False;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('UPDATE tags SET userindex=:userindex WHERE id=:id;');
+
+      PUserIndex:=TempQuery.ParamByName('userindex');
+      Pid:=TempQuery.ParamByName('id');
+
+      for i:=0 to aTagArray.Count -1 do begin
+        TagObject:=aTagArray[i] as TJSONObject;
+
+        PUserIndex.AsInteger:=TagObject.Elements['userindex'].AsInteger;
+        Pid.AsInteger:=TagObject.Elements['id'].AsInteger;
+
+        TempQuery.ExecSQL;
+      end;
+      if AutoCommit then SQLTransaction.Commit;
+
+      result:=true;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.ChangeAllTagUserIndex :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.ChangeAllTagUserIndex');
+    end;
+  end;
+
+end; // TPLNMV6C_sqlite.ChangeAllTagUserIndex
 
 function TPLNMV6C_sqlite.AddLastOpenNotes(const aLastOpenNotesArray: TJSONArray): Boolean;
 var
