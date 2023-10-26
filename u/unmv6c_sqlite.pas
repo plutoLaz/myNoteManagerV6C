@@ -89,7 +89,7 @@ type
 {}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
 
 {}  function AddLastOpenNotes2(const aLastOpenNotesArray:TJSONArray; const alast_focus_note:String):Boolean;
-    function GetLastOpenNotes2(var aLastOpenNotesArray:TJSONArray; var alast_focus_note:string):Boolean;
+{}  function GetLastOpenNotes2(var aLastOpenNotesArray:TJSONArray; var alast_focus_note:string):Boolean;
 
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
@@ -473,10 +473,15 @@ var
        if not Assigned(Data) then _aNoteObject.Add('mcount', 0);
 
        Data:=_aNoteObject.Find('id');
-       if Assigned(Data) then _aNoteObject.Add('id', SQlConnector.GetInsertID);
+       if Assigned(Data) then begin
+         _aNoteObject.Add('id', SQlConnector.GetInsertID);
+         result:=True;
+       end
+       else
+         result:=False;
 
        TempQuery.ExecSQL;
-      result:=True;
+
     except
       on E: Exception do begin
         msgStr:=E.Message;
@@ -535,8 +540,17 @@ begin
         for i:=0 to NoteArray.Count -1 do begin
           NoteObject:=NoteArray[i] as TJSONObject;
           result:=_AddNote(NoteObject);
+          if not Result then NoteObject.Add('delete',true);
         end; // for i
         TempQuery.UnPrepare;
+
+        for i:=NoteArray.Count -1 downto 0 do begin
+          NoteObject:=NoteArray[i] as TJSONObject;
+          data:=NoteObject.FindPath('delete');
+          if Assigned(data) then begin
+            NoteArray.Delete(i);
+          end;
+        end; // for i
       end
       else begin
        result:=_AddNote(aNoteObject);
@@ -1405,11 +1419,16 @@ function TPLNMV6C_sqlite.ImportFromOldDataBase(const aFileName: String): Boolean
     TagObject:TJSONObject;
     NewTagID, OldTagID:Integer;
     TagJArray:TJSONArray;
+    jData:TJSONData;
   begin
     for x:=0 to aOldTagArray.Count - 1 do begin
       for i:=0 to aTagJArray.Count -1 do begin
         TagObject:=aTagJArray[i] as TJSONObject;
-//        NewTagID:=TagObject['id'].AsInteger;
+        jData:=TagObject.Find('id');
+        if Assigned(jData) then
+          NewTagID:=jData.AsInteger
+        else
+          break;
         OldTagID:=TagObject['oldID'].AsInteger;
 
         if aOldTagArray[x].AsInteger = OldTagID then begin
