@@ -85,6 +85,7 @@ type
     SaveDialog1: TSaveDialog;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     Splitter3: TSplitter;
@@ -123,6 +124,7 @@ type
     procedure OpenNotesChange(Sender: TObject);
     procedure OpenNotesCloseTabClicked(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
   private
     fLastDBFile: String;
     procedure SetLastDBFile(AValue: String);
@@ -147,6 +149,7 @@ type
     procedure TagAddToTagList(aTagObject:TJSONObject);
     procedure TagsAddToTagList(aTagObject:TJSONObject; const aClear:Boolean= False);
     function FindTagInCheckList(const aID:integer):integer;
+    function FindTagInHorizontalbar(const aId:Integer):TPLMyHorizontalBarItem;
     procedure UpdateTagCheckList(const aNoteUUID: String);
 
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
@@ -167,6 +170,7 @@ type
 
     procedure SQLResultAddTag(aTagObject:TJSONObject);
     procedure SQLResultGetTags(aTagObject:TJSONObject);
+    procedure SQLResultUpdateTag(aTagObject:TJSONObject);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -728,6 +732,22 @@ begin
   end;
 end;
 
+procedure TForm1.SpeedButton3Click(Sender: TObject);
+var
+  NewTagName:String;
+  TagObject:TJSONObject;
+begin
+  if CheckListBox1.ItemIndex > -1 then begin
+    TagObject:=CheckListBox1.Items.Objects[CheckListBox1.ItemIndex] as TJSONObject;
+    NewTagName:=TagObject.Elements['name'].AsString;
+    if InputQuery('Einen neuen Namen, für den Tag eingeben.','Tag Name', NewTagName) then begin
+      TagObject.Elements['name'].AsString:=NewTagName;
+      NoteManagerV6C.UpdateTag(TagObject);
+    end;
+
+  end;
+end;
+
 procedure TForm1.SetLastDBFile(AValue: String);
 begin
   if fLastDBFile <> AValue then begin
@@ -745,6 +765,7 @@ begin
   NoteManagerV6C.OnSQLResultUpdateNote:=@SQLResultUpdateNote;
   NoteManagerV6C.OnSQLResultDeleteNote:=@SQLResultDeleteNote;
 
+  NoteManagerV6C.OnSQLResultUpdateTag:=@SQLResultUpdateTag;
   NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
 end; // TForm1.InitDB
@@ -1020,6 +1041,19 @@ begin
     end;
   end; // for i
 end; // TForm1.FindTagInCheckList
+
+function TForm1.FindTagInHorizontalbar(const aId: Integer): TPLMyHorizontalBarItem;
+var
+  i:Integer;
+  JObject:TJSONObject;
+  TagId:Integer;
+begin
+  for i:=0 to MyHorizontalBar.BarList.Count -1 do begin
+    JObject:=MyHorizontalBar.BarList[i].Data as TJSONObject;
+    TagId:=
+    if JObject.Elements['id'];
+  end;
+end; // TForm1.FindTagInHorizontalbar
 
 procedure TForm1.UpdateTagCheckList(const aNoteUUID: String);
 var
@@ -1369,6 +1403,28 @@ begin
 
   TagsAddToTagList(aTagObject);
 end; // TForm1.SQLResultGetTags
+
+procedure TForm1.SQLResultUpdateTag(aTagObject: TJSONObject);
+var
+  TagId:Integer;
+  Index:Integer;
+  JData:TJSONData;
+  Title:String;
+begin
+  JData:=aTagObject.Find('id');
+  if Assigned(JData) then begin
+    TagId:=JData.AsInteger;
+    Title:=aTagObject.Elements['name'].AsString;
+
+    Index:=FindTagInCheckList(TagId);
+    if Index > -1 then begin
+      CheckListBox1.Items[Index]:=Title;
+      (CheckListBox1.Items.Objects[Index] as TJSONObject).Elements['name'].AsString:=Title;
+    end;
+
+
+  end;
+end; // TForm1.SQLResultUpdateTag
 
 procedure TForm1.BarChecked(sender: TObject);
 var

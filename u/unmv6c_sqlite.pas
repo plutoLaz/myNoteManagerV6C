@@ -51,7 +51,7 @@ type
     procedure doOnSQLResultGetTagListFromTagID(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetTags(aNoteObject:TJSONObject);
-    procedure doOnSQLResultUpdateTag(aNoteObject:TJSONObject);
+    procedure doOnSQLResultUpdateTag(aTagObject:TJSONObject);
     procedure doOnSQLResultGetContent(aNoteObject:TJSONObject);
     procedure doOnSQLResultError(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String);
 
@@ -78,12 +78,12 @@ type
 
 {}  function AddTag(var aTagObject:TJSONObject; const aTagMetaData:Boolean = False; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddTag
 {}  function AddNote_Tags(const aNoteID:String; const aJArray:TJSONArray):Integer;
-    function NoteLinketToTag(const aNoteID:string; const aTagID:Integer; const aTagAction:TPLNMV6C_TagAction):Boolean;
+{}  function NoteLinketToTag(const aNoteID:string; const aTagID:Integer; const aTagAction:TPLNMV6C_TagAction):Boolean;
 
-    function UpdateTag():Boolean; // TOnSQLResultUpdateTag
+    function UpdateTag(const aTagObject:TJSONObject):Boolean; // TOnSQLResultUpdateTag
     function DeleteTag():Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
-     function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
+{}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
 {}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
 {}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
@@ -95,7 +95,7 @@ type
 
 {}  property OnSQLResultAddNote:TOnSQLResultAddNote read fOnSQLResultAddNote write fOnSQLResultAddNote;
 {}  property OnSQLResultUpdateNote:TOnSQLResultUpdateNote read fOnSQLResultUpdateNote write fOnSQLResultUpdateNote;
-    property OnSQLResultDeleteNote:TOnSQLResultDeleteNote read fOnSQLResultDeleteNote write fOnSQLResultDeleteNote;
+{}  property OnSQLResultDeleteNote:TOnSQLResultDeleteNote read fOnSQLResultDeleteNote write fOnSQLResultDeleteNote;
 {}  property OnSQLResultGetNotes:TOnSQLResultGetNotes read fOnSQLResultGetNotes write fOnSQLResultGetNotes;
 {}  property OnSQLResultGetContent:TOnSQLResultGetContent read fOnSQLResultGetContent write fOnSQLResultGetContent;
     property OnSQLResultGetTagListFromTagID:TOnSQLResultGetTagListFromTagID read fOnSQLResultGetTagListFromTagID write fOnSQLResultGetTagListFromTagID;
@@ -290,9 +290,9 @@ begin
   if Assigned(fOnSQLResultGetTags) then fOnSQLResultGetTags(aNoteObject);
 end; // TPLNMV6C_sqlite.doOnSQLResultGetTags
 
-procedure TPLNMV6C_sqlite.doOnSQLResultUpdateTag(aNoteObject: TJSONObject);
+procedure TPLNMV6C_sqlite.doOnSQLResultUpdateTag(aTagObject: TJSONObject);
 begin
-  if Assigned(fOnSQLResultUpdateTag) then fOnSQLResultUpdateTag(aNoteObject);
+  if Assigned(fOnSQLResultUpdateTag) then fOnSQLResultUpdateTag(aTagObject);
 end; // TPLNMV6C_sqlite.doOnSQLResultUpdateTag
 
 procedure TPLNMV6C_sqlite.doOnSQLResultGetContent(aNoteObject: TJSONObject);
@@ -1118,9 +1118,48 @@ begin
   end;
 end; // TPLNMV6C_sqlite.NoteLinketToTag
 
-function TPLNMV6C_sqlite.UpdateTag: Boolean;
+function TPLNMV6C_sqlite.UpdateTag(const aTagObject: TJSONObject): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:String;
+
+  TagName:String;
+  TagId:Integer;
+
 begin
-  result:=False;
+  msgStr:=''; result:=False;
+  try
+    try
+      TagName:=aTagObject.Elements['name'].AsString;
+      TagId:=aTagObject.Elements['id'].AsInteger;
+
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      TempQuery.SQL.Add('UPDATE tags SET ');
+      TempQuery.SQL.Add('name=:name');
+      TempQuery.SQL.Add(' WHERE id=:id');
+      TempQuery.SQL.Add(';');
+
+      TempQuery.ParamByName('name').AsString:=TagName;
+      TempQuery.ParamByName('id').AsInteger:=TagID;
+
+      TempQuery.ExecSQL;
+      if AutoCommit then SQLTransaction.Commit;
+      doOnSQLResultUpdateTag(aTagObject);
+      result:=True;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.UpdateTag:',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.UpdateTag');
+      raise;
+    end;
+  end;
+
 end; // TPLNMV6C_sqlite.UpdateTag
 
 function TPLNMV6C_sqlite.DeleteTag: Boolean;

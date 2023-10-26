@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 355
+  Left = 266
   Height = 745
-  Top = 197
+  Top = 152
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -101,9 +101,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsFilter1
+    ActivePage = tsDataBase
     Align = alTop
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -449,6 +449,16 @@ object Form1: TForm1
             Width = 23
             Caption = '-'
             Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object SpeedButton3: TSpeedButton
+            Left = 248
+            Height = 22
+            Top = 8
+            Width = 23
+            Caption = 'E'
+            Font.Style = [fsBold]
+            OnClick = SpeedButton3Click
             ParentFont = False
           end
         end
