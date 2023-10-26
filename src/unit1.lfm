@@ -449,6 +449,7 @@ object Form1: TForm1
             Width = 23
             Caption = '-'
             Font.Style = [fsBold]
+            OnClick = SpeedButton2Click
             ParentFont = False
           end
           object SpeedButton3: TSpeedButton

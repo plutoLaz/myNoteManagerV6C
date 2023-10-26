@@ -46,7 +46,7 @@ type
     procedure doOnSQLResultAddNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultAddTag(aNoteObject:TJSONObject);
     procedure doOnSQLResultDeleteNote(aNoteIDList: TJSONArray);
-    procedure doOnSQLResultDeleteTag(aNoteObject:TJSONObject);
+    procedure doOnSQLResultDeleteTag(aTagIdList:TJSONArray);
     procedure doOnSQLResultUpdateNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetTagListFromTagID(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetNote(aNoteObject:TJSONObject);
@@ -81,7 +81,7 @@ type
 {}  function NoteLinketToTag(const aNoteID:string; const aTagID:Integer; const aTagAction:TPLNMV6C_TagAction):Boolean;
 
     function UpdateTag(const aTagObject:TJSONObject):Boolean; // TOnSQLResultUpdateTag
-    function DeleteTag():Boolean; // TOnSQLResultDeleteTag
+    function DeleteTag(const aTagIdList:TJSONArray):Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 {}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
@@ -265,9 +265,9 @@ begin
   if Assigned(fOnSQLResultDeleteNote) then fOnSQLResultDeleteNote(aNoteIDList);
 end; // TPLNMV6C_sqlite.doOnSQLResultDeleteNote
 
-procedure TPLNMV6C_sqlite.doOnSQLResultDeleteTag(aNoteObject: TJSONObject);
+procedure TPLNMV6C_sqlite.doOnSQLResultDeleteTag(aTagIdList: TJSONArray);
 begin
-  if Assigned(fOnSQLResultDeleteTag) then fOnSQLResultDeleteTag(aNoteObject);
+  if Assigned(fOnSQLResultDeleteTag) then fOnSQLResultDeleteTag(aTagIdList);
 end; // TPLNMV6C_sqlite.doOnSQLResultDeleteTag
 
 procedure TPLNMV6C_sqlite.doOnSQLResultUpdateNote(aNoteObject: TJSONObject);
@@ -1162,9 +1162,42 @@ begin
 
 end; // TPLNMV6C_sqlite.UpdateTag
 
-function TPLNMV6C_sqlite.DeleteTag: Boolean;
+function TPLNMV6C_sqlite.DeleteTag(const aTagIdList: TJSONArray): Boolean;
+var
+  TempQuery:TSQLQuery;
+  msgStr:String;
+  tagIdP:TParam;
+  i:Integer;
 begin
   result:=False;
+  msgStr:='';
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      TempQuery.SQL.Add('DELETE FROM tags WHERE id=:id');
+      tagIdP:=TempQuery.ParamByName('id');
+      for i:=0 to aTagIdList.Count - 1 do begin
+        tagIdP.AsString:=aTagIdList[i].AsString;
+        TempQuery.ExecSQL;
+      end; // for i
+
+      if AutoCommit then SQLTransaction.Commit;
+      writeln(aTagIdList.FormatJSON());
+      doOnSQLResultDeleteTag(aTagIdList);
+      result:=True;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.DeleteTag:',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.DeleteTag');
+      raise;
+    end;
+  end;
 end;
 
 function TPLNMV6C_sqlite.GetTags(const aSortetByUserIndex: boolean): Boolean;

@@ -34,7 +34,7 @@ type
 
   TOnSQLResultAddTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultUpdateTag = procedure(aTagObject:TJSONObject) of object;
-  TOnSQLResultDeleteTag = procedure(aTagObject:TJSONObject) of object;
+  TOnSQLResultDeleteTag = procedure(aTagIdList:TJSONArray) of object;
   TOnSQLResultGetTags = procedure(aTagObject:TJSONObject) of object;
 
   TOnSQLResultError = procedure(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String) of Object;
