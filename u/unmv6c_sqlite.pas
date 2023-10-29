@@ -546,9 +546,9 @@ begin
 
         for i:=NoteArray.Count -1 downto 0 do begin
           NoteObject:=NoteArray[i] as TJSONObject;
-          data:=NoteObject.FindPath('delete');
+          data:=NoteObject.find('delete');
           if Assigned(data) then begin
-            NoteArray.Delete(i);
+       //     NoteArray.Delete(i);
           end;
         end; // for i
       end
@@ -1225,8 +1225,8 @@ begin
       end;
 
       TempQuery.Open;
+      Tags:=TJSONArray.Create();
       if TempQuery.RecordCount > 0 then begin
-        Tags:=TJSONArray.Create();
         TempQuery.First;
         while not TempQuery.Eof do begin
           TagObject:=TJSONObject.Create();
@@ -1247,9 +1247,12 @@ begin
         TempQuery.Close;
       end;
     finally
-      EventObject:=TJSONObject.Create();
-      EventObject.Add('Tags',Tags);
-      doOnSQLResultGetTags(EventObject);
+      writeln(Tags.Count);
+      if Tags.Count > 0 then begin
+        EventObject:=TJSONObject.Create();
+        EventObject.Add('Tags',Tags);
+        doOnSQLResultGetTags(EventObject);
+      end;
       FreeAndNil(TempQuery);
     end;
   except
@@ -1641,6 +1644,7 @@ begin
                 end;
               end;
             end; // for x
+           // JObj.Add('id',-1);
             NoteJArray.Add(JObj);
             NoteID:=JObj.Elements['uuid'].AsString;
             AddNote_Tags(NoteID,TagList);

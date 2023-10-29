@@ -473,14 +473,12 @@ var
        if not Assigned(Data) then _aNoteObject.Add('mcount', 0);
 
        Data:=_aNoteObject.Find('id');
-       if Assigned(Data) then begin
+       if Assigned(Data) then
          _aNoteObject.Add('id', SQlConnector.GetInsertID);
-         result:=True;
-       end
-       else
-         result:=False;
 
        TempQuery.ExecSQL;
+       result:=SQlConnector.GetInsertID > 0;
+       writeln('GetInsertID: ', SQlConnector.GetInsertID, ' ', result);
 
     except
       on E: Exception do begin
@@ -546,7 +544,7 @@ begin
 
         for i:=NoteArray.Count -1 downto 0 do begin
           NoteObject:=NoteArray[i] as TJSONObject;
-          data:=NoteObject.FindPath('delete');
+          data:=NoteObject.find('delete');
           if Assigned(data) then begin
             NoteArray.Delete(i);
           end;
@@ -1184,7 +1182,7 @@ begin
       end; // for i
 
       if AutoCommit then SQLTransaction.Commit;
-      writeln(aTagIdList);
+      writeln(aTagIdList.FormatJSON());
       doOnSQLResultDeleteTag(aTagIdList);
       result:=True;
     finally
@@ -1225,8 +1223,8 @@ begin
       end;
 
       TempQuery.Open;
+      Tags:=TJSONArray.Create();
       if TempQuery.RecordCount > 0 then begin
-        Tags:=TJSONArray.Create();
         TempQuery.First;
         while not TempQuery.Eof do begin
           TagObject:=TJSONObject.Create();
@@ -1247,9 +1245,12 @@ begin
         TempQuery.Close;
       end;
     finally
-      EventObject:=TJSONObject.Create();
-      EventObject.Add('Tags',Tags);
-      doOnSQLResultGetTags(EventObject);
+      writeln(Tags.Count);
+      if Tags.Count > 0 then begin
+        EventObject:=TJSONObject.Create();
+        EventObject.Add('Tags',Tags);
+        doOnSQLResultGetTags(EventObject);
+      end;
       FreeAndNil(TempQuery);
     end;
   except
@@ -1641,6 +1642,7 @@ begin
                 end;
               end;
             end; // for x
+           // JObj.Add('id',-1);
             NoteJArray.Add(JObj);
             NoteID:=JObj.Elements['uuid'].AsString;
             AddNote_Tags(NoteID,TagList);

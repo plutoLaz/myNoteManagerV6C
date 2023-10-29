@@ -100,6 +100,7 @@ type
     TempDraqOver:TPLMyHorizontalBarItem;
     OptionsBitBtnButton:TBitBtn;
     OptionFm:TOptionsFm;
+    myFormatSettings:TFormatSettings;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;

@@ -781,6 +781,8 @@ end; // TForm1.SetLastDBFile
 procedure TForm1.InitDB;
 begin
   NoteManagerV6C:=TPLNMV6C_sqlite.Create;
+  MyHorizontalBar.myFormatSettings:=NoteManagerV6C.myFormatSettings;
+
   NoteManagerV6C.OnSQLResultAddNote:=@SQLResultAddNotes;
   NoteManagerV6C.OnSQLResultGetNotes:=@SQLResultGetNotes;
   NoteManagerV6C.OnSQLResultUpdateNote:=@SQLResultUpdateNote;
