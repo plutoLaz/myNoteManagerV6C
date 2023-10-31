@@ -994,6 +994,29 @@ begin
     try
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
+
+      // Zuerst prüfen, ob es den Title tags in der Datenbank gibt.
+      TempQuery.SQL.Add('SELECT name FROM tags WHERE name=:name;');
+      Temp_name:=TempQuery.ParamByName('name');
+
+      jData:=aTagObject.Find('Tags');
+      if Assigned(jData) then begin
+        TagArray:=jData as TJSONArray;
+
+        for i:=TagArray.Count -1 downto 0 do begin
+          TagObject:=TagArray[i] as TJSONObject;
+
+          Temp_name.AsString:=TagObject.Elements['name'].AsString;
+          TempQuery.Open;
+          if TempQuery.RecordCount > 0 then begin
+            writeln('Gibt es schon: "', Temp_name.AsString);
+            TagArray.Delete(i);
+          end;
+          TempQuery.Close;
+        end;
+      end;
+      TempQuery.SQL.Clear;
+
       if not aExtModus then
         TempQuery.SQL.Add('INSERT INTO tags (')
       else
@@ -1021,11 +1044,12 @@ begin
         jData:=aTagObject.Find('Tags');
         if Assigned(jData) then begin
           TagArray:=jData as TJSONArray;
-          for i:=0 to TagArray.Count -1 do begin
-            TagObject:=TagArray[i] as TJSONObject;
-            _AddTag(TagObject);
+          if TagArray.Count > 0 then begin
+            for i:=0 to TagArray.Count -1 do begin
+              TagObject:=TagArray[i] as TJSONObject;
+              _AddTag(TagObject);
+            end;
           end;
-
         end
         else begin
           _AddTag(aTagObject);
