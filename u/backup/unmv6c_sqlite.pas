@@ -506,12 +506,11 @@ begin
     TempQuery.DataBase:=SQlConnector;
     try
       // Zuerst prüfen, ob es den Title schon in der Datenbank gibt.
-      TempQuery.SQL.Add('SELECT title FROM notes WHERE title=:title;');
-      Temp_title:=TempQuery.ParamByName('title');
-
       data:=aNoteObject.Find('Notes');
       if Assigned(Data) then begin
         NoteArray:=data as TJSONArray;
+        TempQuery.SQL.Add('SELECT title FROM notes WHERE title=:title;');
+        Temp_title:=TempQuery.ParamByName('title');
 
         for i:=NoteArray.Count -1 downto 0 do begin
           NoteObject:=NoteArray[i] as TJSONObject;
@@ -524,8 +523,9 @@ begin
           end;
           TempQuery.Close;
         end;
+
+        TempQuery.SQL.Clear;
       end;
-      TempQuery.SQL.Clear;
 
       if not aExtModus then
         TempQuery.SQL.Add('INSERT INTO notes (')
@@ -554,8 +554,9 @@ begin
       Temp_ctime:=TempQuery.ParamByName('ctime'); // 3
       Temp_mtime:=TempQuery.ParamByName('mtime'); // 4
       Temp_atime:=TempQuery.ParamByName('atime'); // 5
-
+      writeln(aNoteObject.FormatJSON());
       data:=aNoteObject.Find('Notes');
+
       if Assigned(NoteArray) then begin
         NoteArray:=data as TJSONArray;
         if NoteArray.Count > 0 then begin
@@ -1016,7 +1017,6 @@ begin
         end;
       end;
       TempQuery.SQL.Clear;
-
 
       if not aExtModus then
         TempQuery.SQL.Add('INSERT INTO tags (')

@@ -239,7 +239,9 @@ begin
 
   jData:=NoteObject.find('content');
   if Assigned(jData) then
-    jData.AsString:=Editor_Frame.SEEditor.Lines.Text;
+    jData.AsString:=Editor_Frame.SEEditor.Lines.Text
+  else
+    NoteObject.Add('content', Editor_Frame.SEEditor.Lines.Text);
 end; // TNMV6C_TabSheet.UpdateNoteObject
 
 procedure TNMV6C_TabSheet.UpdateChangeStatus();
@@ -980,6 +982,7 @@ begin
     NoteId:='';
     if Assigned(aEditorTab.NoteObject) then begin
       aEditorTab.UpdateNoteObject();
+
       jData:=aEditorTab.NoteObject.Find('uuid');
       if Assigned(jData) then
         NoteId:=jData.AsString;

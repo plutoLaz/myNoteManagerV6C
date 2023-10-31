@@ -101,9 +101,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsDataBase
+    ActivePage = TabSheet1
     Align = alTop
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
