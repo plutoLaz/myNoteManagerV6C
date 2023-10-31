@@ -473,12 +473,14 @@ var
        if not Assigned(Data) then _aNoteObject.Add('mcount', 0);
 
        Data:=_aNoteObject.Find('id');
-       if Assigned(Data) then
+       if Assigned(Data) then begin
          _aNoteObject.Add('id', SQlConnector.GetInsertID);
+         result:=True;
+       end
+       else
+         result:=False;
 
        TempQuery.ExecSQL;
-       result:=SQlConnector.GetInsertID > 0;
-       writeln('GetInsertID: ', SQlConnector.GetInsertID, ' ', result);
 
     except
       on E: Exception do begin
@@ -501,8 +503,29 @@ begin
   result:=False;
   try
     TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
     try
-      TempQuery.DataBase:=SQlConnector;
+      // Zuerst prüfen, ob es den Title schon in der Datenbank gibt.
+      TempQuery.SQL.Add('SELECT title FROM notes WHERE title=:title;');
+      Temp_title:=TempQuery.ParamByName('title');
+
+      data:=aNoteObject.Find('Notes');
+      if Assigned(Data) then begin
+        NoteArray:=data as TJSONArray;
+
+        for i:=NoteArray.Count -1 downto 0 do begin
+          NoteObject:=NoteArray[i] as TJSONObject;
+
+          Temp_title.AsString:=NoteObject.Elements['title'].AsString;
+          TempQuery.Open;
+          if TempQuery.RecordCount > 0 then begin
+            writeln('Gibt es schon: "', Temp_title.AsString);
+            NoteArray.Delete(i);
+          end;
+        end;
+      end;
+      TempQuery.SQL.Clear;
+
       if not aExtModus then
         TempQuery.SQL.Add('INSERT INTO notes (')
       else
@@ -532,23 +555,25 @@ begin
       Temp_atime:=TempQuery.ParamByName('atime'); // 5
 
       data:=aNoteObject.Find('Notes');
-      if Assigned(data) then begin
+      if Assigned(NoteArray) then begin
         NoteArray:=data as TJSONArray;
-        TempQuery.Prepare; // Spart Zeit, wie Updatebegin z.b.
-        for i:=0 to NoteArray.Count -1 do begin
-          NoteObject:=NoteArray[i] as TJSONObject;
-          result:=_AddNote(NoteObject);
-          if not Result then NoteObject.Add('delete',true);
-        end; // for i
-        TempQuery.UnPrepare;
+        if NoteArray.Count > 0 then begin
+          TempQuery.Prepare; // Spart Zeit, wie Updatebegin z.b.
+          for i:=0 to NoteArray.Count -1 do begin
+            NoteObject:=NoteArray[i] as TJSONObject;
+            result:=_AddNote(NoteObject);
+            if not Result then NoteObject.Add('delete',true);
+          end; // for i
+          TempQuery.UnPrepare;
 
-        for i:=NoteArray.Count -1 downto 0 do begin
-          NoteObject:=NoteArray[i] as TJSONObject;
-          data:=NoteObject.find('delete');
-          if Assigned(data) then begin
-            NoteArray.Delete(i);
-          end;
-        end; // for i
+          for i:=NoteArray.Count -1 downto 0 do begin
+            NoteObject:=NoteArray[i] as TJSONObject;
+            data:=NoteObject.find('delete');
+            if Assigned(data) then begin
+         //     NoteArray.Delete(i);
+            end;
+          end; // for i
+        end;
       end
       else begin
        result:=_AddNote(aNoteObject);
