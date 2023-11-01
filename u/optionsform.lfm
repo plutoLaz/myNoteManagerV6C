@@ -89,14 +89,14 @@ object OptionsFm: TOptionsFm
     ClientWidth = 898
     TabOrder = 1
     object Panel3: TPanel
-      Left = 730
+      Left = 752
       Height = 48
       Top = 1
-      Width = 167
+      Width = 145
       Align = alRight
       AutoSize = True
       ClientHeight = 48
-      ClientWidth = 167
+      ClientWidth = 145
       TabOrder = 0
       object BitBtn1: TBitBtn
         Left = 1
@@ -111,7 +111,7 @@ object OptionsFm: TOptionsFm
         TabOrder = 0
       end
       object BitBtn2: TBitBtn
-        Left = 74
+        Left = 52
         Height = 26
         Top = 1
         Width = 92
