@@ -952,9 +952,9 @@ var
 
       jData:=_aTagObject.Find('ctime');
       if Assigned(jData) then
-        jData.AsString:=DateTimeToStr(Temp_ctime.AsDateTime)
+        jData.AsString:=DateTimeToStr(Temp_ctime.AsDateTime, myFormatSettings)
       else
-        _aTagObject.Add('ctime', DateTimeToStr(Temp_ctime.AsDateTime));
+        _aTagObject.Add('ctime', DateTimeToStr(Temp_ctime.AsDateTime, myFormatSettings));
 
       jData:=_aTagObject.Find('mtime');
       if Assigned(jData) then

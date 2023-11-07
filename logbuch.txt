@@ -1,6 +1,16 @@
 Dokument Angelegt am Dienstag, 17.10.2023
 =========================================
 
+02) Donnerstag, 02.11.2023
+  Die frage ist jetzt: eine eigene "ListView", ähnliche Komponente erstellen?
+  Gibt es eine andere Lösung für das Problem?
+
+  Das Problem ist, dass im "TagManager", Probleme in der CheckListBox auftreten.
+  In Zusammenhang mit MultiSelect und Draq&Drop.
+
+  Eine eigene Tabellen Ähnliche Komponente wäre schon nicht schlecht.
+  Nur, hier gibt es immer wieder, die gleichen Probleme.
+
 01) Dienstag, 17.10.2023
 
   Es geht um die Methode, GetNodes und darum,

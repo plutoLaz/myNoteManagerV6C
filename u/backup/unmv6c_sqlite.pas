@@ -554,10 +554,9 @@ begin
       Temp_ctime:=TempQuery.ParamByName('ctime'); // 3
       Temp_mtime:=TempQuery.ParamByName('mtime'); // 4
       Temp_atime:=TempQuery.ParamByName('atime'); // 5
-      writeln(aNoteObject.FormatJSON());
-      data:=aNoteObject.Find('Notes');
 
-      if Assigned(NoteArray) then begin
+      data:=aNoteObject.Find('Notes');
+      if Assigned(data) then begin
         NoteArray:=data as TJSONArray;
         if NoteArray.Count > 0 then begin
           TempQuery.Prepare; // Spart Zeit, wie Updatebegin z.b.

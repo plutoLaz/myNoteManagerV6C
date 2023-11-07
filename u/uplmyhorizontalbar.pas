@@ -668,7 +668,7 @@ var
 
   BarItem:TPLMyHorizontalBarItem;
   ListItem:TListitem;
-  FormatetDateTime, TempItemTitle:String;
+  DateTimeStr:String;
 begin
   OptionFm.CheckListBox1.Items.Clear;
   OptionFm.ListView1.Items.Clear;
@@ -678,13 +678,13 @@ begin
     TempIndex:=OptionFm.CheckListBox1.Items.AddObject(BarItem.Title, BarItem);
     OptionFm.CheckListBox1.Checked[TempIndex]:=BarItem.Checked;
 
-    FormatetDateTime:=FormatDateTime('DDD, DD.MM.YYYY HH:MM',BarItem.cTime);
+    DateTimeStr:=FormatDateTime('DDD, DD.MM.YYYY HH:mm',BarItem.cTime, myFormatSettings);
     ListItem:=TListItem.Create(OptionFm.ListView1.Items);
     ListItem.Caption:=BarItem.Title;
     ListItem.Checked:=BarItem.Checked;
     ListItem.Data:=BarItem.Data;
 
-    ListItem.SubItems.Add(FormatetDateTime);
+    ListItem.SubItems.Add(DateTimeStr);
 
     OptionFm.ListView1.Items.AddItem(ListItem);
   end;

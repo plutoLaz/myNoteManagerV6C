@@ -30,6 +30,10 @@ type
       State: TDragState; var Accept: Boolean);
     procedure CheckListBox1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure FormCreate(Sender: TObject);
+    procedure ListView1DragDrop(Sender, Source: TObject; X, Y: Integer);
+    procedure ListView1DragOver(Sender, Source: TObject; X, Y: Integer;
+      State: TDragState; var Accept: Boolean);
     procedure PageControl1Change(Sender: TObject);
     procedure TabSheet1ContextPopup(Sender: TObject; MousePos: TPoint;
       var Handled: Boolean);
@@ -93,6 +97,22 @@ begin
     CheckListBox1.BeginDrag(False);
     DraggingItemNumber:=-1;
   end;
+end;
+
+procedure TOptionsFm.FormCreate(Sender: TObject);
+begin
+  ListView1.MultiSelect:=true;
+end;
+
+procedure TOptionsFm.ListView1DragDrop(Sender, Source: TObject; X, Y: Integer);
+begin
+
+end;
+
+procedure TOptionsFm.ListView1DragOver(Sender, Source: TObject; X, Y: Integer;
+  State: TDragState; var Accept: Boolean);
+begin
+  Accept:=True;
 end;
 
 procedure TOptionsFm.PageControl1Change(Sender: TObject);
