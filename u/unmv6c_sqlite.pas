@@ -1627,6 +1627,7 @@ begin
               if not Fild.IsNull then begin
                 if FildName = 'CreateDateTime' then begin
                   TempDateTimeStr:=DateTimeToStr(StrToDateTime(Fild.AsString, DefaultFormatSettings), myFormatSettings);
+                  writeln(TempDateTimeStr);
                   JObj.Add('ctime', TempDateTimeStr);
                 end;
                 if FildName = 'LastWriteDateTime' then begin
@@ -1647,7 +1648,7 @@ begin
         TempQuery.Close;
         TagObject:=TJSONObject.Create();
         TagObject.Add('Tags', TagJArray);
-        AddTag(TagObject, False, true);
+        AddTag(TagObject, True, true);
 
         // Notizen von der alten Datenbank in eine JSON Array hinzufügen
         TempQuery.SQL.Text:='select Title, NoteText, CreateDateTime, LastWriteDateTime, LastReadDateTime, ReadCount, WriteCount, NoteID, TagList from NoteTable order BY Title';

@@ -1010,11 +1010,20 @@ procedure TForm1.TagAddToTagList(aTagObject: TJSONObject);
 var
   jData:TJSONData;
   TagName:String;
+
+  BarItem:TPLMyHorizontalBarItem;
+
 begin
+
   jData:=aTagObject.Find('name');
   if Assigned(jData) then begin
     TagName:=jData.AsString;
-    MyHorizontalBar.BarList.Add(TagName, aTagObject);
+    BarItem:=MyHorizontalBar.BarList.Add(TagName, aTagObject);
+
+    jData:=aTagObject.Find('ctime');
+    if Assigned(jData) then begin
+      BarItem.cTime:=StrToDateTime(jData.AsString, DefaultFormatSettings);
+    end;
 
     jData:=aTagObject.Find('id');
     if Assigned(jData) then begin
@@ -1429,7 +1438,7 @@ end; // TForm1.SQLResultAddTag
 procedure TForm1.SQLResultGetTags(aTagObject: TJSONObject);
 begin
   writeln('SQLResultGetTags');
-  writeln(aTagObject.FormatJSON());
+  //writeln(aTagObject.FormatJSON());
 
   TagsAddToTagList(aTagObject);
 end; // TForm1.SQLResultGetTags

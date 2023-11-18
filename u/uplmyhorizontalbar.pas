@@ -678,7 +678,8 @@ begin
     TempIndex:=OptionFm.CheckListBox1.Items.AddObject(BarItem.Title, BarItem);
     OptionFm.CheckListBox1.Checked[TempIndex]:=BarItem.Checked;
 
-    DateTimeStr:=FormatDateTime('DDD, DD.MM.YYYY HH:mm',BarItem.cTime, myFormatSettings);
+    DateTimeStr:=DateTimeToStr(BarItem.cTime, myFormatSettings);
+//    DateTimeStr:=FormatDateTime('DDD, DD.MM.YYYY HH:mm',BarItem.cTime, myFormatSettings);
     ListItem:=TListItem.Create(OptionFm.ListView1.Items);
     ListItem.Caption:=BarItem.Title;
     ListItem.Checked:=BarItem.Checked;
