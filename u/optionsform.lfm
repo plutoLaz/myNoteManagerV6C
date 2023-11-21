@@ -1,27 +1,27 @@
 object OptionsFm: TOptionsFm
   Left = 496
-  Height = 655
+  Height = 652
   Top = 241
   Width = 898
   BorderStyle = bsDialog
   Caption = 'Tags Bearbeiten'
-  ClientHeight = 655
+  ClientHeight = 652
   ClientWidth = 898
   OnCreate = FormCreate
   Position = poMainFormCenter
   LCLVersion = '2.2.6.0'
   object Panel2: TPanel
     Left = 0
-    Height = 605
+    Height = 616
     Top = 0
     Width = 898
     Align = alClient
-    ClientHeight = 605
+    ClientHeight = 616
     ClientWidth = 898
     TabOrder = 0
     object PageControl1: TPageControl
       Left = 1
-      Height = 603
+      Height = 614
       Top = 1
       Width = 896
       ActivePage = TabSheet2
@@ -31,12 +31,12 @@ object OptionsFm: TOptionsFm
       OnChange = PageControl1Change
       object TabSheet1: TTabSheet
         Caption = 'Variante 1'
-        ClientHeight = 577
+        ClientHeight = 588
         ClientWidth = 892
         OnContextPopup = TabSheet1ContextPopup
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 577
+          Height = 588
           Top = 0
           Width = 892
           Align = alClient
@@ -51,11 +51,11 @@ object OptionsFm: TOptionsFm
       end
       object TabSheet2: TTabSheet
         Caption = 'Variante 2'
-        ClientHeight = 577
+        ClientHeight = 588
         ClientWidth = 892
         object ListView1: TListView
           Left = 0
-          Height = 577
+          Height = 588
           Top = 0
           Width = 892
           Align = alClient
@@ -85,21 +85,21 @@ object OptionsFm: TOptionsFm
   end
   object Panel1: TPanel
     Left = 0
-    Height = 50
-    Top = 605
+    Height = 36
+    Top = 616
     Width = 898
     Align = alBottom
-    ClientHeight = 50
+    ClientHeight = 36
     ClientWidth = 898
     TabOrder = 1
     object Panel3: TPanel
       Left = 752
-      Height = 48
+      Height = 34
       Top = 1
       Width = 145
       Align = alRight
       AutoSize = True
-      ClientHeight = 48
+      ClientHeight = 34
       ClientWidth = 145
       TabOrder = 0
       object BitBtn1: TBitBtn

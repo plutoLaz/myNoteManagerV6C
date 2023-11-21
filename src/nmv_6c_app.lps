@@ -39,10 +39,9 @@
       <Unit>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="1613"/>
-        <CursorPos X="117" Y="1622"/>
+        <TopLine Value="1524"/>
+        <CursorPos X="37" Y="1540"/>
         <UsageCount Value="124"/>
         <Bookmarks Count="1">
           <Item0 X="21" Y="946" ID="3"/>
@@ -130,10 +129,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="optionsForm"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="14"/>
-        <CursorPos X="15" Y="35"/>
-        <UsageCount Value="29"/>
+        <TopLine Value="84"/>
+        <CursorPos X="78" Y="91"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -142,7 +142,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="659"/>
         <CursorPos X="72" Y="682"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
         <Bookmarks Count="1">
           <Item0 X="72" Y="682" ID="1"/>
         </Bookmarks>
@@ -166,18 +166,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="1426" Column="15" TopLine="1421"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="173" Column="15" TopLine="151"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="1432" Column="3" TopLine="1428"/>
-      </Position>
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="151" Column="15" TopLine="129"/>
@@ -284,6 +272,18 @@
       <Position>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
         <Caret Line="94" Column="34" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="../u/unmv6c_sqlite.pas"/>
+        <Caret Line="1546" Column="26" TopLine="1525"/>
+      </Position>
+      <Position>
+        <Filename Value="../u/optionsform.pas"/>
+        <Caret Line="23" Column="132" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="../u/optionsform.pas"/>
+        <Caret Line="109" Column="3" TopLine="84"/>
       </Position>
     </JumpHistory>
     <RunParams>
