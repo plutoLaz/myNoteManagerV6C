@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 266
+  Left = 265
   Height = 745
-  Top = 152
+  Top = 185
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -404,9 +404,9 @@ object Form1: TForm1
       Height = 262
       Top = 1
       Width = 341
-      ActivePage = TabSheet2
+      ActivePage = TabSheet3
       Align = alClient
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
@@ -466,6 +466,37 @@ object Form1: TForm1
       end
       object TabSheet3: TTabSheet
         Caption = 'Abschnitte'
+        ClientHeight = 236
+        ClientWidth = 337
+        object Panel5: TPanel
+          Left = 0
+          Height = 44
+          Top = 192
+          Width = 337
+          Align = alBottom
+          ClientHeight = 44
+          ClientWidth = 337
+          TabOrder = 0
+          object BitBtn9: TBitBtn
+            Left = 8
+            Height = 26
+            Top = 8
+            Width = 85
+            AutoSize = True
+            Caption = 'Aktualisieren'
+            TabOrder = 0
+          end
+        end
+        object ListBox1: TListBox
+          Left = 0
+          Height = 192
+          Top = 0
+          Width = 337
+          Align = alClient
+          ItemHeight = 0
+          TabOrder = 1
+          TopIndex = -1
+        end
       end
     end
   end

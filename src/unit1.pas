@@ -50,6 +50,7 @@ type
     BitBtn6: TBitBtn;
     BitBtn7: TBitBtn;
     BitBtn8: TBitBtn;
+    BitBtn9: TBitBtn;
     btDayBeforeYesterday: TBitBtn;
     btDeleteNote: TBitBtn;
     btLastMonat: TBitBtn;
@@ -73,6 +74,7 @@ type
     Label3: TLabel;
     lbDataBaseName: TLabel;
     lbNoteCount: TLabel;
+    ListBox1: TListBox;
     NoteBrowser: TListView;
     OpenDialog1: TOpenDialog;
     btNoteWithoutTags: TPageControl;
@@ -82,6 +84,7 @@ type
     Panel2: TPanel;
     Panel3: TPanel;
     Panel4: TPanel;
+    Panel5: TPanel;
     SaveDialog1: TSaveDialog;
     SpeedButton1: TSpeedButton;
     SpeedButton2: TSpeedButton;
@@ -152,7 +155,6 @@ type
     function FindTagInCheckList(const aID:integer):integer;
     function FindTagInHorizontalbar(const aId:Integer):TPLMyHorizontalBarItem;
     procedure UpdateTagCheckList(const aNoteUUID: String);
-
     procedure AddOrChangeEditorTabSheet(aNoteObject:TJSONObject; aNewTab:Boolean);
 
     function LoadDataBase(const aFileName:String; const aReloadDB:Boolean = False):Boolean;
@@ -163,6 +165,8 @@ type
     function CheckSaveNotes():Boolean;
     function LastOpenNotesToTable():Boolean;
     function LastOpenNotesToTable2():Boolean;
+
+    procedure GetAllSectionLine(aEditorTab:TNMV6C_TabSheet);
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -698,6 +702,7 @@ begin
   EditorTabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
   NoteUUID:=EditorTabSheet.NoteObject.Elements['uuid'].AsString;
   UpdateTagCheckList(NoteUUID);
+  GetAllSectionLine(EditorTabSheet);
 end;
 
 procedure TForm1.OpenNotesCloseTabClicked(Sender: TObject);
@@ -718,6 +723,9 @@ begin
       exit;
   end;
   FreeAndNil(PLEditorTab);
+
+  if OpenNotes.PageCount = 0 then
+    ListBox1.Items.Clear;
 
   CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end;
@@ -1154,7 +1162,6 @@ begin
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
-
     //LastSynEdit:=;
     //if Form1.CanFocus then
     //  EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
@@ -1163,6 +1170,7 @@ begin
   jData:=aNoteObject.Find('uuid');
   if Assigned(jData) then begin
     UpdateTagCheckList(jData.AsString);
+    GetAllSectionLine(EditorTabSheet);
   end;
   CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end; // TForm1.AddEditorTabSheet
@@ -1351,6 +1359,23 @@ begin
     FreeAndNil(Notes);
   end;
 end; // TForm1.LastOpenNotesToTable2
+
+procedure TForm1.GetAllSectionLine(aEditorTab: TNMV6C_TabSheet);
+var
+  i, TempX, Len:Integer;
+  LineText, TempText:String;
+begin
+  ListBox1.Items.Clear;
+  for i:=0 to aEditorTab.Editor_Frame.SEEditor.Lines.Count -1 do begin
+    LineText:=aEditorTab.Editor_Frame.SEEditor.Lines[i];
+    TempX:=Pos('[Abschnitt: ', LineText);
+    if TempX > 0 then begin
+      Len:=Length(LineText);
+      TempText:=Copy(LineText, 12, Len - 12);
+      ListBox1.Items.Add(TempText);
+    end;
+  end; // for i
+end; // TForm1.GetAllSectionLine
 
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
