@@ -119,6 +119,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
     procedure NoteBrowserColumnClick(Sender: TObject; Column: TListColumn);
     procedure NoteBrowserCompare(Sender: TObject; Item1, Item2: TListItem;
       Data: Integer; var Compare: Integer);
@@ -598,6 +599,30 @@ begin
       TabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
       TabSheet.Editor_Frame.SEEditor.SetFocus;
     end;
+  end;
+end;
+
+procedure TForm1.ListBox1Click(Sender: TObject);
+var
+  i, FindX:Integer;
+  EditorTab:TNMV6C_TabSheet;
+  FindText:String;
+  SEEditor:TSynEdit;
+begin
+  if ListBox1.ItemIndex > -1 then begin
+    FindText:=ListBox1.Items[ListBox1.ItemIndex];
+
+    EditorTab:=OpenNotes.ActivePage as TNMV6C_TabSheet;
+    SEEditor:=EditorTab.Editor_Frame.SEEditor;
+    for i:=0 to SEEditor.Lines.Count - 1 do begin
+      FindX:=Pos(FindText,SEEditor.Lines[i]);
+      if FindX > 0 then begin
+        SEEditor.CaretX:=0;
+        SEEditor.CaretY:=i + 1;
+        SEEditor.SetFocus;
+        break;
+      end;
+    end; // for i
   end;
 end;
 

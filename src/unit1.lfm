@@ -494,6 +494,7 @@ object Form1: TForm1
           Width = 337
           Align = alClient
           ItemHeight = 0
+          OnClick = ListBox1Click
           TabOrder = 1
           TopIndex = -1
         end
