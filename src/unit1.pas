@@ -108,6 +108,7 @@ type
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
+    procedure BitBtn9Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
     procedure btOpenDBClick(Sender: TObject);
@@ -408,6 +409,14 @@ end;
 procedure TForm1.BitBtn7Click(Sender: TObject);
 begin
   NoteManagerV6C.GetTags(False);
+end;
+
+procedure TForm1.BitBtn9Click(Sender: TObject);
+var
+  plEditor:TNMV6C_TabSheet;
+begin
+  plEditor:=(OpenNotes.ActivePage as TNMV6C_TabSheet);
+  GetAllSectionLine(plEditor);
 end;
 
 procedure TForm1.btImportOldDBClick(Sender: TObject);
@@ -749,9 +758,12 @@ begin
   end;
   FreeAndNil(PLEditorTab);
 
-  if OpenNotes.PageCount = 0 then
+  if OpenNotes.PageCount = 0 then begin
     ListBox1.Items.Clear;
+//    CheckListBox1.Items.Clear;
+  end;
 
+  ListBox1.Enabled:=not (OpenNotes.PageCount = 0);
   CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end;
 
@@ -777,15 +789,17 @@ var
   TagObject:TJSONObject;
   TagId:Integer;
 begin
-  TagidList:=TJSONArray.Create();
-  for i:=0 to CheckListBox1.Items.Count -1 do begin
-    if CheckListBox1.Checked[i] then begin
-      TagObject:=CheckListBox1.Items.Objects[i] as TJSONObject;
-      TagId:=TagObject.Elements['id'].AsInteger;
-      TagidList.Add(TagID);
-    end;
-  end; // for i
-  NoteManagerV6C.DeleteTag(TagidList);
+  if CheckListBox1.ItemIndex > -1 then begin
+    TagidList:=TJSONArray.Create();
+    for i:=0 to CheckListBox1.Items.Count -1 do begin
+      if CheckListBox1.Checked[i] then begin
+        TagObject:=CheckListBox1.Items.Objects[i] as TJSONObject;
+        TagId:=TagObject.Elements['id'].AsInteger;
+        TagidList.Add(TagID);
+      end;
+    end; // for i
+    NoteManagerV6C.DeleteTag(TagidList);
+  end;
 end;
 
 procedure TForm1.SpeedButton3Click(Sender: TObject);
@@ -1400,6 +1414,7 @@ begin
       ListBox1.Items.Add(TempText);
     end;
   end; // for i
+  ListBox1.Enabled:=True;
 end; // TForm1.GetAllSectionLine
 
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);

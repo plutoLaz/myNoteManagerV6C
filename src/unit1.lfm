@@ -57,7 +57,7 @@ object Form1: TForm1
       TabOrder = 3
     end
     object CheckBox1: TCheckBox
-      Left = 1040
+      Left = 784
       Height = 21
       Top = 8
       Width = 83
@@ -101,9 +101,9 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = TabSheet1
+    ActivePage = tsTags
     Align = alTop
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -404,9 +404,9 @@ object Form1: TForm1
       Height = 262
       Top = 1
       Width = 341
-      ActivePage = TabSheet3
+      ActivePage = TabSheet2
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
@@ -484,6 +484,7 @@ object Form1: TForm1
             Width = 85
             AutoSize = True
             Caption = 'Aktualisieren'
+            OnClick = BitBtn9Click
             TabOrder = 0
           end
         end
@@ -529,7 +530,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object lbNoteCount: TLabel
-      Left = 88
+      Left = 64
       Height = 16
       Top = 8
       Width = 7
@@ -537,7 +538,7 @@ object Form1: TForm1
       ParentColor = False
     end
     object Label3: TLabel
-      Left = 232
+      Left = 168
       Height = 16
       Top = 8
       Width = 128
@@ -547,7 +548,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object lbDataBaseName: TLabel
-      Left = 416
+      Left = 304
       Height = 16
       Top = 8
       Width = 31

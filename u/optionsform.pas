@@ -104,15 +104,34 @@ begin
   ListView1.MultiSelect:=true;
 end;
 
+// Quelle 1: https://forum.lazarus.freepascal.org/index.php?topic=18734.0
+// Quelle 2: https://help.market.com.br/delphi/listview_-_drag_n_drop_multipl.htm
 procedure TOptionsFm.ListView1DragDrop(Sender, Source: TObject; X, Y: Integer);
+var
+  DragItem, DropItem, CurrentItem, NextItem: TListItem;
 begin
+  if Sender = Source then
+    with TListView(Sender) do begin
+      DropItem    := GetItemAt(X, Y);
+      CurrentItem := Selected;
+      while CurrentItem <> nil do begin
+        NextItem := GetNextItem(CurrentItem, SdAll, [lisSelected]);
+        if DropItem = nil then
+          DragItem := Items.Add
+        else
+          DragItem := Items.Insert(DropItem.Index);
 
+        DragItem.Assign(CurrentItem);
+        CurrentItem.Free;
+        CurrentItem := NextItem;
+      end;
+    end;
 end;
 
 procedure TOptionsFm.ListView1DragOver(Sender, Source: TObject; X, Y: Integer;
   State: TDragState; var Accept: Boolean);
 begin
-  Accept:=True;
+  Accept := Sender = TListView(Sender);
 end;
 
 procedure TOptionsFm.PageControl1Change(Sender: TObject);
