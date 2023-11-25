@@ -664,26 +664,21 @@ end; // TMyHorizontalBar.UpdateScrollBars
 
 procedure TMyHorizontalBar.OptionsClick(Sender: TObject);
 var
-  TempModal, i, TempIndex:Integer;
+  TempModal, i:Integer;
 
   BarItem:TPLMyHorizontalBarItem;
   ListItem:TListitem;
   DateTimeStr:String;
 begin
-  OptionFm.CheckListBox1.Items.Clear;
   OptionFm.ListView1.Items.Clear;
 
   for i:=0 to BarList.Count -1 do begin
     BarItem:=BarList[i];
-    TempIndex:=OptionFm.CheckListBox1.Items.AddObject(BarItem.Title, BarItem);
-    OptionFm.CheckListBox1.Checked[TempIndex]:=BarItem.Checked;
-
     DateTimeStr:=DateTimeToStr(BarItem.cTime, myFormatSettings);
-//    DateTimeStr:=FormatDateTime('DDD, DD.MM.YYYY HH:mm',BarItem.cTime, myFormatSettings);
     ListItem:=TListItem.Create(OptionFm.ListView1.Items);
     ListItem.Caption:=BarItem.Title;
     ListItem.Checked:=BarItem.Checked;
-    ListItem.Data:=BarItem.Data;
+    ListItem.Data:=BarItem;
 
     ListItem.SubItems.Add(DateTimeStr);
 
@@ -694,12 +689,12 @@ begin
   if TempModal = mrOK then begin
     BarList.AutoUpdate:=False;
     BarList.Items.Clear;
-    for i:=0 to OptionFm.CheckListBox1.Items.Count -1 do begin
-      BarItem:=OptionFm.CheckListBox1.Items.Objects[i] as TPLMyHorizontalBarItem;
-      BarItem.Title:=OptionFm.CheckListBox1.Items[i];
-      BarItem.Checked:=OptionFm.CheckListBox1.Checked[i];
+    for i:=0 to OptionFm.ListView1.Items.Count -1 do begin
+      BarItem:=TPLMyHorizontalBarItem(OptionFm.ListView1.Items[i].Data);
+      BarItem.Title:=OptionFm.ListView1.Items[i].Caption;
+      BarItem.Checked:=OptionFm.ListView1.Items[i].Checked;
 
-      BarItem.Data:=(OptionFm.CheckListBox1.Items.Objects[i] as TPLMyHorizontalBarItem).Data;
+      BarItem.Data:=TPLMyHorizontalBarItem(OptionFm.ListView1.Items[i].Data).Data;
       BarList.Items.Add(BarItem);
     end;
     BarHorz.nMax:=GetHoriWidth() + OptionsBitBtnButton.Width;
