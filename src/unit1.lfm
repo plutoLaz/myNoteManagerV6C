@@ -6,6 +6,7 @@ object Form1: TForm1
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
   ClientWidth = 1535
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
@@ -14,96 +15,32 @@ object Form1: TForm1
   LCLVersion = '2.2.6.0'
   object Panel1: TPanel
     Left = 0
-    Height = 50
-    Top = 695
+    Height = 49
+    Top = 696
     Width = 1535
     Align = alBottom
-    ClientHeight = 50
+    ClientHeight = 49
     ClientWidth = 1535
     TabOrder = 0
-    object BitBtn1: TBitBtn
-      Left = 15
+    object BitBtn5: TBitBtn
+      Left = 16
       Height = 30
       Top = 8
-      Width = 139
-      Caption = 'Datenbank Init'
+      Width = 80
+      Caption = 'SaveConfig'
+      OnClick = BitBtn5Click
       TabOrder = 0
     end
-    object BitBtn2: TBitBtn
-      Left = 160
-      Height = 30
-      Top = 8
-      Width = 104
-      Caption = 'Add Note 1'
-      OnClick = BitBtn2Click
-      TabOrder = 1
-    end
-    object BitBtn3: TBitBtn
-      Left = 272
-      Height = 30
-      Top = 8
-      Width = 123
-      Caption = 'Note Add ...'
-      OnClick = BitBtn3Click
-      TabOrder = 2
-    end
-    object BitBtn4: TBitBtn
-      Left = 400
-      Height = 30
-      Top = 8
-      Width = 88
-      Caption = 'DB Save'
-      OnClick = BitBtn4Click
-      TabOrder = 3
-    end
-    object CheckBox1: TCheckBox
-      Left = 784
-      Height = 21
-      Top = 8
-      Width = 83
-      Caption = 'Auto Save'
-      Checked = True
-      OnClick = CheckBox1Click
-      State = cbChecked
-      TabOrder = 4
-    end
-    object BitBtn5: TBitBtn
-      Left = 496
-      Height = 30
-      Top = 8
-      Width = 115
-      Caption = 'DB Abfrage'
-      OnClick = BitBtn5Click
-      TabOrder = 5
-    end
-    object BitBtn6: TBitBtn
-      Left = 616
-      Height = 30
-      Top = 8
-      Width = 75
-      Caption = 'Tag Add'
-      OnClick = BitBtn6Click
-      TabOrder = 6
-    end
-    object BitBtn7: TBitBtn
-      Left = 696
-      Height = 30
-      Top = 8
-      Width = 75
-      Caption = 'Get Tags'
-      OnClick = BitBtn7Click
-      TabOrder = 7
-    end
   end
-  object btNoteWithoutTags: TPageControl
+  object PageControl1: TPageControl
     Tag = 10
     Left = 0
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsTags
+    ActivePage = tsDataBase
     Align = alTop
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
@@ -320,10 +257,70 @@ object Form1: TForm1
     object tsFilter2: TTabSheet
       Caption = 'Filter 2'
     end
+    object TabSheet4: TTabSheet
+      Caption = 'Test Funktionen'
+      ClientHeight = 54
+      ClientWidth = 1531
+      object BitBtn3: TBitBtn
+        Left = 264
+        Height = 30
+        Top = 8
+        Width = 123
+        Caption = 'Note Add ...'
+        OnClick = BitBtn3Click
+        TabOrder = 0
+      end
+      object BitBtn2: TBitBtn
+        Left = 152
+        Height = 30
+        Top = 8
+        Width = 104
+        Caption = 'Add Note 1'
+        OnClick = BitBtn2Click
+        TabOrder = 1
+      end
+      object BitBtn4: TBitBtn
+        Left = 392
+        Height = 30
+        Top = 8
+        Width = 88
+        Caption = 'DB Save'
+        OnClick = BitBtn4Click
+        TabOrder = 2
+      end
+      object BitBtn6: TBitBtn
+        Left = 488
+        Height = 30
+        Top = 8
+        Width = 75
+        Caption = 'Tag Add'
+        OnClick = BitBtn6Click
+        TabOrder = 3
+      end
+      object CheckBox1: TCheckBox
+        Left = 576
+        Height = 21
+        Top = 8
+        Width = 83
+        Caption = 'Auto Save'
+        Checked = True
+        OnClick = CheckBox1Click
+        State = cbChecked
+        TabOrder = 4
+      end
+      object BitBtn1: TBitBtn
+        Left = 8
+        Height = 30
+        Top = 8
+        Width = 139
+        Caption = 'Datenbank Init'
+        TabOrder = 5
+      end
+    end
   end
   object OpenNotes: TPageControl
     Left = 0
-    Height = 264
+    Height = 265
     Top = 431
     Width = 1187
     Align = alClient
@@ -392,16 +389,16 @@ object Form1: TForm1
   end
   object Panel2: TPanel
     Left = 1192
-    Height = 264
+    Height = 265
     Top = 431
     Width = 343
     Align = alRight
-    ClientHeight = 264
+    ClientHeight = 265
     ClientWidth = 343
     TabOrder = 5
     object PageControl2: TPageControl
       Left = 1
-      Height = 262
+      Height = 263
       Top = 1
       Width = 341
       ActivePage = TabSheet2
@@ -410,11 +407,11 @@ object Form1: TForm1
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
-        ClientHeight = 236
+        ClientHeight = 237
         ClientWidth = 337
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 203
+          Height = 204
           Top = 0
           Width = 337
           Align = alClient
@@ -426,7 +423,7 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 0
           Height = 33
-          Top = 203
+          Top = 204
           Width = 337
           Align = alBottom
           ClientHeight = 33
@@ -466,12 +463,12 @@ object Form1: TForm1
       end
       object TabSheet3: TTabSheet
         Caption = 'Abschnitte'
-        ClientHeight = 236
+        ClientHeight = 237
         ClientWidth = 337
         object Panel5: TPanel
           Left = 0
           Height = 44
-          Top = 192
+          Top = 193
           Width = 337
           Align = alBottom
           ClientHeight = 44
@@ -490,7 +487,7 @@ object Form1: TForm1
         end
         object ListBox1: TListBox
           Left = 0
-          Height = 192
+          Height = 193
           Top = 0
           Width = 337
           Align = alClient
@@ -504,7 +501,7 @@ object Form1: TForm1
   end
   object Splitter2: TSplitter
     Left = 1187
-    Height = 264
+    Height = 265
     Top = 431
     Width = 5
     Align = alRight
@@ -584,6 +581,7 @@ object Form1: TForm1
     object acNewNote: TAction
       Caption = 'Neu...'
       OnExecute = acNewNoteExecute
+      ShortCut = 16462
     end
   end
   object OpenDialog1: TOpenDialog

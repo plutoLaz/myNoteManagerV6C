@@ -48,7 +48,6 @@ type
     BitBtn4: TBitBtn;
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
-    BitBtn7: TBitBtn;
     BitBtn8: TBitBtn;
     BitBtn9: TBitBtn;
     btDayBeforeYesterday: TBitBtn;
@@ -77,7 +76,7 @@ type
     ListBox1: TListBox;
     NoteBrowser: TListView;
     OpenDialog1: TOpenDialog;
-    btNoteWithoutTags: TPageControl;
+    PageControl1: TPageControl;
     OpenNotes: TPageControl;
     PageControl2: TPageControl;
     Panel1: TPanel;
@@ -95,6 +94,7 @@ type
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
     TabSheet3: TTabSheet;
+    TabSheet4: TTabSheet;
     tsDataBase: TTabSheet;
     tsTags: TTabSheet;
     tsFilter1: TTabSheet;
@@ -107,7 +107,6 @@ type
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
-    procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn9Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
@@ -115,6 +114,7 @@ type
     procedure btToDayClick(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure CheckListBox1ClickCheck(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -165,8 +165,11 @@ type
     procedure CheckAllTab(var aStringList:TStrings);
     function CheckSave(EditorTab:TNMV6C_TabSheet):boolean;
     function CheckSaveNotes():Boolean;
+
     function LastOpenNotesToTable():Boolean;
     function LastOpenNotesToTable2():Boolean;
+
+    function SaveConfigToDataBase():Boolean;
 
     procedure GetAllSectionLine(aEditorTab:TNMV6C_TabSheet);
 
@@ -389,7 +392,7 @@ end;
 
 procedure TForm1.BitBtn5Click(Sender: TObject);
 begin
-  NoteManagerV6C.GetNotes(nil, nil, '', true);
+  SaveConfigToDataBase();
 end;
 
 procedure TForm1.BitBtn6Click(Sender: TObject);
@@ -404,11 +407,6 @@ begin
 
     NoteManagerV6C.AddTag(TagObject);
   end;
-end;
-
-procedure TForm1.BitBtn7Click(Sender: TObject);
-begin
-  NoteManagerV6C.GetTags(False);
 end;
 
 procedure TForm1.BitBtn9Click(Sender: TObject);
@@ -430,16 +428,20 @@ end;
 procedure TForm1.btNewDBClick(Sender: TObject);
 var
   CanNew:Boolean;
+  dbname:String;
 begin
   SaveDialog1.InitialDir:=AppDir;
   CanNew:=CheckSaveNotes();
   if (CanNew) and (SaveDialog1.Execute) then begin
+    dbname:=SaveDialog1.FileName;
+    if pos('.db', dbname) = 0 then dbname:=dbname + '.db';
+
     if Clear() then begin
       if Assigned(NoteManagerV6C) then FreeAndNil(NoteManagerV6C);
-      lbDataBaseName.Caption:=ExtractFileName(SaveDialog1.FileName);
-      lbDataBaseName.Hint:=SaveDialog1.FileName;
+      lbDataBaseName.Caption:=ExtractFileName(dbname);
+      lbDataBaseName.Hint:=dbname;
       InitDB();
-      NoteManagerV6C.DB_Name:=SaveDialog1.FileName;
+      NoteManagerV6C.DB_Name:=dbname;
     end;
   end;
 end;
@@ -554,15 +556,27 @@ begin
       else begin
         NoteManagerV6C.NoteLinketToTag(NoteID, TagID,TA_REMOVE)
       end;
+      TabSheet.Modified:=True;
     end;
   end;
 end;
 
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+  if Tag = 0 then begin
+    if LastDBFile <> '' then
+      LoadDataBase(LastDBFile);
+    Tag:=1;
+  end;
+
+end;
+
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  //SaveConfigFile(ConfigFile);
+  SaveConfigFile(ConfigFile);
 //  LastOpenNotesToTable();
-  LastOpenNotesToTable2();
+//  LastOpenNotesToTable2();
+  SaveConfigToDataBase();
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -572,6 +586,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+  PageControl1.PageIndex:=0;
+  PageControl2.PageIndex:=0;
   LastSynEdit:=nil;
   CheckListBox1.Enabled:=False;
   Randomize;
@@ -590,7 +606,8 @@ begin
 
   LoadConfigFile(ConfigFile);
 
-  LoadDataBase(AppDir + 'test01.db');
+//  LoadDataBase(AppDir + 'test01.db');
+  Tag:=0;
 //   NoteManagerV6C.GetTags(False);
 end; // TForm1.FormCreate
 
@@ -603,6 +620,8 @@ procedure TForm1.FormShow(Sender: TObject);
 var
   TabSheet:TNMV6C_TabSheet;
 begin
+
+
   if OpenNotes.PageCount > 0 then begin
     if OpenNotes.ActivePage is TNMV6C_TabSheet then begin
       TabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
@@ -711,20 +730,16 @@ begin
     NoteObject:=TJSONObject(NoteBrowser.Selected.Data);
     Temp_uuid:=NoteObject.Elements['uuid'].AsString;
 
-
     ContentStr:=NoteManagerV6C.GetContentFromNote(Temp_uuid);
 
     JData:=NoteObject.Find('content');
-    if Assigned(JData) then begin
-      JData.AsString:=ContentStr;
-    end
-    else begin
+    if Assigned(JData) then
+      JData.AsString:=ContentStr
+    else
       NoteObject.Add('content', ContentStr);
-    end;
 
     if (ssDouble in shift) or (ssMiddle in shift) then
       AddOrChangeEditorTabSheet(NoteObject, ssMiddle in Shift);
-//    ShowMessage(NoteManagerV6C.GetContentFromNote(Temp_uuid));
   end;
 end;
 
@@ -737,6 +752,7 @@ begin
   NoteUUID:=EditorTabSheet.NoteObject.Elements['uuid'].AsString;
   UpdateTagCheckList(NoteUUID);
   GetAllSectionLine(EditorTabSheet);
+
 end;
 
 procedure TForm1.OpenNotesCloseTabClicked(Sender: TObject);
@@ -943,6 +959,7 @@ begin
         TabSheet:=FindNoteIDInOpenNotes(LastFocusNote);
         if Assigned(TabSheet) then begin
           OpenNotes.ActivePage:=TabSheet;
+          OpenNotesChange(self);
         end;
       end;
 
@@ -1153,7 +1170,6 @@ begin
 
   TagList:=NoteManagerV6C.GetTagListFromTagID(aNoteUUID);
   if Assigned(TagList) then begin
-
     for i:=0 to CheckListBox1.Items.Count -1 do begin
       TagObject:=CheckListBox1.Items.Objects[i] as TJSONObject;
       TagID1:=TagObject.Elements['id'].AsInteger;
@@ -1172,9 +1188,18 @@ procedure TForm1.AddOrChangeEditorTabSheet(aNoteObject: TJSONObject; aNewTab: Bo
 var
   EditorTabSheet:TNMV6C_TabSheet;
   jData:TJSONData;
-
-  TitleStr, ContentStr:String;
+  TitleStr, ContentStr, uuidStr:String;
 begin
+  jData:=aNoteObject.Find('uuid');
+  if Assigned(jData) then begin
+    uuidStr:=jData.AsString;
+    EditorTabSheet:=FindNoteIDInOpenNotes(uuidStr);
+    if Assigned(EditorTabSheet) then begin
+      OpenNotes.ActivePage:=EditorTabSheet;
+      exit;
+    end;
+  end;
+
   TitleStr:=''; ContentStr:='';
   jData:=aNoteObject.Find('title');
   if Assigned(jData) then
@@ -1219,8 +1244,6 @@ var
   CanOpen:Boolean;
   LastOpenNotes:TJSONArray;
   last_focus_note:string;
-//  i:Integer;
-//  NoteID:String;
 begin
   result:=False;
   if aReloadDB then begin
@@ -1243,18 +1266,11 @@ begin
 
   last_focus_note:='';
   LastOpenNotes:=TJSONArray.Create();
-  //NoteManagerV6C.GetLastOpenNotes(LastOpenNotes);
-//  writeln('GetLastOpenNotes2');
   NoteManagerV6C.GetLastOpenNotes2(LastOpenNotes, last_focus_note);
-//  writeln(LastOpenNotes.FormatJSON());
-//  writeln('last_focus_note');
-//  writeln(last_focus_note);
-  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
 
-{  for i:=0 to LastOpenNotes.Count -1 do begin
-    NoteID:=LastOpenNotes[i].AsString;
-    AddOrChangeEditorTabSheet();
-  end;}
+  NoteManagerV6C.SQLtableToJObject('config');
+
+  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
 
   result:=True;
 end; // TForm1.LoadDataBase
@@ -1271,6 +1287,8 @@ begin
     OpenNotes.Page[i].Destroy;
   end;
   CheckListBox1.Items.Clear;
+  ListBox1.Items.Clear;
+  ListBox1.Enabled:=False;
   PageControl2.PageIndex:=0;
   lbNoteCount.Caption:='0';
   lbDataBaseName.Caption:='keine';
@@ -1398,6 +1416,40 @@ begin
     FreeAndNil(Notes);
   end;
 end; // TForm1.LastOpenNotesToTable2
+
+function TForm1.SaveConfigToDataBase: Boolean;
+var
+  JObject:TJSONObject;
+
+  i:Integer;
+  Notes:TJSONArray;
+  TabSheet:TNMV6C_TabSheet;
+  jData:TJSONData;
+  Note_ID:String;
+begin
+  result:=False;
+  try
+    Notes:=TJSONArray.Create();
+    for i:=0 to OpenNotes.PageCount - 1 do begin
+      TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+      jData:=TabSheet.NoteObject.Find('uuid');
+      if Assigned(jData) then begin
+        if TabSheet = OpenNotes.ActivePage then
+          Note_ID:=jData.AsString;
+        Notes.Add(jData.AsString);
+      end;
+    end;
+    JObject:=TJSONObject.Create();
+    JObject.Add('last_open_notes', Notes);
+    JObject.Add('last_focus_note', Note_ID);
+
+    NoteManagerV6C.JObjectToSQLtable(JObject, 'config');
+    result:=True;
+
+  finally
+    FreeAndNil(Notes);
+  end;
+end; // TForm1.SaveConfigToDataBase
 
 procedure TForm1.GetAllSectionLine(aEditorTab: TNMV6C_TabSheet);
 var
@@ -1681,10 +1733,10 @@ begin
         if Assigned(JData) then
           WindowState:=TWindowState(JData.AsInteger);
 
-{        JData:=JObject.Find('lastDBFile');
+        JData:=JObject.Find('lastDBFile');
         if Assigned(JData) then begin
           LastDBFile:=JData.AsString;
-        end;}
+        end;
 
 
 {        JData:=JObject.Find('OpenNotes');
@@ -1743,11 +1795,11 @@ begin
       Config.Add('NoteBrowser.Height',NoteBrowser.Height);
       Config.Add('WindowState',Integer(WindowState));
 
-//      Config.Add('lastDBFile',LastDBFile);
+      Config.Add('lastDBFile',LastDBFile);
 
     {  OpenPadList:=TJSONArray.Create();
-      for x:=0 to btNoteWithoutTags.PageCount -1 do begin
-        EditorTabSheet:=btNoteWithoutTags.Pages[x] as TMyEditorTabSheet;
+      for x:=0 to PageControl1.PageCount -1 do begin
+        EditorTabSheet:=PageControl1.Pages[x] as TMyEditorTabSheet;
         Data:=EditorTabSheet.NoteObject.Elements['uuid'];
         OpenPadList.Add(Data);
       end; // for x

@@ -22,14 +22,15 @@
         "Visible" : true
       },
       {
-        "Width" : 639,
+        "Width" : 779,
         "Visible" : true
       }
     ],
     "SortColum" : 1,
     "SortDirection" : 1
   },
-  "OpenNotes.Width" : 1187,
+  "OpenNotes.Width" : 1572,
   "NoteBrowser.Height" : 290,
-  "WindowState" : 0
+  "WindowState" : 2,
+  "lastDBFile" : "/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/bin/test01.db"
 }

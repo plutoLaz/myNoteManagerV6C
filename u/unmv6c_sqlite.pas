@@ -91,6 +91,9 @@ type
 {}  function AddLastOpenNotes2(const aLastOpenNotesArray:TJSONArray; const alast_focus_note:String):Boolean;
 {}  function GetLastOpenNotes2(var aLastOpenNotesArray:TJSONArray; var alast_focus_note:string):Boolean;
 
+    function JObjectToSQLtable(const JConfigObject:TJSONObject; const aSQlTableName:String):boolean;
+    function SQLtableToJObject(const aSQLTableName:String):Boolean;
+
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
 {}  property OnSQLResultAddNote:TOnSQLResultAddNote read fOnSQLResultAddNote write fOnSQLResultAddNote;
@@ -179,10 +182,10 @@ begin
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
 
-    SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
+{    SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
       SQLScript.Script.Add('note_id BLOB NOT NULL');
     SQLScript.Script.Add(');');
-    SQLScript.Script.Add('');
+    SQLScript.Script.Add('');}
 
     SQLScript.Script.Add('CREATE TABLE if not exists config (');
       SQLScript.Script.Add('key BLOB NOT NULL UNIQUE,');
@@ -1534,6 +1537,112 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetLastOpenNotes2
+
+function TPLNMV6C_sqlite.JObjectToSQLtable(const JConfigObject: TJSONObject; const aSQlTableName: String): boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+
+  Temp_key, Temp_value:TParam;
+  i:Integer;
+
+  jName:String;
+  jData:TJSONData;
+begin
+  result:=False;
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      TempQuery.SQL.Add('INSERT OR REPLACE INTO config ( ');
+        TempQuery.SQL.Add('key, ');
+        TempQuery.SQL.Add('value');
+      TempQuery.SQL.Add(')');
+      TempQuery.SQL.Add('VALUES (');
+        TempQuery.SQL.Add(':key, ');
+        TempQuery.SQL.Add(':value');
+      TempQuery.SQL.Add(');');
+
+      Temp_key:=TempQuery.ParamByName('key');
+      Temp_value:=TempQuery.ParamByName('value');
+
+      for i:=0 to JConfigObject.Count - 1 do begin
+        jName:=LowerCase(JConfigObject.Names[i]);
+        jData:=JConfigObject.Items[i];
+        Temp_key.AsString:=jName;
+        case jName of
+          'last_open_notes': begin
+             Temp_value.AsString:=jData.FormatJSON();
+             TempQuery.ExecSQL;
+           end;
+
+           'last_focus_note': begin
+             Temp_value.AsString:=jData.AsString;
+             TempQuery.ExecSQL;
+           end;
+        end; // case
+      end; // for i
+      result:=True;
+      if AutoCommit then SQLTransaction.Commit;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.JObjectToSQLtable :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.JObjectToSQLtable');
+    end;
+  end;
+
+end; // TPLNMV6C_sqlite.JObjectToSQLtable
+
+function TPLNMV6C_sqlite.SQLtableToJObject(const aSQLTableName: String): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+
+  Fild:TField;
+  FildName:String;
+  jObject:TJSONObject;
+begin
+  result:=False;
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      TempQuery.SQL.Add('SELECT * FROM ' + aSQLTableName + ';');
+      TempQuery.Open;
+
+      if TempQuery.RecordCount > 0 then begin
+        jObject:=jObject.Create();
+        writeln('SQLtableToJObject');
+        TempQuery.First;
+        while not TempQuery.Eof do begin
+//          FildName:=Fild.FieldName;
+          writeln(TempQuery.Fields[0].AsString, ' ', TempQuery.Fields[1].AsString);
+//          Fild:=TempQuery.Fields.;
+       //   jObject.Add(FildName, Fild.AsString);
+          TempQuery.Next;
+        end;
+      end;
+    finally
+    //  writeln(jObject.FormatJSON());
+      TempQuery.Close;
+      FreeAndNil(TempQuery);
+      result:=True;
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.SQLtableToJObject :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.SQLtableToJObject');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.SQLtableToJObject
 
 function TPLNMV6C_sqlite.ImportFromOldDataBase(const aFileName: String): Boolean;
   procedure ConvertOldTagIdToNewTagID(const aTagJArray:TJSONArray; var aOldTagArray:TJSONArray);
