@@ -82,8 +82,8 @@ type
 {}  function AddNote_Tags(const aNoteID:String; const aJArray:TJSONArray):Integer;
 {}  function NoteLinketToTag(const aNoteID:string; const aTagID:Integer; const aTagAction:TPLNMV6C_TagAction):Boolean;
 
-    function UpdateTag(const aTagObject:TJSONObject):Boolean; // TOnSQLResultUpdateTag
-    function DeleteTag(const aTagIdList:TJSONArray):Boolean; // TOnSQLResultDeleteTag
+{}  function UpdateTag(const aTagObject:TJSONObject):Boolean; // TOnSQLResultUpdateTag
+{}  function DeleteTag(const aTagIdList:TJSONArray):Boolean; // TOnSQLResultDeleteTag
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 {}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
@@ -179,11 +179,6 @@ begin
       SQLScript.Script.Add('FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
-
-{    SQLScript.Script.Add('CREATE TABLE if not exists last_open_notes (');
-      SQLScript.Script.Add('note_id BLOB NOT NULL');
-    SQLScript.Script.Add(');');
-    SQLScript.Script.Add('');}
 
     SQLScript.Script.Add('CREATE TABLE if not exists config (');
       SQLScript.Script.Add('key BLOB NOT NULL UNIQUE,');
@@ -771,8 +766,8 @@ begin
       end
       else
         TempQuery.SQL.Add(aSQLStr);
+
       TempQuery.Open;
-       writeln(TempQuery.RecordCount);
       if TempQuery.RecordCount > 0 then begin
         Notes:=TJSONArray.Create();
         TempQuery.First;
@@ -783,8 +778,8 @@ begin
             FildName:=Fild.FieldName;
             case FildName of
               'id': NoteObject.Add('id', Fild.AsInteger);
-              'uuid':NoteObject.Add('uuid', Fild.AsString);
-              'title':NoteObject.Add('title',trim(Fild.AsString));
+              'uuid': NoteObject.Add('uuid', Fild.AsString);
+              'title': NoteObject.Add('title',trim(Fild.AsString));
               'content':NoteObject.Add('content',trim(Fild.AsString));
               'ctime': begin
                  if not Fild.IsNull then
