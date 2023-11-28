@@ -33,6 +33,7 @@ type
     fOnSQLResultDeleteNote: TOnSQLResultDeleteNote;
     fOnSQLResultDeleteTag: TOnSQLResultDeleteTag;
     fOnSQLResultError: TOnSQLResultError;
+    fOnSqlResultGetConfig: TOnSqlResultGetConfig;
     fOnSQLResultGetContent: TOnSQLResultGetContent;
     fOnSQLResultGetNotes: TOnSQLResultGetNotes;
     fOnSQLResultGetTagListFromTagID: TOnSQLResultGetTagListFromTagID;
@@ -54,6 +55,7 @@ type
     procedure doOnSQLResultUpdateTag(aTagObject:TJSONObject);
     procedure doOnSQLResultGetContent(aNoteObject:TJSONObject);
     procedure doOnSQLResultError(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String);
+    procedure doOnSqlResultGetConfig(aConfigObject:TJSONObject);
 
     procedure SQLONErrorLog(Sender : TSQLConnection; EventType : TDBEventType; Const Msg : String);
     procedure SQLScriptOnError(Sender: TObject; Statement: TStrings; TheException: Exception; var Continue: boolean);
@@ -85,14 +87,8 @@ type
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 {}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
-{}  function AddLastOpenNotes(const aLastOpenNotesArray:TJSONArray):Boolean;
-{}  function GetLastOpenNotes(var aLastOpenNotesArray:TJSONArray):Boolean;
-
-{}  function AddLastOpenNotes2(const aLastOpenNotesArray:TJSONArray; const alast_focus_note:String):Boolean;
-{}  function GetLastOpenNotes2(var aLastOpenNotesArray:TJSONArray; var alast_focus_note:string):Boolean;
-
-    function JObjectToSQLtable(const JConfigObject:TJSONObject; const aSQlTableName:String):boolean;
-    function SQLtableToJObject(const aSQLTableName:String):Boolean;
+{}  function JObjectToSQLtable(const JConfigObject:TJSONObject; const aSQlTableName:String):boolean;
+{}    function SQLtableToJObject(const aSQLTableName:String):Boolean;
 
 {}  function ImportFromOldDataBase(const aFileName:String):Boolean; // TOnSQLResultAddNote, TOnSQLResultAddTag
 
@@ -107,6 +103,8 @@ type
     property OnSQLResultUpdateTag:TOnSQLResultUpdateTag read fOnSQLResultUpdateTag write fOnSQLResultUpdateTag;
     property OnSQLResultDeleteTag:TOnSQLResultDeleteTag read fOnSQLResultDeleteTag write fOnSQLResultDeleteTag;
     property OnSQLResultGetTags:TOnSQLResultGetTags read fOnSQLResultGetTags write fOnSQLResultGetTags;
+
+    property OnSqlResultGetConfig:TOnSqlResultGetConfig read fOnSqlResultGetConfig write fOnSqlResultGetConfig;
 
     property OnSQLResultError:TOnSQLResultError read fOnSQLResultError write fOnSQLResultError;
 
@@ -308,6 +306,11 @@ begin
   if Assigned(fOnSQLResultError) then fOnSQLResultError(aErrorEventType, aErrorMSG, aSender);
 end; // TPLNMV6C_sqlite.doOnSQLResultError
 
+procedure TPLNMV6C_sqlite.doOnSqlResultGetConfig(aConfigObject: TJSONObject);
+begin
+  if Assigned(fOnSqlResultGetConfig) then fOnSqlResultGetConfig(aConfigObject);
+end; // TPLNMV6C_sqlite.doOnSqlResultGetConfig
+
 procedure TPLNMV6C_sqlite.SQLONErrorLog(Sender: TSQLConnection; EventType: TDBEventType; const Msg: String);
 begin
 //  writeln(Msg);
@@ -347,6 +350,7 @@ begin
   fOnSQLResultUpdateNote:=nil;
   fOnSQLResultUpdateTag:=nil;
   fOnSQLResultGetTags:=nil;
+  fOnSqlResultGetConfig:=nil;
 
   SQlConnector:=nil;
   SQLTransaction:=nil;
@@ -1359,185 +1363,6 @@ begin
 
 end; // TPLNMV6C_sqlite.ChangeAllTagUserIndex
 
-function TPLNMV6C_sqlite.AddLastOpenNotes(const aLastOpenNotesArray: TJSONArray): Boolean;
-var
-  TempQuery:TSQLQuery;
-  msgStr:String;
-  uuid:String;
-  i:Integer;
-  Temp_uuid:TParam;
-begin
-  try
-    result:=false;
-    TempQuery:=TSQLQuery.Create(nil);
-    TempQuery.DataBase:=SQlConnector;
-    try
-      TempQuery.SQL.Add('DELETE FROM last_open_notes;');
-      TempQuery.ExecSQL;
-      TempQuery.SQL.Clear;
-
-      TempQuery.SQL.Add('INSERT INTO last_open_notes ( ');
-      TempQuery.SQL.Add('note_id');
-      TempQuery.SQL.Add(')');
-      TempQuery.SQL.Add('VALUES (');
-      TempQuery.SQL.Add(':note_id');
-      TempQuery.SQL.Add(');');
-
-      Temp_uuid:=TempQuery.ParamByName('note_id');
-      TempQuery.Prepare;
-      for i:=0 to aLastOpenNotesArray.Count - 1 do begin
-        uuid:=aLastOpenNotesArray[i].AsString;
-        Temp_uuid.AsString:=uuid;
-        TempQuery.ExecSQL;
-      end; // for i
-      TempQuery.UnPrepare;
-      if AutoCommit then SQLTransaction.Commit;
-      result:=true;
-    finally
-      FreeAndNil(TempQuery);
-    end;
-
-  except
-    on E: Exception do begin
-      msgStr:=E.Message;
-      writeln(#13, 'TPLNMV6C_sqlite.AddLastOpenNotes :',msgStr);
-      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddLastOpenNotes');
-    end;
-  end;
-
-end; // TPLNMV6C_sqlite.AddLastOpenNotes
-
-function TPLNMV6C_sqlite.GetLastOpenNotes(var aLastOpenNotesArray: TJSONArray): Boolean;
-var
-  TempQuery:TSQLQuery;
-  msgStr:String;
-begin
-  result:=false;
-  try
-    TempQuery:=TSQLQuery.Create(nil);
-    TempQuery.DataBase:=SQlConnector;
-    try
-      TempQuery.SQL.Add('SELECT * FROM last_open_notes;');
-      TempQuery.Open;
-      if TempQuery.RecordCount > 0 then begin
-        TempQuery.First;
-        while not TempQuery.Eof do begin
-          aLastOpenNotesArray.Add(TempQuery.Fields[0].AsString);
-          TempQuery.Next;
-        end;
-      end;
-      TempQuery.Close;
-      result:=true;
-    finally
-      FreeAndNil(TempQuery);
-    end;
-
-  except
-    on E: Exception do begin
-      msgStr:=E.Message;
-      writeln(#13, 'TPLNMV6C_sqlite.GetLastOpenNotes :',msgStr);
-      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.GetLastOpenNotes');
-    end;
-  end;
-end; // TPLNMV6C_sqlite.GetLastOpenNotes
-
-
-// config  last_open_notes
-
-function TPLNMV6C_sqlite.AddLastOpenNotes2(const aLastOpenNotesArray: TJSONArray; const alast_focus_note: String): Boolean;
-var
-  msgStr:String;
-  TempQuery:TSQLQuery;
-begin
-  result:=false;
-  try
-    TempQuery:=TSQLQuery.Create(nil);
-    TempQuery.DataBase:=SQlConnector;
-    try
-      TempQuery.SQL.Add('INSERT OR REPLACE INTO config ( ');
-      TempQuery.SQL.Add('key, ');
-      TempQuery.SQL.Add('value');
-      TempQuery.SQL.Add(')');
-      TempQuery.SQL.Add('VALUES (');
-      TempQuery.SQL.Add(':key, ');
-      TempQuery.SQL.Add(':value');
-      TempQuery.SQL.Add(');');
-
-      TempQuery.ParamByName('key').AsString:='last_open_notes';
-      TempQuery.ParamByName('value').AsString:=aLastOpenNotesArray.FormatJSON();
-      TempQuery.ExecSQL;
-
-      TempQuery.ParamByName('key').AsString:='last_focus_note';
-      TempQuery.ParamByName('value').AsString:=alast_focus_note;
-
-      TempQuery.ExecSQL;
-      if AutoCommit then SQLTransaction.Commit;
-    finally
-      FreeAndNil(TempQuery);
-    end;
-
-    result:=true;
-  except
-    on E: Exception do begin
-      msgStr:=E.Message;
-      writeln(#13, 'TPLNMV6C_sqlite.AddLastOpenNotes2 :',msgStr);
-      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddLastOpenNotes2');
-    end;
-  end;
-
-end; // TPLNMV6C_sqlite.AddLastOpenNotes2
-
-function TPLNMV6C_sqlite.GetLastOpenNotes2(var aLastOpenNotesArray: TJSONArray; var alast_focus_note: string): Boolean;
-var
-  msgStr:String;
-  TempQuery:TSQLQuery;
-  TempField:TField;
-  jData:TJSONData;
-begin
-  result:=false;
-  try
-    TempQuery:=TSQLQuery.Create(nil);
-    TempQuery.DataBase:=SQlConnector;
-    try
-      TempQuery.SQL.Add('SELECT * FROM config WHERE key = "last_open_notes"; ');
-      TempQuery.Open;
-
-      if TempQuery.RecordCount >= 0 then begin
-        TempField:=TempQuery.Fields.FieldByName('value');
-
-        if Assigned(TempField) then begin
-          jData:=GetJSON(TempField.AsString);
-          aLastOpenNotesArray:=jData as TJSONArray;
-        end;
-      end;
-
-      TempQuery.Close;
-      TempQuery.SQL.Clear;
-      TempQuery.SQL.Add('SELECT * FROM config WHERE key = "last_focus_note"; ');
-      TempQuery.Open;
-
-      if TempQuery.RecordCount >= 0 then begin
-        TempField:=TempQuery.Fields.FieldByName('value');
-
-        if Assigned(TempField) then begin
-          alast_focus_note:=TempField.AsString;
-        end;
-      end;
-
-
-    finally
-      FreeAndNil(TempQuery);
-    end;
-    result:=true;
-  except
-    on E: Exception do begin
-      msgStr:=E.Message;
-      writeln(#13, 'TPLNMV6C_sqlite.GetLastOpenNotes2 :',msgStr);
-      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.GetLastOpenNotes2');
-    end;
-  end;
-end; // TPLNMV6C_sqlite.GetLastOpenNotes2
-
 function TPLNMV6C_sqlite.JObjectToSQLtable(const JConfigObject: TJSONObject; const aSQlTableName: String): boolean;
 var
   msgStr:String;
@@ -1573,6 +1398,11 @@ begin
         Temp_key.AsString:=jName;
         case jName of
           'last_open_notes': begin
+             Temp_value.AsString:=jData.FormatJSON();
+             TempQuery.ExecSQL;
+           end;
+
+           'select_tags': begin
              Temp_value.AsString:=jData.FormatJSON();
              TempQuery.ExecSQL;
            end;
@@ -1616,24 +1446,30 @@ begin
 
       TempQuery.SQL.Add('SELECT * FROM ' + aSQLTableName + ';');
       TempQuery.Open;
+      jObject:=TJSONObject.Create();
 
       if TempQuery.RecordCount > 0 then begin
-        jObject:=jObject.Create();
-        writeln('TEST');
         TempQuery.First;
         while not TempQuery.Eof do begin
-//          FildName:=Fild.FieldName;
-          writeln(TempQuery.Fields[0].AsString, ' ', TempQuery.Fields[1].AsString);
-//          Fild:=TempQuery.Fields.;
-       //   jObject.Add(FildName, Fild.AsString);
+          case TempQuery.Fields[0].AsString of
+            'last_open_notes':
+             jObject.Add(TempQuery.Fields[0].AsString, GetJSON(TempQuery.Fields[1].AsString));
+
+            'last_focus_note':
+              jObject.Add(TempQuery.Fields[0].AsString, TempQuery.Fields[1].AsString);
+
+            'select_tags':
+              jObject.Add(TempQuery.Fields[0].AsString, GetJSON(TempQuery.Fields[1].AsString));
+
+          end;
           TempQuery.Next;
         end;
       end;
     finally
-    //  writeln(jObject.FormatJSON());
       TempQuery.Close;
       FreeAndNil(TempQuery);
       result:=True;
+      doOnSqlResultGetConfig(jObject);
     end;
   except
     on E: Exception do begin

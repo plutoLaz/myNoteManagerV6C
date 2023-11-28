@@ -31,6 +31,7 @@ type
   TOnSQLResultGetNotes = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetContent = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetTagListFromTagID = procedure(aNoteObject:TJSONObject) of object;
+  TOnSqlResultGetConfig = procedure(aConfigObject:TJSONObject) of object;
 
   TOnSQLResultAddTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultUpdateTag = procedure(aTagObject:TJSONObject) of object;

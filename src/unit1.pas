@@ -48,6 +48,7 @@ type
     BitBtn4: TBitBtn;
     BitBtn5: TBitBtn;
     BitBtn6: TBitBtn;
+    BitBtn7: TBitBtn;
     BitBtn8: TBitBtn;
     BitBtn9: TBitBtn;
     btDayBeforeYesterday: TBitBtn;
@@ -107,6 +108,7 @@ type
     procedure BitBtn4Click(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
     procedure BitBtn6Click(Sender: TObject);
+    procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn9Click(Sender: TObject);
     procedure btImportOldDBClick(Sender: TObject);
     procedure btNewDBClick(Sender: TObject);
@@ -166,9 +168,6 @@ type
     function CheckSave(EditorTab:TNMV6C_TabSheet):boolean;
     function CheckSaveNotes():Boolean;
 
-    function LastOpenNotesToTable():Boolean;
-    function LastOpenNotesToTable2():Boolean;
-
     function SaveConfigToDataBase():Boolean;
 
     procedure GetAllSectionLine(aEditorTab:TNMV6C_TabSheet);
@@ -182,6 +181,7 @@ type
     procedure SQLResultGetTags(aTagObject:TJSONObject);
     procedure SQLResultUpdateTag(aTagObject:TJSONObject);
     procedure SQLResultDeleteTag(aTagIdList:TJSONArray);
+    procedure SqlResultGetConfig(aConfigObject:TJSONObject);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -409,6 +409,19 @@ begin
   end;
 end;
 
+procedure TForm1.BitBtn7Click(Sender: TObject);
+var
+  i:integer;
+
+  BarItem:TPLMyHorizontalBarItem;
+
+  JObject:TJSONObject;
+  JArray:TJSONArray;
+  jData:TJSONData;
+begin
+
+end;
+
 procedure TForm1.BitBtn9Click(Sender: TObject);
 var
   plEditor:TNMV6C_TabSheet;
@@ -574,8 +587,6 @@ end;
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   SaveConfigFile(ConfigFile);
-//  LastOpenNotesToTable();
-//  LastOpenNotesToTable2();
   SaveConfigToDataBase();
 end;
 
@@ -857,6 +868,7 @@ begin
   NoteManagerV6C.OnSQLResultAddTag:=@SQLResultAddTag;
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
   NoteManagerV6C.OnSQLResultDeleteTag:=@SQLResultDeleteTag;
+  NoteManagerV6C.OnSqlResultGetConfig:=@SqlResultGetConfig;
 end; // TForm1.InitDB
 
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
@@ -1266,11 +1278,11 @@ begin
 
   last_focus_note:='';
   LastOpenNotes:=TJSONArray.Create();
-  NoteManagerV6C.GetLastOpenNotes2(LastOpenNotes, last_focus_note);
+//  NoteManagerV6C.GetLastOpenNotes2(LastOpenNotes, last_focus_note);
 
   NoteManagerV6C.SQLtableToJObject('config');
 
-  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
+//  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
 
   result:=True;
 end; // TForm1.LoadDataBase
@@ -1365,64 +1377,13 @@ begin
     result:=true;
 end; // TForm1.CheckSaveNotes
 
-function TForm1.LastOpenNotesToTable: Boolean;
-var
-  i:Integer;
-  Notes:TJSONArray;
-  TabSheet:TNMV6C_TabSheet;
-  jData:TJSONData;
-begin
-  result:=false;
-  try
-    Notes:=TJSONArray.Create();
-    for i:=0 to OpenNotes.PageCount - 1 do begin
-      TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
-      jData:=TabSheet.NoteObject.Find('uuid');
-      if Assigned(jData) then begin
-        Notes.Add(jData.AsString);
-      end;
-    end;
-    NoteManagerV6C.AddLastOpenNotes(Notes);
-    result:=true;
-  finally
-    FreeAndNil(Notes);
-  end;
-end; // TForm1.LastOpenNotesToTable
-
-function TForm1.LastOpenNotesToTable2: Boolean;
-var
-  i:Integer;
-  Notes:TJSONArray;
-  TabSheet:TNMV6C_TabSheet;
-  jData:TJSONData;
-  Note_ID:String;
-begin
-  result:=false;
-  try
-    Notes:=TJSONArray.Create();
-    for i:=0 to OpenNotes.PageCount - 1 do begin
-      TabSheet:=OpenNotes.Page[i] as TNMV6C_TabSheet;
-      jData:=TabSheet.NoteObject.Find('uuid');
-      if Assigned(jData) then begin
-        if TabSheet = OpenNotes.ActivePage then
-          Note_ID:=jData.AsString;
-        Notes.Add(jData.AsString);
-      end;
-    end;
-
-    NoteManagerV6C.AddLastOpenNotes2(Notes, Note_ID);
-    result:=true;
-  finally
-    FreeAndNil(Notes);
-  end;
-end; // TForm1.LastOpenNotesToTable2
-
 function TForm1.SaveConfigToDataBase: Boolean;
 var
   JObject:TJSONObject;
+  BarItem:TPLMyHorizontalBarItem;
 
   i:Integer;
-  Notes:TJSONArray;
+  Notes, JTagArray:TJSONArray;
   TabSheet:TNMV6C_TabSheet;
   jData:TJSONData;
   Note_ID:String;
@@ -1438,14 +1399,29 @@ begin
           Note_ID:=jData.AsString;
         Notes.Add(jData.AsString);
       end;
-    end;
+    end; // for i
+
+    JTagArray:=TJSONArray.Create();
+    for i:=0 to MyHorizontalBar.BarList.Count - 1 do begin
+      BarItem:=MyHorizontalBar.BarList[i];
+      JObject:=(BarItem.Data as TJSONObject);
+
+      jData:=JObject.Find('id');
+      if Assigned(jData) then begin
+        if BarItem.Checked then begin
+          JTagArray.Add(jData.AsInteger);
+        end;
+      end;
+    end; // for i
+   // writeln(JTagArray.FormatJSON());
+
     JObject:=TJSONObject.Create();
     JObject.Add('last_open_notes', Notes);
     JObject.Add('last_focus_note', Note_ID);
+    JObject.Add('select_tags', JTagArray);
 
     NoteManagerV6C.JObjectToSQLtable(JObject, 'config');
     result:=True;
-
   finally
     FreeAndNil(Notes);
   end;
@@ -1616,6 +1592,58 @@ begin
   end; // for i
   MyHorizontalBar.Invalidate;
 end; // TForm1.SQLResultDeleteTag
+
+procedure TForm1.SqlResultGetConfig(aConfigObject: TJSONObject);
+var
+  jData:TJSONData;
+
+  last_open_notes:TJSONArray;
+  last_focus_note:String;
+  i, id, id2, x:Integer;
+  TagArray:TJSONArray;
+
+  BarItem:TPLMyHorizontalBarItem;
+  JObject:TJSONObject;
+begin
+  MyHorizontalBar.AllChecked(false);
+
+  jData:=aConfigObject.Find('last_open_notes');
+  if Assigned(jData) then begin
+    last_open_notes:=jData as TJSONArray;
+  end;
+
+  jData:=aConfigObject.Find('last_focus_note');
+  if Assigned(jData) then begin
+    last_focus_note:=jData.AsString;
+  end;
+
+  jData:=aConfigObject.Find('select_tags');
+  if Assigned(jData) then begin
+    TagArray:=jData as TJSONArray;
+
+    for i:=0 to TagArray.Count -1 do begin
+      id:=TagArray[i].AsInteger;
+      for x:=0 to MyHorizontalBar.BarList.Count - 1 do begin
+        BarItem:=MyHorizontalBar.BarList[x];
+        JObject:=(BarItem.Data as TJSONObject);
+
+        jData:=JObject.Find('id');
+        if Assigned(jData) then begin
+          id2:=jData.AsInteger;
+          if id = id2 then begin
+            BarItem.Checked:=True;
+            writeln('id: ', id2);
+          end;
+        end;
+
+      end; // for x
+    end; // for i
+   // last_focus_note:=jData.AsString;
+  end;
+  NoteManagerV6C.GetNotes(nil, last_open_notes, last_focus_note);
+ // NoteManagerV6C.GetLastOpenNotes2(last_open_notes, last_focus_note);
+
+end; // TForm1.SqlResultGetConfig
 
 procedure TForm1.BarChecked(sender: TObject);
 var

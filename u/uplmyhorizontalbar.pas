@@ -129,6 +129,7 @@ type
 
     procedure UpdateScrollBars;
     procedure OptionsClick(Sender:TObject);
+    procedure AllChecked(const aValue:Boolean);
 
     property Selected:TPLMyHorizontalBarItem read fSelected write SetSelected;
 
@@ -704,6 +705,15 @@ begin
     DoChangeIndex();
   end;
 end;
+
+procedure TMyHorizontalBar.AllChecked(const aValue: Boolean);
+var
+  i:Integer;
+begin
+  for i:=0 to BarList.Count - 1 do begin
+    BarList[i].Checked:=aValue;
+  end;
+end; // TMyHorizontalBar.AllChecked
 
 end.
 
