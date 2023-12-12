@@ -21,6 +21,7 @@ type
   protected
 
   public
+    myFormatSettings:TFormatSettings;
     NoteObject:TJSONObject;
     Editor_Frame:TEditorFrame;
     NoEvent:Boolean;
@@ -32,6 +33,7 @@ type
     procedure UpdateChangeStatus();
 
     procedure ChangeUserInput(sender:TObject);
+    procedure DateEdit1Change(sender:TObject);
     property Modified:Boolean read fModified write SetModified;
   published
   end; // TNMV6C_TabSheet
@@ -228,6 +230,7 @@ begin
   Editor_Frame.Align:=alClient;
   Editor_Frame.edTitle.OnChange:=@ChangeUserInput;
   Editor_Frame.SEEditor.OnChange:=@ChangeUserInput;
+  Editor_Frame.DateEdit1.OnChange:=@DateEdit1Change;
 
   fModified:=False;
 end; // TNMV6C_TabSheet.Create
@@ -245,6 +248,15 @@ begin
   jData:=NoteObject.find('title');
   if Assigned(jData) then
     jData.AsString:=Editor_Frame.edTitle.Text;
+
+  jData:=NoteObject.find('ctime');
+  if Assigned(jData) then begin
+    if Editor_Frame.DateEdit1.Modified then begin
+      jData.AsString:=DateToStr(Editor_Frame.DateEdit1.Date, myFormatSettings);
+      Editor_Frame.DateEdit1.Modified:=False;
+      NoteObject.Add('ctimeChange',True);
+    end;
+  end;
 
   jData:=NoteObject.find('content');
   if Assigned(jData) then
@@ -284,6 +296,12 @@ procedure TNMV6C_TabSheet.ChangeUserInput(sender: TObject);
 begin
   Modified:=True;
 end; // TNMV6C_TabSheet.ChangeUserInput
+
+procedure TNMV6C_TabSheet.DateEdit1Change(sender: TObject);
+begin
+  Editor_Frame.DateEdit1.Modified:=True;
+  Modified:=True;
+end; // TNMV6C_TabSheet.DateEdit1Change
 
 
 procedure TForm1.acSaveNoteExecute(Sender: TObject);
@@ -741,13 +759,7 @@ begin
     NoteObject:=TJSONObject(NoteBrowser.Selected.Data);
     Temp_uuid:=NoteObject.Elements['uuid'].AsString;
 
-    ContentStr:=NoteManagerV6C.GetContentFromNote(Temp_uuid);
-
-    JData:=NoteObject.Find('content');
-    if Assigned(JData) then
-      JData.AsString:=ContentStr
-    else
-      NoteObject.Add('content', ContentStr);
+    NoteManagerV6C.GetNoteContent(NoteObject);
 
     if (ssDouble in shift) or (ssMiddle in shift) then
       AddOrChangeEditorTabSheet(NoteObject, ssMiddle in Shift);
@@ -880,6 +892,7 @@ var
   TempDateTime:TDateTime;
   jData:TJSONData;
   NoteID:String;
+  TestDateTime:TDateTime;
 begin
   ListItem:=TListItem.Create(NoteBrowser.Items);
   ListItem.SubItems.Add(''); // ctime
@@ -899,7 +912,11 @@ begin
 
         'ctime': begin
           TempDateTime:=StrToDateTime(aNoteObject.Items[i].AsString, NoteManagerV6C.myFormatSettings);
-          ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
+
+          if TimeOf(TempDateTime)  = 0 then
+            ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY', TempDateTime)
+          else
+            ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
         end; // ctime
 
         'mtime': begin
@@ -912,8 +929,8 @@ begin
           ListItem.SubItems[2]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
         end; // atime
 
-        'mcount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
-        'acount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
+        'acount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
+        'mcount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
 
         'AutoOpen': begin
           if aNoteObject.Items[i].AsBoolean then
@@ -1217,6 +1234,7 @@ begin
   if Assigned(jData) then
     TitleStr:=jData.AsString;
 
+
   jData:=aNoteObject.Find('content');
   if Assigned(jData) then
     ContentStr:=jData.AsString;
@@ -1226,15 +1244,16 @@ begin
   end
   else
     EditorTabSheet:=OpenNotes.ActivePage as TNMV6C_TabSheet;
+
+  EditorTabSheet.myFormatSettings:=NoteManagerV6C.myFormatSettings;
   EditorTabSheet.NoEvent:=True;
   EditorTabSheet.Caption:=TitleStr;
   EditorTabSheet.Editor_Frame.edTitle.Text:=TitleStr;
   EditorTabSheet.NoteObject:=aNoteObject;
+  EditorTabSheet.Editor_Frame.DateEdit1.DateFormat:=NoteManagerV6C.myFormatSettings.LongDateFormat;
 
   if ContentStr <> '' then
     EditorTabSheet.Editor_Frame.SEEditor.Lines.Text:=ContentStr;
-  EditorTabSheet.NoEvent:=False;
-  EditorTabSheet.Modified:=False;
 
   if aNewTab then begin
     OpenNotes.ActivePage:=EditorTabSheet;
@@ -1242,6 +1261,14 @@ begin
     //if Form1.CanFocus then
     //  EditorTabSheet.Editor_Frame.SEEditor.SetFocus;
   end;
+
+  jData:=aNoteObject.Find('ctime');
+  if Assigned(jData) then begin
+    EditorTabSheet.Editor_Frame.DateEdit1.Date:=StrToDateTime(jData.AsString, NoteManagerV6C.myFormatSettings);
+  end;
+  EditorTabSheet.Editor_Frame.DateEdit1.Modified:=False;
+  EditorTabSheet.NoEvent:=False;
+  EditorTabSheet.Modified:=False;
 
   jData:=aNoteObject.Find('uuid');
   if Assigned(jData) then begin
@@ -1473,6 +1500,17 @@ begin
   if Assigned(jData) then begin
     ListItem:=FindNoteIDInNoteBrowser(jData.AsString);
 
+    jData:=aNoteObject.Find('ctime');
+    if Assigned(jData) then begin
+      TempDateTime:=StrToDateTime(jData.AsString);
+      if Assigned(jData) then begin
+        if TimeOf(TempDateTime)  = 0 then
+          ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY', TempDateTime)
+        else
+          ListItem.SubItems[0]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime)
+      end;
+    end;
+
     jData:=aNoteObject.Find('mtime');
     if Assigned(jData) then begin
       TempDateTime:=StrToDateTime(jData.AsString);
@@ -1480,6 +1518,17 @@ begin
         ListItem.SubItems[1]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
       end;
     end;
+
+    jData:=aNoteObject.Find('atime');
+    if Assigned(jData) then begin
+      TempDateTime:=StrToDateTime(jData.AsString);
+      if Assigned(jData) then begin
+        ListItem.SubItems[2]:=FormatDateTime('DDD, DD.MM.YYYY HH:mm', TempDateTime);
+      end;
+    end;
+
+    jData:=aNoteObject.Find('acount');
+    if Assigned(jData) then ListItem.SubItems[3]:=jData.AsString;
 
     jData:=aNoteObject.Find('mcount');
     if Assigned(jData) then ListItem.SubItems[4]:=jData.AsString;

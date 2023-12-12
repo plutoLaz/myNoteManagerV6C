@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 265
+  Left = 2105
   Height = 745
-  Top = 185
+  Top = 186
   Width = 1535
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -47,19 +47,19 @@ object Form1: TForm1
     Height = 80
     Top = 0
     Width = 1535
-    ActivePage = tsDataBase
+    ActivePage = tsFilter1
     Align = alTop
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'DataBase'
-      ClientHeight = 54
+      ClientHeight = 56
       ClientWidth = 1531
       object btNewDB: TBitBtn
         Left = 0
-        Height = 54
+        Height = 56
         Top = 0
-        Width = 50
+        Width = 53
         Align = alLeft
         AutoSize = True
         Caption = 'Neue...'
@@ -67,8 +67,8 @@ object Form1: TForm1
         TabOrder = 0
       end
       object btOpenDB: TBitBtn
-        Left = 50
-        Height = 54
+        Left = 53
+        Height = 56
         Top = 0
         Width = 48
         Align = alLeft
@@ -78,8 +78,8 @@ object Form1: TForm1
         TabOrder = 1
       end
       object btSaveDB: TBitBtn
-        Left = 98
-        Height = 54
+        Left = 101
+        Height = 56
         Top = 0
         Width = 68
         Align = alLeft
@@ -88,20 +88,20 @@ object Form1: TForm1
         TabOrder = 2
       end
       object btSaveAsDB: TBitBtn
-        Left = 166
-        Height = 54
+        Left = 169
+        Height = 56
         Top = 0
-        Width = 112
+        Width = 116
         Align = alLeft
         AutoSize = True
         Caption = 'Speichern &Unter...'
         TabOrder = 3
       end
       object btImportOldDB: TBitBtn
-        Left = 278
-        Height = 54
+        Left = 285
+        Height = 56
         Top = 0
-        Width = 210
+        Width = 213
         Align = alLeft
         AutoSize = True
         Caption = 'Altes Datenbankformat &Importieren'
@@ -112,21 +112,21 @@ object Form1: TForm1
     object TabSheet1: TTabSheet
       AutoSize = True
       Caption = 'Notizen'
-      ClientHeight = 54
+      ClientHeight = 56
       ClientWidth = 1531
       object btNewNote: TBitBtn
         Left = 0
-        Height = 54
+        Height = 56
         Top = 0
-        Width = 43
+        Width = 46
         Action = acNewNote
         Align = alLeft
         AutoSize = True
         TabOrder = 0
       end
       object btSaveNote: TBitBtn
-        Left = 43
-        Height = 54
+        Left = 46
+        Height = 56
         Top = 0
         Width = 68
         Action = acSaveNote
@@ -135,8 +135,8 @@ object Form1: TForm1
         TabOrder = 1
       end
       object btDeleteNote: TBitBtn
-        Left = 111
-        Height = 54
+        Left = 114
+        Height = 56
         Top = 0
         Width = 75
         Action = acDeleteNote
@@ -149,12 +149,12 @@ object Form1: TForm1
     end
     object tsFilter1: TTabSheet
       Caption = 'Filter 1'
-      ClientHeight = 54
+      ClientHeight = 56
       ClientWidth = 1531
       object btToDay: TBitBtn
         Tag = 1
         Left = 8
-        Height = 26
+        Height = 24
         Top = 8
         Width = 45
         AutoSize = True
@@ -165,7 +165,7 @@ object Form1: TForm1
       object btYesterday: TBitBtn
         Tag = 2
         Left = 64
-        Height = 26
+        Height = 24
         Top = 8
         Width = 56
         AutoSize = True
@@ -176,9 +176,9 @@ object Form1: TForm1
       object btDayBeforeYesterday: TBitBtn
         Tag = 3
         Left = 128
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 73
+        Width = 72
         AutoSize = True
         Caption = 'Vorgestern'
         OnClick = btToDayClick
@@ -187,9 +187,9 @@ object Form1: TForm1
       object btNowWeek: TBitBtn
         Tag = 4
         Left = 208
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 87
+        Width = 88
         AutoSize = True
         Caption = 'Diese Woche'
         OnClick = btToDayClick
@@ -198,7 +198,7 @@ object Form1: TForm1
       object btLastWeek: TBitBtn
         Tag = 5
         Left = 304
-        Height = 26
+        Height = 24
         Top = 8
         Width = 90
         AutoSize = True
@@ -210,9 +210,9 @@ object Form1: TForm1
       object btNowMonat: TBitBtn
         Tag = 6
         Left = 408
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 89
+        Width = 91
         AutoSize = True
         Caption = 'Diesen Monat'
         OnClick = btToDayClick
@@ -221,9 +221,9 @@ object Form1: TForm1
       object btLastMonat: TBitBtn
         Tag = 7
         Left = 504
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 92
+        Width = 93
         AutoSize = True
         Caption = 'Letzten Monat'
         OnClick = btToDayClick
@@ -232,9 +232,9 @@ object Form1: TForm1
       object btNowYear: TBitBtn
         Tag = 8
         Left = 608
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 78
+        Width = 80
         AutoSize = True
         Caption = 'Dieses Jahr'
         OnClick = btToDayClick
@@ -243,9 +243,9 @@ object Form1: TForm1
       object btLastYear: TBitBtn
         Tag = 9
         Left = 696
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 81
+        Width = 82
         AutoSize = True
         Caption = 'Letztes Jahr'
         OnClick = btToDayClick
@@ -254,9 +254,9 @@ object Form1: TForm1
       object BitBtn8: TBitBtn
         Tag = 10
         Left = 784
-        Height = 26
+        Height = 24
         Top = 8
-        Width = 168
+        Width = 171
         AutoSize = True
         Caption = 'Notizen ohne Tags auflisten'
         OnClick = btToDayClick
@@ -268,7 +268,7 @@ object Form1: TForm1
     end
     object TabSheet4: TTabSheet
       Caption = 'Test Funktionen'
-      ClientHeight = 54
+      ClientHeight = 56
       ClientWidth = 1531
       object BitBtn3: TBitBtn
         Left = 264
@@ -416,11 +416,11 @@ object Form1: TForm1
       TabOrder = 0
       object TabSheet2: TTabSheet
         Caption = 'Tags'
-        ClientHeight = 237
+        ClientHeight = 239
         ClientWidth = 337
         object CheckListBox1: TCheckListBox
           Left = 0
-          Height = 204
+          Height = 206
           Top = 0
           Width = 337
           Align = alClient
@@ -432,7 +432,7 @@ object Form1: TForm1
         object Panel3: TPanel
           Left = 0
           Height = 33
-          Top = 204
+          Top = 206
           Width = 337
           Align = alBottom
           ClientHeight = 33
@@ -472,12 +472,12 @@ object Form1: TForm1
       end
       object TabSheet3: TTabSheet
         Caption = 'Abschnitte'
-        ClientHeight = 237
+        ClientHeight = 239
         ClientWidth = 337
         object Panel5: TPanel
           Left = 0
           Height = 44
-          Top = 193
+          Top = 195
           Width = 337
           Align = alBottom
           ClientHeight = 44
@@ -485,7 +485,7 @@ object Form1: TForm1
           TabOrder = 0
           object BitBtn9: TBitBtn
             Left = 8
-            Height = 26
+            Height = 24
             Top = 8
             Width = 85
             AutoSize = True
@@ -496,7 +496,7 @@ object Form1: TForm1
         end
         object ListBox1: TListBox
           Left = 0
-          Height = 193
+          Height = 195
           Top = 0
           Width = 337
           Align = alClient
@@ -527,9 +527,9 @@ object Form1: TForm1
     TabOrder = 7
     object Label2: TLabel
       Left = 8
-      Height = 16
+      Height = 14
       Top = 8
-      Width = 50
+      Width = 48
       Caption = 'Notizen'
       Font.Style = [fsBold]
       ParentColor = False
@@ -537,7 +537,7 @@ object Form1: TForm1
     end
     object lbNoteCount: TLabel
       Left = 64
-      Height = 16
+      Height = 14
       Top = 8
       Width = 7
       Caption = '0'
@@ -545,9 +545,9 @@ object Form1: TForm1
     end
     object Label3: TLabel
       Left = 168
-      Height = 16
+      Height = 14
       Top = 8
-      Width = 128
+      Width = 121
       Caption = 'Datenbank geöffnet'
       Font.Style = [fsBold]
       ParentColor = False
@@ -555,9 +555,9 @@ object Form1: TForm1
     end
     object lbDataBaseName: TLabel
       Left = 304
-      Height = 16
+      Height = 14
       Top = 8
-      Width = 31
+      Width = 30
       Caption = 'keine'
       ParentColor = False
       ParentShowHint = False

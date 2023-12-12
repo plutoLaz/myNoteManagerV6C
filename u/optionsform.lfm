@@ -1,7 +1,7 @@
 object OptionsFm: TOptionsFm
-  Left = 496
+  Left = 2331
   Height = 652
-  Top = 241
+  Top = 186
   Width = 898
   BorderStyle = bsDialog
   Caption = 'Tags Bearbeiten'
@@ -31,11 +31,11 @@ object OptionsFm: TOptionsFm
       OnChange = PageControl1Change
       object TabSheet2: TTabSheet
         Caption = 'Tag Manager'
-        ClientHeight = 588
+        ClientHeight = 590
         ClientWidth = 892
         object ListView1: TListView
           Left = 0
-          Height = 588
+          Height = 590
           Top = 0
           Width = 892
           Align = alClient

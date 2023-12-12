@@ -2,17 +2,17 @@ object EditorFrame: TEditorFrame
   Left = 0
   Height = 409
   Top = 0
-  Width = 741
+  Width = 880
   ClientHeight = 409
-  ClientWidth = 741
+  ClientWidth = 880
   TabOrder = 0
-  DesignLeft = 476
-  DesignTop = 261
+  DesignLeft = 2374
+  DesignTop = 501
   inline SEEditor: TSynEdit
     Left = 0
-    Height = 365
-    Top = 44
-    Width = 741
+    Height = 361
+    Top = 48
+    Width = 880
     Align = alClient
     Font.Height = -13
     Font.Name = 'Courier New'
@@ -507,32 +507,119 @@ object EditorFrame: TEditorFrame
   end
   object Panel1: TPanel
     Left = 0
-    Height = 44
+    Height = 48
     Top = 0
-    Width = 741
+    Width = 880
     Align = alTop
-    AutoSize = True
-    ClientHeight = 44
-    ClientWidth = 741
+    ClientHeight = 48
+    ClientWidth = 880
     TabOrder = 1
-    object Label1: TLabel
+    object Panel2: TPanel
       Left = 1
-      Height = 16
+      Height = 46
       Top = 1
-      Width = 739
-      Align = alTop
-      Caption = 'Title'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-    end
-    object edTitle: TEdit
-      Left = 1
-      Height = 26
-      Top = 17
-      Width = 739
-      Align = alTop
+      Width = 319
+      Align = alLeft
+      ClientHeight = 46
+      ClientWidth = 319
       TabOrder = 0
+      object edTitle: TEdit
+        Left = 1
+        Height = 30
+        Top = 15
+        Width = 317
+        Align = alClient
+        TabOrder = 0
+      end
+      object Label1: TLabel
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 317
+        Align = alTop
+        Caption = 'Title'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+    end
+    object Splitter1: TSplitter
+      Left = 320
+      Height = 46
+      Top = 1
+      Width = 5
+    end
+    object Panel3: TPanel
+      Left = 325
+      Height = 46
+      Top = 1
+      Width = 243
+      Align = alLeft
+      ClientHeight = 46
+      ClientWidth = 243
+      TabOrder = 2
+      object Label2: TLabel
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 241
+        Align = alTop
+        Caption = 'Erstellt am'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object DateEdit1: TDateEdit
+        Left = 1
+        Height = 30
+        Top = 15
+        Width = 241
+        CalendarDisplaySettings = [dsShowHeadings, dsShowDayNames, dsShowWeekNumbers]
+        DefaultToday = True
+        DateOrder = doNone
+        ButtonWidth = 23
+        Align = alClient
+        NumGlyphs = 1
+        MaxLength = 0
+        OnChange = DateEdit1Change
+        TabOrder = 0
+      end
+    end
+    object Splitter2: TSplitter
+      Left = 568
+      Height = 46
+      Top = 1
+      Width = 5
+    end
+    object Panel4: TPanel
+      Left = 573
+      Height = 46
+      Top = 1
+      Width = 306
+      Align = alClient
+      ClientHeight = 46
+      ClientWidth = 306
+      TabOrder = 4
+      object Label3: TLabel
+        Left = 1
+        Height = 14
+        Top = 1
+        Width = 304
+        Align = alTop
+        Caption = 'Aktueller Standort'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object ComboBox1: TComboBox
+        Left = 1
+        Height = 30
+        Top = 15
+        Width = 304
+        Align = alClient
+        ItemHeight = 0
+        TabOrder = 0
+      end
     end
   end
 end

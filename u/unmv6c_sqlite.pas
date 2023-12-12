@@ -76,6 +76,8 @@ type
 {}  function DeleteNote(const aNoteIDList:TJSONArray):Boolean; //  TOnSQLResultDeleteNote
 {}  function GetNotes(const aTagFilterList, aNodeIdList:TJSONArray; const alast_focus_note:String; const aWihtContent:Boolean = False; const aSQLStr:String = ''; aCreateStatistik:boolean = false):Boolean; // TOnGetNote
 {}  function GetContentFromNote(const aUUID:String):string; // TOnSQLResultGetContent
+    function GetNoteContent(var aNoteObject:TJSONObject):Boolean;
+
     function GetTagListFromTagID(const aUUID:String):TJSONArray; // TOnSQLResultGetTagListFromTagID
 
 {}  function AddTag(var aTagObject:TJSONObject; const aTagMetaData:Boolean = False; const aExtModus:Boolean = false):Boolean; // TOnSQLResultAddTag
@@ -145,7 +147,8 @@ begin
       SQLScript.Script.Add('atime DATETIME,');
       SQLScript.Script.Add('mcount INTEGER NOT NULL DEFAULT 1,');
       SQLScript.Script.Add('acount INTEGER NOT NULL DEFAULT 1,');
-      SQLScript.Script.Add('userindex INTEGER');
+      SQLScript.Script.Add('userindex INTEGER,');
+      SQLScript.Script.Add('location TEXT');
 
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
@@ -606,16 +609,18 @@ var
   i:Integer;
 
   titleStr, contentStr, NoteID:String;
+  cTime:TDateTime;
   jName:String;
   sqlName:String;
   TempField:TField;
+  jData:TJSONData;
 begin
   result:=False;
   try
     try
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
-      titleStr:=''; contentStr:=''; jName:=''; sqlName:='';
+      titleStr:=''; contentStr:=''; jName:=''; sqlName:=''; cTime:=0;
       for i:=0 to aNoteObject.Count -1 do begin
         jName:=aNoteObject.Names[i];
         if jName = 'uuid' then NoteID:=aNoteObject.Items[i].AsString;
@@ -629,7 +634,18 @@ begin
           contentStr:=aNoteObject.Items[i].AsString;
           sqlName:=AddStr('content=:content',sqlName);
         end; // content
+
+        if jname = 'ctime' then begin
+          jData:=aNoteObject.Find('ctimeChange');
+          if Assigned(jData) then begin
+            cTime:=StrToDate(aNoteObject.Items[i].AsString, myFormatSettings);
+            sqlName:=AddStr('ctime=:ctime',sqlName);
+          end;
+        end;
       end; // for i
+
+      if Assigned(aNoteObject.Find('ctimeChange')) then
+        aNoteObject.Delete('ctimeChange');
 
       // SQL Anweisung Zusammenbauen.
       TempQuery.SQL.Clear;
@@ -640,6 +656,7 @@ begin
 
       if titleStr <> '' then TempQuery.ParamByName('title').AsString:=titleStr;
       if contentStr <> '' then TempQuery.ParamByName('content').AsString:=contentStr;
+      if ctime > 0 then TempQuery.ParamByName('ctime').AsDate:=cTime;
       TempQuery.ExecSQL;
 
       if AutoCommit then SQLTransaction.Commit;
@@ -869,6 +886,132 @@ begin
   end;
 end; // TPLNMV6C_sqlite.GetContentFromNote
 
+function TPLNMV6C_sqlite.GetNoteContent(var aNoteObject: TJSONObject): Boolean;
+var
+  TempQuery, TempQuery2:TSQLQuery;
+  TempField:TField;
+  msgStr, idStr:String;
+  x:Integer;
+
+  sqlName:String;
+  titleStr, contentStr:String;
+  acountInt:Integer;
+  aTime:TDateTime;
+  jData:TJSONData;
+  NotMetaDataUpdate:Boolean;
+begin
+  result:=False;
+
+  sqlName:='';
+  try
+    try
+      NotMetaDataUpdate:=False;
+      jData:=aNoteObject.Find('NotMetaDataUpdate');
+      if Assigned(jData) then
+        NotMetaDataUpdate:=True
+      else
+        aNoteObject.Add('NotMetaDataUpdate', true);
+
+      idStr:=aNoteObject.Elements['uuid'].AsString;
+
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      // acount und atime updaten
+      TempQuery.SQL.Add('SELECT title, content, acount, atime FROM notes WHERE uuid =:uuid');
+      TempQuery.ParamByName('uuid').AsString:=idStr;
+      TempQuery.Open;
+
+      if TempQuery.RecordCount > 0 then begin
+        for x:=0 to TempQuery.Fields.Count - 1 do begin
+          TempField:=TempQuery.Fields[x];
+          case TempField.FieldName of
+            'title': begin
+              titleStr:=TempField.AsString;
+              aNoteObject.Elements['title'].AsString:=titleStr;
+              sqlName:=AddStr('title=:title',sqlName);
+            end;
+
+            'content': begin
+              contentStr:=TempField.AsString;
+              jData:=aNoteObject.Find('content');
+              if Assigned(jData) then
+                jData.AsString:=contentStr
+              else
+                aNoteObject.Add('content', contentStr);
+
+              sqlName:=AddStr('content=:content',sqlName);
+            end;
+
+            'acount': begin
+              if not NotMetaDataUpdate then begin
+                acountInt:=TempField.AsInteger + 1;
+                aNoteObject.Elements['acount'].AsInteger:=acountInt;
+                sqlName:=AddStr('acount=:acount',sqlName);
+              end;
+            end;
+
+            'atime': begin
+              if not NotMetaDataUpdate then begin
+                aTime:=Now();
+                aNoteObject.Elements['atime'].AsString:=DateTimeToStr(aTime , myFormatSettings);
+                sqlName:=AddStr('atime=:atime',sqlName);
+              end;
+            end;
+          end;
+        end; // for x
+        TempQuery.Close();
+        // Werte hinzufügen / erstezen im NoteObject
+
+        if not NotMetaDataUpdate then begin
+          // Triger in der neuen Datenbank löschen, wenn vorhanden
+          TempQuery2:=TSQLQuery.Create(nil);
+          TempQuery2.DataBase:=SQlConnector;
+          TempQuery2.SQL.Add('DROP TRIGGER if exists note_update;');
+          TempQuery2.ExecSQL;
+          SQLTransaction.Commit;
+
+
+          TempQuery.SQL.Clear;
+          TempQuery.SQL.Add('UPDATE notes SET ');
+          TempQuery.SQL.Add(SQLName);
+          TempQuery.SQL.Add(' WHERE uuid=:uuid;');
+          TempQuery.ParamByName('uuid').AsString:=idStr;
+
+          TempQuery.ParamByName('title').AsString:=titleStr;
+          TempQuery.ParamByName('content').AsString:=contentStr;
+          TempQuery.ParamByName('acount').AsInteger:=acountInt;
+          TempQuery.ParamByName('atime').AsTime:=aTime;
+          TempQuery.ExecSQL;
+
+
+          // Triger wieder hinzufügen
+          TempQuery2.SQL.Clear;
+          TempQuery2.SQL.Add('CREATE TRIGGER note_update BEFORE UPDATE ON notes');
+          TempQuery2.SQL.Add('BEGIN');
+          TempQuery2.SQL.Add('    UPDATE notes SET mcount = mcount + 1, mtime = (DATETIME(''now'')) WHERE id = new.id AND (title != new.title OR content != new.content);');
+          TempQuery2.SQL.Add('END;');
+          TempQuery2.ExecSQL;
+          SQLTransaction.Commit;
+
+          TempQuery2.Close;
+          doOnSQLResultUpdateNote(aNoteObject);
+        end;
+      end;
+    finally
+      FreeAndNil(TempQuery);
+      result:=True;
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=e.ClassName;
+      writeln('TPLNoteManager6B_sqlite.GetNoteContent :', e.ClassName);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNoteManager6B_sqlite.GetNoteContent');
+    end;
+  end;
+
+end; // TPLNMV6C_sqlite.GetNoteContent
+
 function TPLNMV6C_sqlite.GetTagListFromTagID(const aUUID: String): TJSONArray;
 var
   TempQuery:TSQLQuery;
@@ -908,7 +1051,8 @@ begin
       doOnSQLResultError(EVT_ERROR,msgStr,'TPLNoteManager6B_sqlite.GetTagListFromTagID');
       //DoErrorEvent(EVT_ERROR,E.Message,'TPLNoteManager6B_sqlite.GetTagListFromTagID');
     end;
-  end;      end; // TPLNMV6C_sqlite.GetTagListFromTagID
+  end;
+end; // TPLNMV6C_sqlite.GetTagListFromTagID
 
 function TPLNMV6C_sqlite.AddTag(var aTagObject: TJSONObject;
   const aTagMetaData: Boolean; const aExtModus: Boolean): Boolean;

@@ -8,7 +8,7 @@
         <Filename Value="nmv_6c_app.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="157"/>
+        <UsageCount Value="170"/>
       </Unit>
       <Unit>
         <Filename Value="unit1.pas"/>
@@ -17,13 +17,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
-        <TopLine Value="143"/>
-        <CursorPos X="5" Y="150"/>
-        <UsageCount Value="157"/>
-        <Bookmarks Count="3">
-          <Item0 X="23" Y="1243" ID="5"/>
-          <Item1 X="16" Y="1416" ID="2"/>
-          <Item2 X="12" Y="751" ID="1"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="215"/>
+        <CursorPos X="3" Y="217"/>
+        <UsageCount Value="170"/>
+        <Bookmarks Count="2">
+          <Item0 X="26" Y="1512" ID="2"/>
+          <Item1 X="44" Y="916" ID="1"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -31,29 +31,24 @@
       <Unit>
         <Filename Value="../u/unmv6c_type.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="36" Y="34"/>
-        <UsageCount Value="157"/>
+        <UsageCount Value="170"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../u/unmv6c_sqlite.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="777"/>
-        <CursorPos X="38" Y="801"/>
-        <UsageCount Value="157"/>
-        <Bookmarks Count="2">
-          <Item0 Y="1361" ID="4"/>
-          <Item1 X="4" Y="814" ID="3"/>
-        </Bookmarks>
+        <EditorIndex Value="3"/>
+        <TopLine Value="625"/>
+        <CursorPos X="24" Y="645"/>
+        <UsageCount Value="170"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../u/unmv6c_createtextbricks.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="157"/>
+        <UsageCount Value="170"/>
       </Unit>
       <Unit>
         <Filename Value="unit_editorframe.pas"/>
@@ -62,9 +57,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="unit_EditorFrame"/>
-        <EditorIndex Value="8"/>
-        <CursorPos X="69" Y="8"/>
-        <UsageCount Value="157"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="17"/>
+        <CursorPos X="24" Y="58"/>
+        <UsageCount Value="170"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -77,7 +73,7 @@
         <UnitName Value="Unit2"/>
         <EditorIndex Value="1"/>
         <CursorPos X="15" Y="10"/>
-        <UsageCount Value="157"/>
+        <UsageCount Value="170"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -87,14 +83,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2310"/>
         <CursorPos X="14" Y="2330"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/include/wincontrol.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="3637"/>
         <CursorPos X="19" Y="3658"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="40"/>
       </Unit>
       <Unit>
         <Filename Value="../../V6B/u/uplnotemanager6b_sqlite.pas"/>
@@ -102,7 +98,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="87"/>
         <CursorPos X="18" Y="112"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="26"/>
       </Unit>
       <Unit>
         <Filename Value="../../V6B/src/unit1.pas"/>
@@ -113,7 +109,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="533"/>
         <CursorPos X="23" Y="535"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
         <Bookmarks Count="1">
           <Item0 X="15" Y="177" ID="1"/>
         </Bookmarks>
@@ -127,16 +123,16 @@
         <EditorIndex Value="2"/>
         <TopLine Value="53"/>
         <CursorPos Y="70"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../u/uplmyhorizontalbar.pas"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="669"/>
-        <CursorPos X="38" Y="709"/>
-        <UsageCount Value="50"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="67"/>
+        <CursorPos X="38" Y="103"/>
+        <UsageCount Value="57"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -145,7 +141,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3192"/>
         <CursorPos X="7" Y="3198"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../fpcupdeluxe/fpcsrc/packages/fcl-db/src/sqldb/sqlite/sqlite3conn.pp"/>
@@ -153,30 +149,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1092"/>
         <CursorPos X="20" Y="1095"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../fpcupdeluxe/lazarus/lcl/comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="947"/>
         <CursorPos X="67" Y="970"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="25"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../fpcupdeluxe/fpcsrc/rtl/objpas/sysutils/finah.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="10" Y="26"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="../../../../../fpcupdeluxe/fpcsrc/packages/fcl-json/src/fpjson.pp"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="30"/>
         <CursorPos X="3" Y="50"/>
-        <UsageCount Value="19"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="18"/>
       </Unit>
       <Unit>
         <Filename Value="../../V6/u/uplnotecontainer_sqllite.pas"/>
@@ -184,128 +178,161 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1176"/>
         <CursorPos X="3" Y="1171"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/fpcsrc/packages/rtl-objpas/src/inc/dateutils.pp"/>
+        <UnitName Value="DateUtils"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/fpcsrc/packages/rtl-objpas/src/inc/dateutil.inc"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/fpcsrc/rtl/objpas/sysutils/syshelph.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="282"/>
+        <CursorPos X="14" Y="305"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/fpcsrc/rtl/objpas/sysutils/datih.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="116"/>
+        <CursorPos X="10" Y="186"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../../../fpcupdeluxe/fpcsrc/rtl/objpas/sysutils/dati.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1271"/>
+        <CursorPos X="10" Y="1294"/>
+        <UsageCount Value="10"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="888" Column="39" TopLine="849"/>
+        <Caret Line="157" Column="17" TopLine="146"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="916" Column="16" TopLine="878"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="44" Column="14" TopLine="21"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="147" Column="35" TopLine="108"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="159" Column="86" TopLine="120"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="212" Column="36" TopLine="174"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="471" Column="39" TopLine="434"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="472" Column="59" TopLine="435"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="791" Column="24" TopLine="767"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="800" Column="46" TopLine="767"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="1624" Column="63" TopLine="1586"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="78" Column="14" TopLine="66"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="854" Column="3" TopLine="833"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="79" Column="14" TopLine="56"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="879" Column="3" TopLine="871"/>
+        <Caret Line="1082" Column="3" TopLine="1068"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="895" Column="19" TopLine="878"/>
+        <Caret Line="157" Column="14" TopLine="135"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="151" Column="15" TopLine="98"/>
+        <Caret Line="1075" Column="3" TopLine="1068"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="751" Column="12" TopLine="729"/>
+        <Caret Line="179" Column="14" TopLine="159"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="162" Column="15" TopLine="140"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="74" Column="25" TopLine="57"/>
-      </Position>
-      <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="547" Column="63" TopLine="523"/>
+        <Caret Line="1510" Column="26" TopLine="1486"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="1216" Column="16" TopLine="1195"/>
+        <Caret Line="233" Column="37" TopLine="210"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="176" Column="29" TopLine="140"/>
+        <Caret Line="157" Column="17" TopLine="147"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="1456" Column="3" TopLine="1453"/>
+        <Caret Line="1082" Column="3" TopLine="1067"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="152" Column="15" TopLine="131"/>
+        <Caret Line="164" Column="14" TopLine="135"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="963" Column="7" TopLine="947"/>
+        <Caret Line="1261" Column="3" TopLine="1240"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="131" Column="15" TopLine="108"/>
+        <Caret Line="153" Column="15" TopLine="141"/>
       </Position>
       <Position>
         <Filename Value="unit1.pas"/>
-        <Caret Line="765" Column="39" TopLine="756"/>
+        <Caret Line="916" Column="44" TopLine="885"/>
       </Position>
       <Position>
-        <Filename Value="../u/unmv6c_sqlite.pas"/>
-        <Caret Line="77" Column="73" TopLine="70"/>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1504" Column="13" TopLine="1486"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="164" Column="15" TopLine="158"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1257" Column="58" TopLine="1239"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="35" Column="31" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="297" Column="3" TopLine="295"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="29" Column="15" TopLine="12"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="231" Column="3" TopLine="223"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="121" Column="17" TopLine="99"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="924" Column="44" TopLine="893"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1514" Column="26" TopLine="1491"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="916" Column="44" TopLine="893"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="154" Column="15" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="965" Column="3" TopLine="954"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="164" Column="15" TopLine="132"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="1272" Column="3" TopLine="1238"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="37" Column="14" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="19" Column="15" TopLine="13"/>
       </Position>
     </JumpHistory>
     <RunParams>
