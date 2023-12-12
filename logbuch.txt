@@ -1,5 +1,20 @@
 Dokument Angelegt am Dienstag, 17.10.2023
 =========================================
+03) Dienstag, 12.12.2023
+  CTime kann nun im Notizen Editor geändert werden. 
+
+  Habe die Tabelle erweitert um, die Spalte location. Jetzt kann der Stanrdort gespeichert werden.
+  Jetzt überlege ich, wie ich das umsetzte.
+  Schön wäre, wenn es eine Liste von Orten gibt, die bereits eingeben wurden.
+
+  Unter Config könnte ich diese Liste abspeichern und jedes mal neu einlesen. 
+
+  Eine weitere Überlegung sind weitere Massenatkionen hinzuzufügen, neben dem Löschen z.b. alle Markierte Notizen habe ich an einem Ort erstellt.
+  Oder aber auch, alle Notizen sind in Nachinein in Oldenburg erstellt wurden, die wennigsten habe ich im KTT erstellt.
+  Einige sind ja auf meinen Reisen entstanden. 
+
+  Praktisch wäre auch, wenn ich z.b. alle Notizen die mein Tagebuch betreffen markieren könne und den Titel anpassen könnte.
+
 
 02) Donnerstag, 02.11.2023
   Die frage ist jetzt: eine eigene "ListView", ähnliche Komponente erstellen?
