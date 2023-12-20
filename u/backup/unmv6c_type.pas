@@ -40,7 +40,8 @@ type
 
   TOnSQLResultAddCity = procedure(aCityObject:TJSONObject) of object;
   TOnSQLResultGetCitys = procedure (aCityArray:TJSONArray) of object;
-  TOnSQlResultDeleteCitys = procedure () of Object;
+  TOnSQlResultDeleteCitys = procedure (const aDeleteCityList:TJSONArray) of Object;
+  TOnSQlResultDeleteCitys = procedure (const aDeleteCityList:TJSONArray) of Object;
 
   TOnSQLResultError = procedure(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String) of Object;
 

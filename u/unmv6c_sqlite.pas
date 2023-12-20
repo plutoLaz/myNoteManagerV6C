@@ -41,6 +41,7 @@ type
     fOnSQLResultGetNotes: TOnSQLResultGetNotes;
     fOnSQLResultGetTagListFromTagID: TOnSQLResultGetTagListFromTagID;
     fOnSQLResultGetTags: TOnSQLResultGetTags;
+    fOnSqlResultUpdateCity: TOnSQlResultUpdateCity;
     fOnSQLResultUpdateNote: TOnSQLResultUpdateNote;
     fOnSQLResultUpdateTag: TOnSQLResultUpdateTag;
 
@@ -54,6 +55,7 @@ type
     procedure doOnSQLResultDeleteTag(aTagIdList:TJSONArray);
     procedure doOnSQLResultDeleteCitys(const aDeleteCityList:TJSONArray);
     procedure doOnSQLResultUpdateNote(aNoteObject:TJSONObject);
+    procedure doOnSqlResultUpdateCity(const aCityObject:TJSONObject);
     procedure doOnSQLResultGetTagListFromTagID(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetTags(aNoteObject:TJSONObject);
@@ -96,6 +98,7 @@ type
 {}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
 {}  function AddCity(const aCityObject:TJSONObject):Boolean; // TOnSQlResultAddCity
+{}  function UpdateCity(const aCityObject:TJSONObject):Boolean; // TOnSqlResultUpdateCity
 {}  function GetCitys():Boolean; // TOnSQLResultGetCitys
 {}  function DeleteCitys(const aDeleteCityList:TJSONArray): Boolean; // TOnSQlResultDeleteCitys
 
@@ -119,6 +122,7 @@ type
     property OnSQlResultAddCity:TOnSQLResultAddCity read fOnSQlResultAddCity write fOnSQlResultAddCity;
     property OnSqlResultGetCity:TOnSQLResultGetCitys read fOnSqlResultGetCity write fOnSqlResultGetCity;
     property OnSQlResultDeleteCitys:TOnSQlResultDeleteCitys read fOnSQlResultDeleteCitys write fOnSQlResultDeleteCitys;
+    property OnSqlResultUpdateCity:TOnSQlResultUpdateCity read fOnSqlResultUpdateCity write fOnSqlResultUpdateCity;
 
     property OnSqlResultGetConfig:TOnSqlResultGetConfig read fOnSqlResultGetConfig write fOnSqlResultGetConfig;
 
@@ -206,7 +210,7 @@ begin
       SQLScript.Script.Add('id INTEGER PRIMARY KEY NOT NULL,');
       SQLScript.Script.Add('name BLOB NOT NULL,');
       SQLScript.Script.Add('ctime DATETIME,');
-      SQLScript.Script.Add('content DATETIME');
+      SQLScript.Script.Add('content BLOB');
     SQLScript.Script.Add(');');
     SQLScript.Script.Add('');
 
@@ -305,6 +309,11 @@ begin
   if Assigned(fOnSQLResultUpdateNote) then fOnSQLResultUpdateNote(aNoteObject);
 end; // TPLNMV6C_sqlite.doOnSQLResultUpdateNote
 
+procedure TPLNMV6C_sqlite.doOnSqlResultUpdateCity(const aCityObject: TJSONObject);
+begin
+  if Assigned(fOnSqlResultUpdateCity) then fOnSqlResultUpdateCity(aCityObject);
+end; // TPLNMV6C_sqlite.doOnSqlResultUpdateCity
+
 procedure TPLNMV6C_sqlite.doOnSQLResultGetTagListFromTagID(aNoteObject: TJSONObject);
 begin
   if Assigned(fOnSQLResultGetTagListFromTagID) then fOnSQLResultGetTagListFromTagID(aNoteObject);
@@ -387,6 +396,7 @@ begin
   fOnSqlResultGetConfig:=nil;
   fOnSqlResultGetCity:=nil;
   fOnSQlResultDeleteCitys:=nil;
+  fOnSqlResultUpdateCity:=nil;
 
   SQlConnector:=nil;
   SQLTransaction:=nil;
@@ -1626,6 +1636,75 @@ begin
 
 end; // TPLNMV6C_sqlite.AddCity
 
+function TPLNMV6C_sqlite.UpdateCity(const aCityObject: TJSONObject): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+  i, CityID:Integer;
+
+  jData:TJSONData;
+  nameStr, contentStr, sqlName, jName:String;
+  cTime:TDateTime;
+begin
+  result:=False;
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+      CityID:=0; nameStr:=''; contentStr:=''; sqlName:=''; cTime:=0;
+      for i:=0 to aCityObject.Count -1 do begin
+        jName:=aCityObject.Names[i];
+        if jName = 'id' then CityID:=aCityObject.Items[i].AsInteger;
+
+        if jName = 'name' then begin
+          nameStr:=aCityObject.Items[i].AsString;
+          sqlName:=AddStr('name=:name',sqlName);
+        end; // title
+
+        if jName = 'content' then begin
+          contentStr:=aCityObject.Items[i].AsString;
+          sqlName:=AddStr('content=:content',sqlName);
+        end; // content
+
+        if jname = 'ctime' then begin
+          jData:=aCityObject.Find('ctimeChange');
+          if Assigned(jData) then begin
+            cTime:=StrToDate(aCityObject.Items[i].AsString, myFormatSettings);
+            sqlName:=AddStr('ctime=:ctime',sqlName);
+          end;
+        end;
+      end; // for i
+
+      if Assigned(aCityObject.Find('ctimeChange')) then
+        aCityObject.Delete('ctimeChange');
+      writelN('SQLName: ', SQLName);
+      TempQuery.SQL.Add('UPDATE citylist SET ');
+      TempQuery.SQL.Add(SQLName);
+      TempQuery.SQL.Add(' WHERE id=:id;');
+      TempQuery.ParamByName('id').AsInteger:=CityID;
+
+      if nameStr <> '' then TempQuery.ParamByName('title').AsString:=nameStr;
+      if contentStr <> '' then TempQuery.ParamByName('content').AsString:=contentStr;
+      if ctime > 0 then TempQuery.ParamByName('ctime').AsDate:=cTime;
+
+      TempQuery.ExecSQL;
+      if AutoCommit then SQLTransaction.Commit;
+
+      doOnSqlResultUpdateCity(aCityObject);
+      Result:=True;
+    finally
+      TempQuery.Close;
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.UpdateCity :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.UpdateCity');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.UpdateCity
+
 function TPLNMV6C_sqlite.GetCitys: Boolean;
 var
   msgStr:String;
@@ -1655,6 +1734,7 @@ begin
           for x:=0 to TempQuery.Fields.Count -1 do begin
             Fild:=TempQuery.Fields[x];
             FildName:=Fild.FieldName;
+            writeln(FildName, ' ', fild.AsString);
             case FildName of
               'id': CityObject.Add('id', Fild.AsInteger);
               'name': CityObject.Add('name', Fild.AsString);
@@ -1665,13 +1745,11 @@ begin
           CityArray.Add(CityObject);
           TempQuery.Next;
         end;
-
+        TempQuery.Close;
+        Result:=True;
         doOnSqlResultGetCitys(CityArray);
-
       end;
-      Result:=True;
     finally
-      TempQuery.Close;
       FreeAndNil(TempQuery);
     end;
   except

@@ -7,7 +7,7 @@ interface
 uses
   Classes, clocale, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ComCtrls,
   Buttons, StdCtrls, CheckLst, ActnList, fpjson, jsonparser, StrUtils, DateUtils, SynEdit,
-  LCLType, unit2,
+  LCLType, unit2, Unit3,
   uplmyhorizontalbar, unit_EditorFrame, unmv6c_sqlite, unmv6c_type, unmv6c_createtextbricks, Types;
 
 type
@@ -47,6 +47,8 @@ type
     BitBtn1: TBitBtn;
     BitBtn10: TBitBtn;
     BitBtn11: TBitBtn;
+    BitBtn12: TBitBtn;
+    BitBtn13: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     BitBtn4: TBitBtn;
@@ -109,6 +111,8 @@ type
     procedure acSaveNoteExecute(Sender: TObject);
     procedure BitBtn10Click(Sender: TObject);
     procedure BitBtn11Click(Sender: TObject);
+    procedure BitBtn12Click(Sender: TObject);
+    procedure BitBtn13Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -192,6 +196,7 @@ type
     procedure SqlResultAddCity(aCityObject:TJSONObject);
     procedure SqlResultGetCitys(aCityArray: TJSONArray);
     procedure SqlResultDeleteCitys(const aDeleteCityList:TJSONArray);
+    procedure SqlResultUpdateCity(const aCityObject:TJSONObject);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -345,6 +350,44 @@ begin
     NoteManagerV6C.DeleteCitys(clist);
     NoteManagerV6C.GetCitys();
   end;
+end;
+
+procedure TForm1.BitBtn12Click(Sender: TObject);
+var
+  cityID:String;
+
+  cityObject:TJSONObject;
+  ContentStr:String;
+begin
+  cityID:='0';
+  if InputQuery('ID die geändert werden soll eingeben','id', cityID) then begin
+    ContentStr:='zufall_' + IntToStr(Random(1000));
+
+    cityObject:=TJSONObject.Create();
+    cityObject.Add('id', StrToInt(cityID) );
+    cityObject.Add('content', ContentStr);
+
+    NoteManagerV6C.UpdateCity(cityObject);
+
+    NoteManagerV6C.GetCitys();
+  end;
+end;
+
+procedure TForm1.BitBtn13Click(Sender: TObject);
+var
+  UserInput:Integer;
+begin
+
+  UserInput:=Form3.ShowModal;
+  case UserInput of
+    mrYes: begin
+    end; // mrYes
+
+    mrNo: begin
+
+    end; // mrYes
+  end;
+
 end;
 
 procedure TForm1.acDeleteNoteExecute(Sender: TObject);
@@ -921,6 +964,7 @@ begin
   NoteManagerV6C.OnSQlResultAddCity:=@SqlResultAddCity;
   NoteManagerV6C.OnSqlResultGetCity:=@SqlResultGetCitys;
   NoteManagerV6C.OnSQlResultDeleteCitys:=@SqlResultDeleteCitys;
+  NoteManagerV6C.OnSqlResultUpdateCity:=@SqlResultUpdateCity;
 end; // TForm1.InitDB
 
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
@@ -1735,9 +1779,30 @@ begin
 end; // TForm1.SqlResultAddCity
 
 procedure TForm1.SqlResultGetCitys(aCityArray: TJSONArray);
+var
+  i:Integer;
+  cityObject:TJSONObject;
+  NameStr, cTimeStr:String;
+
+  ListItem:TListItem;
 begin
   writeln('TForm1.SqlResultGetCitys');
-  writeln( aCityArray.FormatJSON() );
+//  writeln( aCityArray.FormatJSON() );
+
+  Form3.ListView1.Items.Clear;
+//  Form3.ListView1.Items.BeginUpdate;
+  for i:=0 to aCityArray.Count - 1 do begin
+    cityObject:=aCityArray[i] as TJSONObject;
+    NameStr:=cityObject.Elements['name'].AsString;
+    cTimeStr:=cityObject.Elements['ctime'].AsString;
+
+    ListItem:=TListItem.Create(Form3.ListView1.Items);
+    ListItem.Caption:=NameStr;
+    ListItem.SubItems.Add(cTimeStr);
+    ListItem.Data:=cityObject;
+    Form3.ListView1.Items.AddItem(ListItem);
+  end;
+//  Form3.ListView1.Items.EndUpdate;
 end; // TForm1.SqlResultGetCitys
 
 procedure TForm1.SqlResultDeleteCitys(const aDeleteCityList: TJSONArray);
@@ -1745,6 +1810,12 @@ begin
   writeln('TForm1.SqlResultDeleteCitys');
   writeln(aDeleteCityList.FormatJSON());
 end; // TForm1.SqlResultDeleteCitys
+
+procedure TForm1.SqlResultUpdateCity(const aCityObject: TJSONObject);
+begin
+  writeln('TForm1.SqlResultUpdateCity');
+  writeln(aCityObject.FormatJSON());
+end; // TForm1.SqlResultUpdateCity
 
 procedure TForm1.BarChecked(sender: TObject);
 var

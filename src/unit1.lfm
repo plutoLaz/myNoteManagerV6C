@@ -58,6 +58,24 @@ object Form1: TForm1
       OnClick = BitBtn11Click
       TabOrder = 3
     end
+    object BitBtn12: TBitBtn
+      Left = 352
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'UpdateCity'
+      OnClick = BitBtn12Click
+      TabOrder = 4
+    end
+    object BitBtn13: TBitBtn
+      Left = 432
+      Height = 30
+      Top = 8
+      Width = 99
+      Caption = 'CityManager'
+      OnClick = BitBtn13Click
+      TabOrder = 5
+    end
   end
   object PageControl1: TPageControl
     Tag = 10
