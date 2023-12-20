@@ -45,6 +45,7 @@ type
     acNewNote: TAction;
     ActionList1: TActionList;
     BitBtn1: TBitBtn;
+    BitBtn10: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     BitBtn4: TBitBtn;
@@ -105,6 +106,7 @@ type
     procedure acDeleteNoteExecute(Sender: TObject);
     procedure acNewNoteExecute(Sender: TObject);
     procedure acSaveNoteExecute(Sender: TObject);
+    procedure BitBtn10Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -184,6 +186,9 @@ type
     procedure SQLResultUpdateTag(aTagObject:TJSONObject);
     procedure SQLResultDeleteTag(aTagIdList:TJSONArray);
     procedure SqlResultGetConfig(aConfigObject:TJSONObject);
+    procedure SqlResultAddCity(aCityObject:TJSONObject);
+
+    procedure SqlResultGetCitys(aCityArray: TJSONArray);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -308,6 +313,20 @@ procedure TForm1.acSaveNoteExecute(Sender: TObject);
 begin
   if Assigned(OpenNotes.ActivePage) then
     NoteSave(OpenNotes.ActivePage as TNMV6C_TabSheet);
+end;
+
+procedure TForm1.BitBtn10Click(Sender: TObject);
+var
+  cityObject:TJSONObject;
+  TempCityName:String;
+begin
+  if InputQuery('Bitte einen Städte Namen eingeben', 'Name der Stadt', TempCityName) then begin
+    cityObject:=TJSONObject.Create();
+    cityObject.Add('name', TempCityName);
+    cityObject.Add('ctime', '18.12.2023');
+
+    NoteManagerV6C.AddCity(cityObject);
+  end;
 end;
 
 procedure TForm1.acDeleteNoteExecute(Sender: TObject);
@@ -881,6 +900,8 @@ begin
   NoteManagerV6C.OnSQLResultGetTags:=@SQLResultGetTags;
   NoteManagerV6C.OnSQLResultDeleteTag:=@SQLResultDeleteTag;
   NoteManagerV6C.OnSqlResultGetConfig:=@SqlResultGetConfig;
+  NoteManagerV6C.OnSQlResultAddCity:=@SqlResultAddCity;
+  NoteManagerV6C.OnSqlResultGetCity:=@SqlResultGetCitys;
 end; // TForm1.InitDB
 
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
@@ -1281,8 +1302,6 @@ end; // TForm1.AddEditorTabSheet
 function TForm1.LoadDataBase(const aFileName: String; const aReloadDB: Boolean): Boolean;
 var
   CanOpen:Boolean;
-  LastOpenNotes:TJSONArray;
-  last_focus_note:string;
 begin
   result:=False;
   if aReloadDB then begin
@@ -1303,13 +1322,9 @@ begin
   NoteManagerV6C.GetNotes(nil, nil, '', true);
   NoteManagerV6C.GetTags(true);
 
-  last_focus_note:='';
-  LastOpenNotes:=TJSONArray.Create();
-//  NoteManagerV6C.GetLastOpenNotes2(LastOpenNotes, last_focus_note);
-
   NoteManagerV6C.SQLtableToJObject('config');
 
-//  NoteManagerV6C.GetNotes(nil, LastOpenNotes, last_focus_note);
+  NoteManagerV6C.GetCitys();
 
   result:=True;
 end; // TForm1.LoadDataBase
@@ -1693,6 +1708,18 @@ begin
  // NoteManagerV6C.GetLastOpenNotes2(last_open_notes, last_focus_note);
 
 end; // TForm1.SqlResultGetConfig
+
+procedure TForm1.SqlResultAddCity(aCityObject: TJSONObject);
+begin
+  writeln('TForm1.SqlResultAddCity');
+  writeln(aCityObject.FormatJSON());
+end; // TForm1.SqlResultAddCity
+
+procedure TForm1.SqlResultGetCitys(aCityArray: TJSONArray);
+begin
+  writeln('TForm1.SqlResultGetCitys');
+  writeln( aCityArray.FormatJSON() );
+end; // TForm1.SqlResultGetCitys
 
 procedure TForm1.BarChecked(sender: TObject);
 var

@@ -31,11 +31,15 @@ type
   TOnSQLResultGetNotes = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetContent = procedure(aNoteObject:TJSONObject) of object;
   TOnSQLResultGetTagListFromTagID = procedure(aNoteObject:TJSONObject) of object;
+  TOnSqlResultGetConfig = procedure(aConfigObject:TJSONObject) of object;
 
   TOnSQLResultAddTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultUpdateTag = procedure(aTagObject:TJSONObject) of object;
   TOnSQLResultDeleteTag = procedure(aTagIdList:TJSONArray) of object;
   TOnSQLResultGetTags = procedure(aTagObject:TJSONObject) of object;
+
+  TOnSQLResultAddCity = procedure(aCityObject:TJSONObject) of object;
+  TOnSQLResultGetCitys = procedure (aCityObject:TJSONObject) of object;
 
   TOnSQLResultError = procedure(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String) of Object;
 
