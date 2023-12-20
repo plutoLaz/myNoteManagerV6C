@@ -46,6 +46,7 @@ type
     ActionList1: TActionList;
     BitBtn1: TBitBtn;
     BitBtn10: TBitBtn;
+    BitBtn11: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     BitBtn4: TBitBtn;
@@ -107,6 +108,7 @@ type
     procedure acNewNoteExecute(Sender: TObject);
     procedure acSaveNoteExecute(Sender: TObject);
     procedure BitBtn10Click(Sender: TObject);
+    procedure BitBtn11Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -186,9 +188,10 @@ type
     procedure SQLResultUpdateTag(aTagObject:TJSONObject);
     procedure SQLResultDeleteTag(aTagIdList:TJSONArray);
     procedure SqlResultGetConfig(aConfigObject:TJSONObject);
-    procedure SqlResultAddCity(aCityObject:TJSONObject);
 
+    procedure SqlResultAddCity(aCityObject:TJSONObject);
     procedure SqlResultGetCitys(aCityArray: TJSONArray);
+    procedure SqlResultDeleteCitys(const aDeleteCityList:TJSONArray);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -320,12 +323,27 @@ var
   cityObject:TJSONObject;
   TempCityName:String;
 begin
+  TempCityName:='';
   if InputQuery('Bitte einen Städte Namen eingeben', 'Name der Stadt', TempCityName) then begin
     cityObject:=TJSONObject.Create();
     cityObject.Add('name', TempCityName);
-    cityObject.Add('ctime', '18.12.2023');
+    cityObject.Add('ctime', '');
+    cityObject.Add('content', 'Ein Test Content. ');
 
     NoteManagerV6C.AddCity(cityObject);
+  end;
+end;
+
+procedure TForm1.BitBtn11Click(Sender: TObject);
+var
+  cityID:String;
+  cList:TJSONArray;
+begin
+  cityID:='0';
+  if InputQuery('ID die gelöscht werden soll eingeben','id', cityID) then begin
+    cList:=TJSONArray.Create([StrToint(cityID)]);
+    NoteManagerV6C.DeleteCitys(clist);
+    NoteManagerV6C.GetCitys();
   end;
 end;
 
@@ -902,6 +920,7 @@ begin
   NoteManagerV6C.OnSqlResultGetConfig:=@SqlResultGetConfig;
   NoteManagerV6C.OnSQlResultAddCity:=@SqlResultAddCity;
   NoteManagerV6C.OnSqlResultGetCity:=@SqlResultGetCitys;
+  NoteManagerV6C.OnSQlResultDeleteCitys:=@SqlResultDeleteCitys;
 end; // TForm1.InitDB
 
 procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
@@ -1720,6 +1739,12 @@ begin
   writeln('TForm1.SqlResultGetCitys');
   writeln( aCityArray.FormatJSON() );
 end; // TForm1.SqlResultGetCitys
+
+procedure TForm1.SqlResultDeleteCitys(const aDeleteCityList: TJSONArray);
+begin
+  writeln('TForm1.SqlResultDeleteCitys');
+  writeln(aDeleteCityList.FormatJSON());
+end; // TForm1.SqlResultDeleteCitys
 
 procedure TForm1.BarChecked(sender: TObject);
 var

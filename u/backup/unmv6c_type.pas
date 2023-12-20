@@ -39,7 +39,8 @@ type
   TOnSQLResultGetTags = procedure(aTagObject:TJSONObject) of object;
 
   TOnSQLResultAddCity = procedure(aCityObject:TJSONObject) of object;
-  TOnSQLResultGetCitys = procedure (aCityObject:TJSONObject) of object;
+  TOnSQLResultGetCitys = procedure (aCityArray:TJSONArray) of object;
+  TOnSQlResultDeleteCitys = procedure () of Object;
 
   TOnSQLResultError = procedure(const aErrorEventType:TPLOnErrorEventType; aErrorMSG:String; aSender:String) of Object;
 

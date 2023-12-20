@@ -1,7 +1,7 @@
 object OptionsFm: TOptionsFm
-  Left = 2331
+  Left = 2490
   Height = 652
-  Top = 186
+  Top = 296
   Width = 898
   BorderStyle = bsDialog
   Caption = 'Tags Bearbeiten'

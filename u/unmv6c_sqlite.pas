@@ -31,6 +31,7 @@ type
     fOnSQlResultAddCity: TOnSQLResultAddCity;
     fOnSQLResultAddNote: TOnSQLResultAddNote;
     fOnSQLResultAddTag: TOnSQLResultAddTag;
+    fOnSQlResultDeleteCitys: TOnSQlResultDeleteCitys;
     fOnSQLResultDeleteNote: TOnSQLResultDeleteNote;
     fOnSQLResultDeleteTag: TOnSQLResultDeleteTag;
     fOnSQLResultError: TOnSQLResultError;
@@ -51,6 +52,7 @@ type
     procedure doOnSQLResultAddCity(aCityObject:TJSONObject);
     procedure doOnSQLResultDeleteNote(aNoteIDList: TJSONArray);
     procedure doOnSQLResultDeleteTag(aTagIdList:TJSONArray);
+    procedure doOnSQLResultDeleteCitys(const aDeleteCityList:TJSONArray);
     procedure doOnSQLResultUpdateNote(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetTagListFromTagID(aNoteObject:TJSONObject);
     procedure doOnSQLResultGetNote(aNoteObject:TJSONObject);
@@ -95,6 +97,7 @@ type
 
 {}  function AddCity(const aCityObject:TJSONObject):Boolean; // TOnSQlResultAddCity
 {}  function GetCitys():Boolean; // TOnSQLResultGetCitys
+{}  function DeleteCitys(const aDeleteCityList:TJSONArray): Boolean; // TOnSQlResultDeleteCitys
 
 {}  function JObjectToSQLtable(const JConfigObject:TJSONObject; const aSQlTableName:String):boolean;
 {}  function SQLtableToJObject(const aSQLTableName:String):Boolean;
@@ -115,6 +118,7 @@ type
 
     property OnSQlResultAddCity:TOnSQLResultAddCity read fOnSQlResultAddCity write fOnSQlResultAddCity;
     property OnSqlResultGetCity:TOnSQLResultGetCitys read fOnSqlResultGetCity write fOnSqlResultGetCity;
+    property OnSQlResultDeleteCitys:TOnSQlResultDeleteCitys read fOnSQlResultDeleteCitys write fOnSQlResultDeleteCitys;
 
     property OnSqlResultGetConfig:TOnSqlResultGetConfig read fOnSqlResultGetConfig write fOnSqlResultGetConfig;
 
@@ -291,6 +295,11 @@ begin
   if Assigned(fOnSQLResultDeleteTag) then fOnSQLResultDeleteTag(aTagIdList);
 end; // TPLNMV6C_sqlite.doOnSQLResultDeleteTag
 
+procedure TPLNMV6C_sqlite.doOnSQLResultDeleteCitys(const aDeleteCityList: TJSONArray);
+begin
+  if Assigned(fOnSQlResultDeleteCitys) then fOnSQlResultDeleteCitys(aDeleteCityList);
+end; // TPLNMV6C_sqlite.doOnSQLResultDeleteCitys
+
 procedure TPLNMV6C_sqlite.doOnSQLResultUpdateNote(aNoteObject: TJSONObject);
 begin
   if Assigned(fOnSQLResultUpdateNote) then fOnSQLResultUpdateNote(aNoteObject);
@@ -377,6 +386,7 @@ begin
   fOnSQLResultGetTags:=nil;
   fOnSqlResultGetConfig:=nil;
   fOnSqlResultGetCity:=nil;
+  fOnSQlResultDeleteCitys:=nil;
 
   SQlConnector:=nil;
   SQLTransaction:=nil;
@@ -1559,8 +1569,14 @@ begin
           ContentStr:=jData.AsString;
 
         jData:=aCityObject.Find('ctime');
-        if Assigned(jData) then
-          TempCTime:=StrToDateTime(jData.AsString, myFormatSettings);
+        if Assigned(jData) then begin
+          if jData.AsString <> '' then
+            TempCTime:=StrToDateTime(jData.AsString, myFormatSettings)
+          else begin
+            TempCTime:=now;
+            jData.AsString:=DateTimeToStr(TempCTime, myFormatSettings);
+          end;
+        end;
 
         TempQuery.SQL.Add('INSERT INTO citylist (');
           TempQuery.SQL.Add('name,');
@@ -1578,12 +1594,9 @@ begin
         Temp_content:=TempQuery.ParamByName('content'); // 2
 
         Temp_name.AsString:=NameStr;
-        if TempCTime = 0 then
-          Temp_ctime.AsDateTime:=now
-        else
-          Temp_ctime.AsDateTime:=TempCTime;
-
+        Temp_ctime.AsDateTime:=TempCTime;
         Temp_content.AsString:=ContentStr;
+
         TempQuery.ExecSQL;
 
         jData:=aCityObject.Find('id');
@@ -1669,6 +1682,42 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetCitys
+
+function TPLNMV6C_sqlite.DeleteCitys(const aDeleteCityList: TJSONArray): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+  citydP:TParam;
+  i:Integer;
+begin
+  result:=False;
+  try
+    try
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+
+      TempQuery.SQL.Add('DELETE FROM citylist WHERE id=:id');
+      citydP:=TempQuery.ParamByName('id');
+      for i:=0 to aDeleteCityList.Count - 1 do begin
+        citydP.AsString:=aDeleteCityList[i].AsString;
+        TempQuery.ExecSQL;
+      end; // for i
+
+      if AutoCommit then SQLTransaction.Commit;
+      doOnSQLResultDeleteCitys(aDeleteCityList);
+      result:=True;
+
+    finally
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.DeleteCitys :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.DeleteCitys');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.DeleteCitys
 
 function TPLNMV6C_sqlite.JObjectToSQLtable(const JConfigObject: TJSONObject; const aSQlTableName: String): boolean;
 var
