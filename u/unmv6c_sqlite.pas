@@ -97,7 +97,7 @@ type
 {}  function GetTags(const aSortetByUserIndex:boolean = False):Boolean; // TOnSQLResultGetTag
 {}  function ChangeAllTagUserIndex(const aTagArray:TJSONArray):boolean;
 
-{}  function AddCity(const aCityObject:TJSONObject):Boolean; // TOnSQlResultAddCity
+{}  function AddCity(var aCityObject:TJSONObject):Boolean; // TOnSQlResultAddCity
 {}  function UpdateCity(const aCityObject:TJSONObject):Boolean; // TOnSqlResultUpdateCity
 {}  function GetCitys():Boolean; // TOnSQLResultGetCitys
 {}  function DeleteCitys(const aDeleteCityList:TJSONArray): Boolean; // TOnSQlResultDeleteCitys
@@ -1550,35 +1550,31 @@ begin
 
 end; // TPLNMV6C_sqlite.ChangeAllTagUserIndex
 
-function TPLNMV6C_sqlite.AddCity(const aCityObject: TJSONObject): Boolean;
+function TPLNMV6C_sqlite.AddCity(var aCityObject: TJSONObject): Boolean;
 var
   TempQuery:TSQLQuery;
+  Temp_name, Temp_ctime, Temp_content:TParam;
   msgStr:string;
 
-  Temp_name, Temp_ctime, Temp_content:TParam;
-  NameStr, ContentStr:String;
-  TempCTime:TDateTime;
 
-  jData:TJSONData;
-begin
-  msgStr:=''; ContentStr:=''; NameStr:='';
-  TempCTime:=0;
-
-  result:=False;
-  try
-    TempQuery:=TSQLQuery.Create(nil);
-    TempQuery.DataBase:=SQlConnector;
-
+  function _AddCity(var _aCityObject: TJSONObject):Boolean;
+  var
+    NameStr, ContentStr:String;
+    TempCTime:TDateTime;
+    jData:TJSONData;
+  begin
     try
-      jData:=aCityObject.Find('name');
+      ContentStr:=''; NameStr:=''; TempCTime:=0;
+      result:=False;
+      jData:=_aCityObject.Find('name');
       if Assigned(jData) then begin
         NameStr:=jData.AsString;
 
-        jData:=aCityObject.Find('content');
+        jData:=_aCityObject.Find('content');
         if Assigned(jData) then
           ContentStr:=jData.AsString;
 
-        jData:=aCityObject.Find('ctime');
+        jData:=_aCityObject.Find('ctime');
         if Assigned(jData) then begin
           if jData.AsString <> '' then
             TempCTime:=StrToDateTime(jData.AsString, myFormatSettings)
@@ -1588,41 +1584,71 @@ begin
           end;
         end;
 
-        TempQuery.SQL.Add('INSERT INTO citylist (');
-          TempQuery.SQL.Add('name,');
-          TempQuery.SQL.Add('ctime,');
-          TempQuery.SQL.Add('content');
-        TempQuery.SQL.Add(') ');
-        TempQuery.SQL.Add('VALUES (');
-          TempQuery.SQL.Add(':name,');
-          TempQuery.SQL.Add(':ctime,');
-          TempQuery.SQL.Add(':content');
-        TempQuery.SQL.Add(');');
-
-        Temp_name:=TempQuery.ParamByName('name'); // 0
-        Temp_ctime:=TempQuery.ParamByName('ctime'); // 1
-        Temp_content:=TempQuery.ParamByName('content'); // 2
-
         Temp_name.AsString:=NameStr;
         Temp_ctime.AsDateTime:=TempCTime;
         Temp_content.AsString:=ContentStr;
 
         TempQuery.ExecSQL;
 
-        jData:=aCityObject.Find('id');
+        jData:=_aCityObject.Find('id');
         if not Assigned(jData) then
-          aCityObject.Add('id', SQlConnector.GetInsertID);
-
-        if AutoCommit then SQLTransaction.Commit;
-        doOnSQLResultAddCity(aCityObject);
+          _aCityObject.Add('id', SQlConnector.GetInsertID);
         result:=True;
-      end
+      end // _AddCity
       else begin
-        msgStr:='Keinen Städte Namen angegeben !';
-        writeln(#13, 'TPLNMV6C_sqlite.AddCity :',msgStr);
-        doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.AddCity');
+        msgStr:='Name nicht vorhanden';
+        writeln(#13, 'TPLNMV6C_sqlite._AddCity :',msgStr);
+        doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite._AddCity');
       end;
+    except
+      on E: Exception do begin
+        msgStr:=E.Message;
+        writeln(#13, 'TPLNMV6C_sqlite._AddCity :',msgStr);
+        doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite._AddCity');
+      end;
+    end;
+  end;
 
+var
+  jData:TJSONData;
+  cityObject:TJSONObject;
+  citys:TJSONArray;
+  i:Integer;
+begin
+  msgStr:='';
+
+  result:=False;
+  try
+    TempQuery:=TSQLQuery.Create(nil);
+    TempQuery.DataBase:=SQlConnector;
+    try
+      TempQuery.SQL.Add('INSERT INTO citylist (');
+        TempQuery.SQL.Add('name,');
+        TempQuery.SQL.Add('ctime,');
+        TempQuery.SQL.Add('content');
+      TempQuery.SQL.Add(') ');
+      TempQuery.SQL.Add('VALUES (');
+        TempQuery.SQL.Add(':name,');
+        TempQuery.SQL.Add(':ctime,');
+        TempQuery.SQL.Add(':content');
+      TempQuery.SQL.Add(');');
+
+      Temp_name:=TempQuery.ParamByName('name'); // 0
+      Temp_ctime:=TempQuery.ParamByName('ctime'); // 1
+      Temp_content:=TempQuery.ParamByName('content'); // 2
+      jData:=aCityObject.Find('citys');
+      if Assigned(jData) then begin
+        citys:=jData as TJSONArray;
+        for i:=0 to citys.Count - 1 do begin
+          cityObject:=citys[i] as TJSONObject;
+          result:=_AddCity(cityObject);
+        end; // for i
+      end
+      else
+        result:=_AddCity(aCityObject);
+
+      if AutoCommit then SQLTransaction.Commit;
+      doOnSQLResultAddCity(aCityObject);
     finally
       FreeAndNil(TempQuery);
     end;
@@ -1638,12 +1664,28 @@ end; // TPLNMV6C_sqlite.AddCity
 
 function TPLNMV6C_sqlite.UpdateCity(const aCityObject: TJSONObject): Boolean;
 var
+  nameStr, contentStr, sqlName, jName:String;
   msgStr:String;
+  CityID:Integer;
+
+  function _UpdateCity(var _aCityObject:TJSONObject):Boolean;
+  begin
+    try
+    except
+      on E: Exception do begin
+        msgStr:=E.Message;
+        writeln(#13, 'TPLNMV6C_sqlite._aCityObject :',msgStr);
+        doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite._aCityObject');
+      end;
+    end;
+
+  end; // _UpdateCity
+
+var
   TempQuery:TSQLQuery;
-  i, CityID:Integer;
+  i:Integer;
 
   jData:TJSONData;
-  nameStr, contentStr, sqlName, jName:String;
   cTime:TDateTime;
 begin
   result:=False;
@@ -1651,6 +1693,7 @@ begin
     try
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
+
       CityID:=0; nameStr:=''; contentStr:=''; sqlName:=''; cTime:=0;
       for i:=0 to aCityObject.Count -1 do begin
         jName:=aCityObject.Names[i];
@@ -1677,7 +1720,7 @@ begin
 
       if Assigned(aCityObject.Find('ctimeChange')) then
         aCityObject.Delete('ctimeChange');
-      writelN('SQLName: ', SQLName);
+
       TempQuery.SQL.Add('UPDATE citylist SET ');
       TempQuery.SQL.Add(SQLName);
       TempQuery.SQL.Add(' WHERE id=:id;');

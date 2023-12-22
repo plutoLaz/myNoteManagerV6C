@@ -376,11 +376,32 @@ end;
 procedure TForm1.BitBtn13Click(Sender: TObject);
 var
   UserInput:Integer;
-begin
 
+  jAddArray, jChangeArray:TJSONArray;
+  jObject:TJSONObject;
+begin
   UserInput:=Form3.ShowModal;
   case UserInput of
     mrYes: begin
+      jAddArray:=TJSONArray.Create();
+      jChangeArray:=TJSONArray.Create();
+      Form3.ProcessData(jAddArray, jChangeArray);
+
+      if Form3.jDeleteArray.Count > 0 then
+        NoteManagerV6C.DeleteCitys(Form3.jDeleteArray);
+
+      if jAddArray.Count > 0 then begin
+        jObject:=TJSONObject.Create;
+        jObject.Add('citys', jAddArray);
+        NoteManagerV6C.AddCity(jObject);
+      end;
+
+      if jChangeArray.Count > 0 then begin
+        jObject:=TJSONObject.Create;
+        jObject.Add('city', jChangeArray);
+        NoteManagerV6C.UpdateCity(jObject);
+      end;
+      writeln('TEST 05');
     end; // mrYes
 
     mrNo: begin

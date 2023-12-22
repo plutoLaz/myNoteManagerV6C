@@ -1,5 +1,30 @@
 Dokument Angelegt am Dienstag, 17.10.2023
 =========================================
+04) Donnerstag, 21.12.2023
+  Habe jetzt den Städte Manager zwar angefangen. Die Datenbank Methoden sind fast Fertig.
+  Das neue Fenster ist auch schon recht weit.
+
+  Nun ist mir noch sind mir noch weitere Ideen gekommen. Die Vielleicht gar nicht mal so schlecht sind:
+  1. Ein Eintrag in der Städte Tabelle könnte doch mit einer Notiz verbunden werden.
+     Dann wäre das Content Feld überflüssig und könnte durch eine NoteID ersetzt werden.
+  2. Das Konzept wird komplett gestrichen und über Tags gelöst. Z.B. ich war in reinheim, so könnte es ein Tag "Reinheim 2023" geben.
+     Sowie es könnte den Allgemeinen Tag "Städte/Orte" geben. Ich frage mich, ob ich darüber eine Liste von Orten erstellen könnte.
+     Die Tag liste würde dann in etwa so aussehen:
+     Städte
+       Oldenburg/Zuhause(Querweg)
+       Oldenburg/KTT
+       Helswege -> Radreise 2023
+       Heidekrug -> Radreise 2023
+       Gartow -> Fedicamp 2023
+       Gedelitz  -> Fedicamp 2023
+       Backnanck -> Lazarus-Forum-Treffen 2023 übernachtung bei Reinhold(Private)
+       Reinheim  -> 2. Ziel
+  3. Ich lass es erst mal so, wie ich es geplant habe. Es macht vielleicht schon Sinn, dass zu trennen.
+     Das Problem ist ja, ich kann zwar mehr als ein Tag vergeben. Aber dann eine Liste zu erstellen, wird nicht gehen.
+     Welche Tags gehöhren zu einem "Haupt" Tag. Das müsste ich mal "testen"
+
+  Im Moment denke ich, es wäre Sinnvoll Idee 1 umzusetzten.
+
 03) Dienstag, 12.12.2023
   CTime kann nun im Notizen Editor geändert werden. 
 
@@ -14,7 +39,6 @@ Dokument Angelegt am Dienstag, 17.10.2023
   Einige sind ja auf meinen Reisen entstanden. 
 
   Praktisch wäre auch, wenn ich z.b. alle Notizen die mein Tagebuch betreffen markieren könne und den Titel anpassen könnte.
-
 
 02) Donnerstag, 02.11.2023
   Die frage ist jetzt: eine eigene "ListView", ähnliche Komponente erstellen?
