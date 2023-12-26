@@ -1,5 +1,15 @@
 Dokument Angelegt am Dienstag, 17.10.2023
 =========================================
+
+05) Freitag, 22.12.2023
+  Habe nun ein Problem gefunden. Es geht um die UpdateCity Methode. Ich dachte, ich könnte ganz einfach mehrere Städte auf einmal ändern.
+  In einer Schleife, wie bei der Add Methode. Aber so einfach ist das im Moment nicht.
+
+  Ich müsste wohl immer den ganzen Datensatzt ändern und kann nicht auf einzelne Felder beschränken.
+  Nun ist die Frage, wie ich damit das Problem löse.
+
+  Eigentlich gibt es hier nur eine Lösung: Immer den kompletten Datensatzt ändern.
+
 04) Donnerstag, 21.12.2023
   Habe jetzt den Städte Manager zwar angefangen. Die Datenbank Methoden sind fast Fertig.
   Das neue Fenster ist auch schon recht weit.

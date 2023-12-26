@@ -32,6 +32,8 @@ type
     Splitter1: TSplitter;
     Splitter2: TSplitter;
     SynEdit1: TSynEdit;
+    procedure Edit1Change(Sender: TObject);
+    procedure Edit1Exit(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ListView1DblClick(Sender: TObject);
@@ -44,6 +46,8 @@ type
     jSelectObject:TJSONObject;
     jDeleteArray:TJSONArray;
     procedure ProcessData(var aAddArray:TJSONArray; var aChangeArray:TJSONArray);
+
+    procedure ChangeListViewItem();
   end;
 
 var
@@ -73,6 +77,16 @@ procedure TForm3.FormCreate(Sender: TObject);
 begin
   jSelectObject:=nil;
   jDeleteArray:=TJSONArray.Create();
+end;
+
+procedure TForm3.Edit1Exit(Sender: TObject);
+begin
+
+end;
+
+procedure TForm3.Edit1Change(Sender: TObject);
+begin
+
 end;
 
 procedure TForm3.FormDestroy(Sender: TObject);
@@ -140,6 +154,7 @@ begin
     if (Assigned(jData)) and (Edit1.Modified) then begin
       Edit1.Modified:=False;
       jData.AsString:=Edit1.Text;
+      ChangeListViewItem();
     end;
 
     jData:=jSelectObject.Find('content');
@@ -176,6 +191,18 @@ begin
     end;
   end;
 end; // TForm3.ProcessData
+
+procedure TForm3.ChangeListViewItem;
+var
+  jData:TJSONData;
+begin
+  if Assigned(jSelectObject) then begin
+    jData:=jSelectObject.Find('name');
+    if Assigned(jData) then begin
+      ListView1.Selected.Caption:=jData.AsString;
+    end;
+  end;
+end; // TForm3.ChangeListViewItem
 
 end.
 

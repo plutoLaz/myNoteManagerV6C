@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 478
+  Left = 2367
   Height = 745
-  Top = 220
+  Top = 214
   Width = 1440
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745

@@ -197,6 +197,7 @@ type
     procedure SqlResultGetCitys(aCityArray: TJSONArray);
     procedure SqlResultDeleteCitys(const aDeleteCityList:TJSONArray);
     procedure SqlResultUpdateCity(const aCityObject:TJSONObject);
+    procedure SqlResultUpdateCitys(const aCityObjects:TJSONArray);
 
     procedure BarChecked(sender:TObject);
     procedure ChangeItemIndex();
@@ -397,9 +398,9 @@ begin
       end;
 
       if jChangeArray.Count > 0 then begin
-        jObject:=TJSONObject.Create;
-        jObject.Add('city', jChangeArray);
-        NoteManagerV6C.UpdateCity(jObject);
+        writeln('ChangeArray');
+        writeln(jChangeArray.FormatJSON());
+        NoteManagerV6C.UpdateCitys(jChangeArray);
       end;
       writeln('TEST 05');
     end; // mrYes
@@ -1837,6 +1838,12 @@ begin
   writeln('TForm1.SqlResultUpdateCity');
   writeln(aCityObject.FormatJSON());
 end; // TForm1.SqlResultUpdateCity
+
+procedure TForm1.SqlResultUpdateCitys(const aCityObjects: TJSONArray);
+begin
+  writeln('TForm1.SqlResultUpdateCitys');
+  writeln(aCityObjects.FormatJSON());
+end; // TForm1.SqlResultUpdateCitys
 
 procedure TForm1.BarChecked(sender: TObject);
 var

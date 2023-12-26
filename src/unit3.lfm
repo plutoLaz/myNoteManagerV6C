@@ -1,7 +1,7 @@
 object Form3: TForm3
-  Left = 982
+  Left = 2490
   Height = 672
-  Top = 144
+  Top = 279
   Width = 936
   BorderStyle = bsToolWindow
   Caption = 'Städte / Ort Manager'
@@ -156,6 +156,8 @@ object Form3: TForm3
           Top = 15
           Width = 485
           Align = alClient
+          OnChange = Edit1Change
+          OnExit = SynEdit1Exit
           TabOrder = 0
         end
       end
@@ -197,6 +199,7 @@ object Form3: TForm3
           Align = alClient
           NumGlyphs = 1
           MaxLength = 0
+          OnExit = SynEdit1Exit
           TabOrder = 0
         end
       end
