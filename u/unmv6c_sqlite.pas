@@ -103,6 +103,8 @@ type
 {}  function UpdateCity(const aCityObject:TJSONObject):Boolean; // TOnSqlResultUpdateCity
 {}  function UpdateCitys(var aCityObjects:TJSONArray):Boolean;
 {}  function GetCitys():Boolean; // TOnSQLResultGetCitys
+{}  function GetCitysById(const jIDList:TJSONArray; var aNamedList:TJSONArray):Boolean;
+
 {}  function DeleteCitys(const aDeleteCityList:TJSONArray): Boolean; // TOnSQlResultDeleteCitys
 
 {}  function JObjectToSQLtable(const JConfigObject:TJSONObject; const aSQlTableName:String):boolean;
@@ -470,6 +472,7 @@ var
   Temp_ctime:TParam;
   Temp_mtime:TParam;
   Temp_atime:TParam;
+  Temp_location:TParam;
 
   msgStr:string;
 
@@ -529,11 +532,18 @@ var
        else
          Temp_atime.AsDateTime:=StrToDateTime(Data.AsString, myFormatSettings);
 
+       Data:=_aNoteObject.Find('location');
+       if Assigned(Data) then
+         Temp_location.AsInteger:=Data.AsInteger
+       else
+         _aNoteObject.Add('location', '');
+
        Data:=_aNoteObject.Find('acount');
        if not Assigned(Data) then _aNoteObject.Add('acount', 0);
 
        Data:=_aNoteObject.Find('mcount');
        if not Assigned(Data) then _aNoteObject.Add('mcount', 0);
+
 
        Data:=_aNoteObject.Find('id');
        if Assigned(Data) then begin
@@ -600,7 +610,8 @@ begin
           TempQuery.SQL.Add('uuid,');
           TempQuery.SQL.Add('ctime,');
           TempQuery.SQL.Add('mtime,');
-          TempQuery.SQL.Add('atime');
+          TempQuery.SQL.Add('atime,');
+          TempQuery.SQL.Add('location');
         TempQuery.SQL.Add(') ');
         TempQuery.SQL.Add('VALUES (');
           TempQuery.SQL.Add(':title,');
@@ -608,7 +619,8 @@ begin
           TempQuery.SQL.Add(':uuid,');
           TempQuery.SQL.Add(':ctime,');
           TempQuery.SQL.Add(':mtime,');
-          TempQuery.SQL.Add(':atime');
+          TempQuery.SQL.Add(':atime,');
+          TempQuery.SQL.Add(':location');
         TempQuery.SQL.Add(');');
 
       Temp_uuid:=TempQuery.ParamByName('uuid'); // 0
@@ -617,6 +629,7 @@ begin
       Temp_ctime:=TempQuery.ParamByName('ctime'); // 3
       Temp_mtime:=TempQuery.ParamByName('mtime'); // 4
       Temp_atime:=TempQuery.ParamByName('atime'); // 5
+      Temp_location:=TempQuery.ParamByName('location'); // 6
 
       data:=aNoteObject.Find('Notes');
       if Assigned(data) then begin
@@ -672,13 +685,15 @@ var
   sqlName:String;
   TempField:TField;
   jData:TJSONData;
+
+  locationTemp:Integer;
 begin
   result:=False;
   try
     try
       TempQuery:=TSQLQuery.Create(nil);
       TempQuery.DataBase:=SQlConnector;
-      titleStr:=''; contentStr:=''; jName:=''; sqlName:=''; cTime:=0;
+      titleStr:=''; contentStr:=''; jName:=''; sqlName:=''; cTime:=0; locationTemp:=-1;
       for i:=0 to aNoteObject.Count -1 do begin
         jName:=aNoteObject.Names[i];
         if jName = 'uuid' then NoteID:=aNoteObject.Items[i].AsString;
@@ -700,6 +715,12 @@ begin
             sqlName:=AddStr('ctime=:ctime',sqlName);
           end;
         end;
+
+        if jName = 'location' then begin
+          locationTemp:=aNoteObject.Items[i].AsInteger;
+          sqlName:=AddStr('location=:location',sqlName);
+        end; // content
+
       end; // for i
 
       if Assigned(aNoteObject.Find('ctimeChange')) then
@@ -715,6 +736,7 @@ begin
       if titleStr <> '' then TempQuery.ParamByName('title').AsString:=titleStr;
       if contentStr <> '' then TempQuery.ParamByName('content').AsString:=contentStr;
       if ctime > 0 then TempQuery.ParamByName('ctime').AsDate:=cTime;
+      if locationTemp > 0 then TempQuery.ParamByName('location').AsInteger:=locationTemp;
       TempQuery.ExecSQL;
 
       if AutoCommit then SQLTransaction.Commit;
@@ -803,8 +825,13 @@ var
   NodeIdListStr:String;
   x:Integer;
   AutoOpen:boolean;
+
+  jCityIDList, jCityNameList:TJSONArray;
 begin
   result:=False; AutoOpen:=False;
+
+  jCityIDList:=TJSONArray.Create();
+  jCityNameList:=TJSONArray.Create();
   try
     try
       TagIDListStr:='';
@@ -835,7 +862,7 @@ begin
             TempQuery.SQL.Add('select id, uuid, title, ');
             if aWihtContent then
               TempQuery.SQL.Add('content, ');
-            TempQuery.SQL.Add('ctime, mtime, atime, mcount,acount from notes;')
+            TempQuery.SQL.Add('ctime, mtime, atime, mcount, acount, location from notes;')
           end;
         end;
       end
@@ -869,12 +896,17 @@ begin
               'atime': begin
                  if not Fild.IsNull then
                    NoteObject.Add('atime',Fild.AsString);
-              end;
+               end;
 
-              'mcount':NoteObject.Add('mcount',Fild.AsInteger);
-              'acount':NoteObject.Add('acount',Fild.AsInteger);
+              'mcount': NoteObject.Add('mcount',Fild.AsInteger);
+              'acount': NoteObject.Add('acount',Fild.AsInteger);
+              'location': begin
+                NoteObject.Add('location',Fild.AsInteger);
+                jCityIDList.Add(Fild.AsInteger);
+              end;
             end;
           end; // for x
+
           if AutoOpen then begin
             NoteObject.Add('AutoOpen', True);
             NoteObject.Add('NotAddToNoteBrowser', True);
@@ -884,11 +916,15 @@ begin
         end;
         TempQuery.Close;
 
+        GetCitysById(jCityIDList, jCityNameList);
+        for i:=0 to jCityNameList.Count ;
+
         GetNoteObject:=TJSONObject.Create();
         if alast_focus_note <> '' then begin
           GetNoteObject.Add('NoClear', true);
           GetNoteObject.Add('LastFocusNote', alast_focus_note);
         end;
+
         GetNoteObject.Add('Notes', Notes);
         doOnSQLResultGetNote(GetNoteObject);
         result:=True;
@@ -1839,7 +1875,6 @@ begin
           for x:=0 to TempQuery.Fields.Count -1 do begin
             Fild:=TempQuery.Fields[x];
             FildName:=Fild.FieldName;
-            writeln(FildName, ' ', fild.AsString);
             case FildName of
               'id': CityObject.Add('id', Fild.AsInteger);
               'name': CityObject.Add('name', Fild.AsString);
@@ -1865,6 +1900,49 @@ begin
     end;
   end;
 end; // TPLNMV6C_sqlite.GetCitys
+
+function TPLNMV6C_sqlite.GetCitysById(const jIDList: TJSONArray; var aNamedList: TJSONArray): Boolean;
+var
+  msgStr:String;
+  TempQuery:TSQLQuery;
+  i:Integer;
+  valueStr:String;
+begin
+  result:=False;
+  valueStr:='';
+  try
+    try
+      for i:=0 to jIDList.Count -1 do begin
+        valueStr+=IntToStr(jIDList[i].AsInteger);
+        if i < jIDList.Count -1 then
+          valueStr+=',';
+      end;
+      TempQuery:=TSQLQuery.Create(nil);
+      TempQuery.DataBase:=SQlConnector;
+      TempQuery.SQL.Add(format('SELECT name FROM citylist WHERE id in ( %s );',[valueStr]));
+      TempQuery.Open;
+
+      if TempQuery.RecordCount > 0 then begin
+        TempQuery.First;
+        while not TempQuery.Eof do begin
+          aNamedList.Add( TempQuery.FieldByName('name').AsString );
+//          writeln(TempQuery.FieldByName('name').AsString );
+          TempQuery.Next;
+        end;
+      end;
+
+      result:=True;
+    finally
+      FreeAndNil(TempQuery);
+    end;
+  except
+    on E: Exception do begin
+      msgStr:=E.Message;
+      writeln(#13, 'TPLNMV6C_sqlite.GetCitysById :',msgStr);
+      doOnSQLResultError(EVT_ERROR,msgStr,'TPLNMV6C_sqlite.GetCitysById');
+    end;
+  end;
+end; // TPLNMV6C_sqlite.GetCitysById
 
 function TPLNMV6C_sqlite.DeleteCitys(const aDeleteCityList: TJSONArray): Boolean;
 var

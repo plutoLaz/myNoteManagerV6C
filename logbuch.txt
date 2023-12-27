@@ -1,6 +1,18 @@
 Dokument Angelegt am Dienstag, 17.10.2023
 =========================================
 
+06) Dienstag, 26.12.2023
+  Nun möchte ich weiter machen beim CityManager. Gestern habe ich das Bearbeiten soweit abgeschlossen.
+
+  Beim Notizen Editor, gibt es eine ComboBox, die soll bei jedem Tab Changes Aktuallsiert werden und die Zuletzt ausgewählte Stadt
+  Markiert werden.
+
+  Jetzt ist mir mal wieder die Idee gekommen: Eigentlich könnte ich ja auch Tags in Gruppen zusammenfassen.
+  Wäre in diesen Fall sehr Praktisch. Weil, ich so alle Tags die mit Städten zu tun habe, leicht abfragen könnte.
+  Hätte das noch andere Vorteile?
+
+  Problem ist hier, eher das User Interfaces. Das müsste ich anpassen.
+
 05) Freitag, 22.12.2023
   Habe nun ein Problem gefunden. Es geht um die UpdateCity Methode. Ich dachte, ich könnte ganz einfach mehrere Städte auf einmal ändern.
   In einer Schleife, wie bei der Add Methode. Aber so einfach ist das im Moment nicht.
@@ -9,6 +21,8 @@ Dokument Angelegt am Dienstag, 17.10.2023
   Nun ist die Frage, wie ich damit das Problem löse.
 
   Eigentlich gibt es hier nur eine Lösung: Immer den kompletten Datensatzt ändern.
+
+  Das Problem habe ich gelöst. Durch eine neue Update Methode, die dan ganzen Datensatzt ändert.
 
 04) Donnerstag, 21.12.2023
   Habe jetzt den Städte Manager zwar angefangen. Die Datenbank Methoden sind fast Fertig.

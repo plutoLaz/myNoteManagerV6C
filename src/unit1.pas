@@ -24,7 +24,7 @@ type
     myFormatSettings:TFormatSettings;
     NoteObject:TJSONObject;
     Editor_Frame:TEditorFrame;
-    NoEvent:Boolean;
+    NoEvent, CityChange:Boolean;
 
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -34,6 +34,8 @@ type
 
     procedure ChangeUserInput(sender:TObject);
     procedure DateEdit1Change(sender:TObject);
+    procedure ComboBoxCityChange(sender:TObject);
+
     property Modified:Boolean read fModified write SetModified;
   published
   end; // TNMV6C_TabSheet
@@ -49,6 +51,7 @@ type
     BitBtn11: TBitBtn;
     BitBtn12: TBitBtn;
     BitBtn13: TBitBtn;
+    BitBtn14: TBitBtn;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     BitBtn4: TBitBtn;
@@ -113,6 +116,7 @@ type
     procedure BitBtn11Click(Sender: TObject);
     procedure BitBtn12Click(Sender: TObject);
     procedure BitBtn13Click(Sender: TObject);
+    procedure BitBtn14Click(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
@@ -181,6 +185,7 @@ type
     function SaveConfigToDataBase():Boolean;
 
     procedure GetAllSectionLine(aEditorTab:TNMV6C_TabSheet);
+    procedure UpdateCityList();
 
     procedure SQLResultAddNotes(aNoteObject:TJSONObject);
     procedure SQLResultGetNotes(aNoteObject:TJSONObject);
@@ -245,6 +250,7 @@ begin
   Editor_Frame.edTitle.OnChange:=@ChangeUserInput;
   Editor_Frame.SEEditor.OnChange:=@ChangeUserInput;
   Editor_Frame.DateEdit1.OnChange:=@DateEdit1Change;
+  Editor_Frame.ComboBox1.OnChange:=@ComboBoxCityChange;
 
   fModified:=False;
 end; // TNMV6C_TabSheet.Create
@@ -257,26 +263,47 @@ end; // TNMV6C_TabSheet.Destroy
 
 procedure TNMV6C_TabSheet.UpdateNoteObject();
 var
-  jData:TJSONData;
+  jData, jData2:TJSONData;
+  JObject:TJSONObject;
 begin
-  jData:=NoteObject.find('title');
-  if Assigned(jData) then
-    jData.AsString:=Editor_Frame.edTitle.Text;
+  if Editor_Frame.edTitle.Modified then begin
+    Editor_Frame.edTitle.Modified:=False;
 
-  jData:=NoteObject.find('ctime');
-  if Assigned(jData) then begin
-    if Editor_Frame.DateEdit1.Modified then begin
+    jData:=NoteObject.find('title');
+    if Assigned(jData) then
+      jData.AsString:=Editor_Frame.edTitle.Text;
+  end;
+
+  if Editor_Frame.DateEdit1.Modified then begin
+    jData:=NoteObject.find('ctime');
+    if Assigned(jData) then begin
       jData.AsString:=DateToStr(Editor_Frame.DateEdit1.Date, myFormatSettings);
       Editor_Frame.DateEdit1.Modified:=False;
       NoteObject.Add('ctimeChange',True);
     end;
   end;
 
-  jData:=NoteObject.find('content');
-  if Assigned(jData) then
-    jData.AsString:=Editor_Frame.SEEditor.Lines.Text
-  else
-    NoteObject.Add('content', Editor_Frame.SEEditor.Lines.Text);
+  if CityChange then begin
+    CityChange:=False;
+    JObject:=Editor_Frame.ComboBox1.Items.Objects[Editor_Frame.ComboBox1.ItemIndex] as TJSONObject;
+    jData2:=JObject.Find('id');
+    if Assigned(jData2) then begin
+      jData:=NoteObject.find('location');
+      if Assigned(jData) then
+        jData.AsInteger:=jData2.AsInteger
+      else
+        NoteObject.Add('location', jData2.AsInteger);
+    end;
+  end;
+
+  if Editor_Frame.SEEditor.Modified then begin
+    Editor_Frame.SEEditor.Modified:=False;
+    jData:=NoteObject.find('content');
+    if Assigned(jData) then
+      jData.AsString:=Editor_Frame.SEEditor.Lines.Text
+    else
+      NoteObject.Add('content', Editor_Frame.SEEditor.Lines.Text);
+  end;
 end; // TNMV6C_TabSheet.UpdateNoteObject
 
 procedure TNMV6C_TabSheet.UpdateChangeStatus();
@@ -316,6 +343,12 @@ begin
   Editor_Frame.DateEdit1.Modified:=True;
   Modified:=True;
 end; // TNMV6C_TabSheet.DateEdit1Change
+
+procedure TNMV6C_TabSheet.ComboBoxCityChange(sender: TObject);
+begin
+  CityChange:=True;
+  Modified:=True;
+end; // TNMV6C_TabSheet.CityChange
 
 
 procedure TForm1.acSaveNoteExecute(Sender: TObject);
@@ -410,6 +443,16 @@ begin
     end; // mrYes
   end;
 
+end;
+
+procedure TForm1.BitBtn14Click(Sender: TObject);
+var
+  jArray, jNameArray:TJSONArray;
+begin
+  jArray:=TJSONArray.Create([1,2]);
+  jNameArray:=TJSONArray.Create();
+
+  NoteManagerV6C.GetCitysById(jArray, jNameArray);
 end;
 
 procedure TForm1.acDeleteNoteExecute(Sender: TObject);
@@ -989,16 +1032,13 @@ begin
   NoteManagerV6C.OnSqlResultUpdateCity:=@SqlResultUpdateCity;
 end; // TForm1.InitDB
 
-procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject;
-  const aLastFocusNote: String);
+procedure TForm1.NoteAddToNoteBrowser(aNoteObject: TJSONObject; const aLastFocusNote: String);
 var
   ListItem:TListItem;
   i:Integer;
   TempStr:String;
   TempDateTime:TDateTime;
   jData:TJSONData;
-  NoteID:String;
-  TestDateTime:TDateTime;
 begin
   ListItem:=TListItem.Create(NoteBrowser.Items);
   ListItem.SubItems.Add(''); // ctime
@@ -1006,6 +1046,7 @@ begin
   ListItem.SubItems.Add(''); // atime
   ListItem.SubItems.Add(''); // acount
   ListItem.SubItems.Add(''); // mcount
+  ListItem.SubItems.Add(''); // location
   ListItem.Data:=aNoteObject.clone;
 
   jData:=aNoteObject.Find('NotAddToNoteBrowser');
@@ -1037,6 +1078,8 @@ begin
 
         'acount':ListItem.SubItems[3]:=aNoteObject.Items[i].AsString;
         'mcount':ListItem.SubItems[4]:=aNoteObject.Items[i].AsString;
+
+        'location':ListItem.SubItems[5]:=aNoteObject.Items[i].AsString;
 
         'AutoOpen': begin
           if aNoteObject.Items[i].AsBoolean then
@@ -1340,7 +1383,6 @@ begin
   if Assigned(jData) then
     TitleStr:=jData.AsString;
 
-
   jData:=aNoteObject.Find('content');
   if Assigned(jData) then
     ContentStr:=jData.AsString;
@@ -1380,6 +1422,7 @@ begin
   if Assigned(jData) then begin
     UpdateTagCheckList(jData.AsString);
     GetAllSectionLine(EditorTabSheet);
+    UpdateCityList();
   end;
   CheckListBox1.Enabled:=not (OpenNotes.PageCount = 0);
 end; // TForm1.AddEditorTabSheet
@@ -1572,6 +1615,23 @@ begin
   ListBox1.Enabled:=True;
 end; // TForm1.GetAllSectionLine
 
+procedure TForm1.UpdateCityList;
+var
+  i, x:Integer;
+
+  EditorTab:TNMV6C_TabSheet;
+  CityObject:TJSONObject;
+begin
+  for i:=0 to OpenNotes.PageCount - 1 do begin
+    EditorTab:=OpenNotes.Page[i] as TNMV6C_TabSheet;
+    EditorTab.Editor_Frame.ComboBox1.Items.Clear;
+    for x:=0 to Form3.ListView1.Items.Count - 1 do begin
+      CityObject:=TJSONObject(Form3.ListView1.Items[x].Data);
+      EditorTab.Editor_Frame.ComboBox1.Items.AddObject(Form3.ListView1.Items[x].Caption, CityObject);
+    end; // for x
+  end;
+end; // TForm1.UpdateCityList
+
 procedure TForm1.SQLResultAddNotes(aNoteObject: TJSONObject);
 begin
   writeln('SQLResultAddNotes');
@@ -1581,15 +1641,13 @@ end; // TForm1.SQLResultAddNotes
 procedure TForm1.SQLResultGetNotes(aNoteObject: TJSONObject);
 begin
   writeln('SQLResultGetNote');
+  //writeln(aNoteObject.FormatJSON());
   NotesAddToNoteBrowser(aNoteObject, true);
 end; // TForm1.SQLResultGetNote
 
 procedure TForm1.SQLResultUpdateNote(aNoteObject: TJSONObject);
 var
   jData:TJSONData;
-
-//  mTimeStr, mCount:String;
-
   TempDateTime:TDateTime;
   ListItem:TListItem;
 begin
@@ -1798,6 +1856,7 @@ procedure TForm1.SqlResultAddCity(aCityObject: TJSONObject);
 begin
   writeln('TForm1.SqlResultAddCity');
   writeln(aCityObject.FormatJSON());
+  UpdateCityList();
 end; // TForm1.SqlResultAddCity
 
 procedure TForm1.SqlResultGetCitys(aCityArray: TJSONArray);
@@ -1824,6 +1883,7 @@ begin
     ListItem.Data:=cityObject;
     Form3.ListView1.Items.AddItem(ListItem);
   end;
+  UpdateCityList();
 //  Form3.ListView1.Items.EndUpdate;
 end; // TForm1.SqlResultGetCitys
 
@@ -1831,18 +1891,21 @@ procedure TForm1.SqlResultDeleteCitys(const aDeleteCityList: TJSONArray);
 begin
   writeln('TForm1.SqlResultDeleteCitys');
   writeln(aDeleteCityList.FormatJSON());
+  UpdateCityList();
 end; // TForm1.SqlResultDeleteCitys
 
 procedure TForm1.SqlResultUpdateCity(const aCityObject: TJSONObject);
 begin
   writeln('TForm1.SqlResultUpdateCity');
   writeln(aCityObject.FormatJSON());
+  UpdateCityList();
 end; // TForm1.SqlResultUpdateCity
 
 procedure TForm1.SqlResultUpdateCitys(const aCityObjects: TJSONArray);
 begin
   writeln('TForm1.SqlResultUpdateCitys');
   writeln(aCityObjects.FormatJSON());
+  UpdateCityList();
 end; // TForm1.SqlResultUpdateCitys
 
 procedure TForm1.BarChecked(sender: TObject);

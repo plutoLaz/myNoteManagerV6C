@@ -2,7 +2,7 @@
   "NoteBrowser" : {
     "ColumnsConfig" : [
       {
-        "Width" : 396,
+        "Width" : 482,
         "Visible" : true
       },
       {
@@ -22,7 +22,11 @@
         "Visible" : true
       },
       {
-        "Width" : 779,
+        "Width" : 109,
+        "Visible" : true
+      },
+      {
+        "Width" : 104,
         "Visible" : true
       }
     ],
@@ -30,7 +34,7 @@
     "SortDirection" : 1
   },
   "OpenNotes.Width" : 1092,
-  "NoteBrowser.Height" : 290,
+  "NoteBrowser.Height" : 289,
   "WindowState" : 0,
   "lastDBFile" : "/home/pluto/entwicklung/Lazarus/myNoteManager/V6C/bin/Test03.db"
 }

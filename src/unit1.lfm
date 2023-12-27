@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 2367
+  Left = 422
   Height = 745
-  Top = 214
+  Top = 40
   Width = 1440
   Caption = 'Notizen Manager V6C vom Mittwoch, 27.09.2023'
   ClientHeight = 745
@@ -75,6 +75,15 @@ object Form1: TForm1
       Caption = 'CityManager'
       OnClick = BitBtn13Click
       TabOrder = 5
+    end
+    object BitBtn14: TBitBtn
+      Left = 536
+      Height = 30
+      Top = 8
+      Width = 75
+      Caption = 'BitBtn14'
+      OnClick = BitBtn14Click
+      TabOrder = 6
     end
   end
   object PageControl1: TPageControl
@@ -392,7 +401,7 @@ object Form1: TForm1
     Columns = <    
       item
         Caption = 'Title'
-        Width = 850
+        Width = 750
         SortIndicator = siAscending
       end    
       item
@@ -417,8 +426,12 @@ object Form1: TForm1
       end    
       item
         Caption = 'Bearbeitungen'
-        Width = 215
+        Width = 120
         SortIndicator = siAscending
+      end    
+      item
+        Caption = 'Standort'
+        Width = 95
       end>
     MultiSelect = True
     ReadOnly = True
